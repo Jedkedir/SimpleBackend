@@ -1,0 +1,106 @@
+const reviewService = require("../services/reviewService");
+
+/**
+ * Handles HTTP requests for the Review entity.
+ */
+
+// POST /reviews
+exports.createReviewController = async (req, res) => {
+  try {
+    const { userId, productId, rating, content } = req.body;
+
+    if (
+      !userId ||
+      !productId ||
+      rating === undefined ||
+      rating < 1 ||
+      rating > 5
+    ) {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid userId, productId, or rating." });
+    }
+
+    const reviewId = await reviewService.createReview({
+      userId,
+      productId,
+      rating,
+      content,
+    });
+
+    res.status(201).json({
+      message: "Review posted successfully",
+      reviewId,
+    });
+  } catch (error) {
+    console.error("Error creating review:", error.message);
+    res.status(500).json({ error: "Failed to create review" });
+  }
+};
+
+// GET /reviews/product/:productId
+exports.getReviewsByProductIdController = async (req, res) => {
+  try {
+    const productId = parseInt(req.params.productId);
+
+    if (isNaN(productId)) {
+      return res.status(400).json({ error: "Invalid product ID format." });
+    }
+
+    const reviews = await reviewService.getReviewsByProductId(productId);
+    res.status(200).json(reviews);
+  } catch (error) {
+    console.error("Error fetching reviews:", error.message);
+    res.status(500).json({ error: "Failed to fetch reviews" });
+  }
+};
+
+// PUT /reviews/:id
+exports.updateReviewController = async (req, res) => {
+  try {
+    const reviewId = parseInt(req.params.id);
+    const { rating, content } = req.body;
+
+    if (isNaN(reviewId)) {
+      return res.status(400).json({ error: "Invalid review ID format." });
+    }
+
+    const success = await reviewService.updateReview(reviewId, {
+      rating,
+      content,
+    });
+
+    if (!success) {
+      return res
+        .status(404)
+        .json({ error: "Review not found or nothing to update." });
+    }
+
+    res.status(200).json({ message: "Review updated successfully" });
+  } catch (error) {
+    console.error("Error updating review:", error.message);
+    res.status(500).json({ error: "Failed to update review" });
+  }
+};
+
+// DELETE /reviews/:id
+exports.deleteReviewController = async (req, res) => {
+  try {
+    const reviewId = parseInt(req.params.id);
+
+    if (isNaN(reviewId)) {
+      return res.status(400).json({ error: "Invalid review ID format." });
+    }
+
+    const success = await reviewService.deleteReview(reviewId);
+
+    if (!success) {
+      return res.status(404).json({ error: "Review not found" });
+    }
+
+    res.status(204).send();
+  } catch (error) {
+    console.error("Error deleting review:", error.message);
+    res.status(500).json({ error: "Failed to delete review" });
+  }
+};
