@@ -1,8 +1,10 @@
 // src/db/pool.js
 const { Pool } = require("pg");
-const config = require("../config/db.config"); // Assume you load config details here
+// Import the configuration object
+const dbConfig = require("../config/db.config");
 
-const pool = new Pool(config.db);
+// Use the imported configuration object directly for the Pool initialization
+const pool = new Pool(dbConfig);
 
 // Utility function to execute queries safely
 const query = (text, params) => {

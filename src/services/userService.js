@@ -42,6 +42,7 @@ async function createUser(userData) {
 
 // Example Read function
 async function getUserById(userId) {
+  console.log(userId);
   const sql = `SELECT * FROM get_user_by_id($1);`; // Calling the table-returning function
   const result = await db.query(sql, [userId]);
   // The result.rows will contain the user object (or be empty)
