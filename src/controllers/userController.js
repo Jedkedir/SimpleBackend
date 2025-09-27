@@ -1,10 +1,11 @@
+const userService = require("../services/userService");
+
 /**
  * Handles all HTTP requests for the User entity.
  *
  * @module src/controllers/userController
  * @description This module contains all controller functions for the User entity.
  */
-const userService = require("../services/userService");
 // POST /users
 /**
  * Creates a new user.
@@ -131,4 +132,5 @@ exports.deleteUserController = async (req, res) => {
     console.error("Error deleting user:", error.message);
     res.status(500).json({ error: "Failed to delete user" });
   }
+};
 
