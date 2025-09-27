@@ -1,6 +1,12 @@
+/**
+ * Main server file for the Express application.
+ * This file sets up the server, connects to the PostgreSQL database, and mounts all API routes.
+ * @module server.js
+ */
+
 const express = require('express');
 const dotenv = require('dotenv');
-const { pool } = require('./src/db/pool'); // Import the PostgreSQL pool object
+const { pool } = require('./src/db/pool'); 
 
 // Load environment variables from the .env file.
 // This ensures process.env.JWT_SECRET and other variables are available.
@@ -31,8 +37,8 @@ const PORT = process.env.PORT || 3000; // Use port from .env or default to 3000
  * --- 1. Middleware Setup ---
  */
 // Enable CORS for frontend communication
+// Allows all origins for development (CHANGE TO YOUR FRONTEND URL IN PRODUCTION)
 app.use((req, res, next) => {
-    // Allows all origins for development (CHANGE TO YOUR FRONTEND URL IN PRODUCTION)
     res.header('Access-Control-Allow-Origin', '*'); 
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -72,23 +78,28 @@ app.use('/api/order-items', orderItemRoutes);
 /**
  * --- 3. Database Connection and Server Start ---
  */
+/**
+ * Connects to the PostgreSQL database pool and starts the Express server.
+ * @function connectAndListen
+ */
 async function connectAndListen() {
     try {
         // Attempt a simple query to verify the database connection
         await pool.query('SELECT 1'); 
-        console.log(' Successfully connected to the PostgreSQL database pool.');
+        console.log('Successfully connected to the PostgreSQL database pool.');
 
         // Start the Express server
         app.listen(PORT, () => {
-            console.log(` Server is running on http://localhost:${PORT}`);
+            console.log(`Server is running on http://localhost:${PORT}`);
             console.log('API is fully configured and ready to handle requests.');
         });
     } catch (err) {
         // Log detailed error and exit if DB connection fails
-        console.error('❌ Database connection or server start failed:', err.message);
+        console.error('Database connection or server start failed:', err.message);
         console.error('Stack:', err.stack);
         process.exit(1); 
     }
 }
 
 connectAndListen();
+
