@@ -1,10 +1,18 @@
-const userService = require("../services/userService");
-
 /**
  * Handles all HTTP requests for the User entity.
+ *
+ * @module src/controllers/userController
+ * @description This module contains all controller functions for the User entity.
  */
-
+const userService = require("../services/userService");
 // POST /users
+/**
+ * Creates a new user.
+ * @function createUserController
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Response} - Response with either the created user ID or an error message.
+ */
 exports.createUserController = async (req, res) => {
   try {
     const { firstName, lastName, email, passwordHash, phoneNumber, isAdmin } =
@@ -36,6 +44,13 @@ exports.createUserController = async (req, res) => {
 };
 
 // GET /users/:id
+/**
+ * Fetches a single user by ID.
+ * @function getUserByIdController
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Response} - Response with either the user profile or an error message.
+ */
 exports.getUserByIdController = async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
@@ -58,6 +73,13 @@ exports.getUserByIdController = async (req, res) => {
 };
 
 // PUT /users/:id
+/**
+ * Updates a single user by ID.
+ * @function updateUserController
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Response} - Response with either a success message or an error message.
+ */
 exports.updateUserController = async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
@@ -83,6 +105,13 @@ exports.updateUserController = async (req, res) => {
 };
 
 // DELETE /users/:id
+/**
+ * Deletes a single user by ID.
+ * @function deleteUserController
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Response} - Response with either a success message or an error message.
+ */
 exports.deleteUserController = async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
@@ -102,4 +131,4 @@ exports.deleteUserController = async (req, res) => {
     console.error("Error deleting user:", error.message);
     res.status(500).json({ error: "Failed to delete user" });
   }
-};
+

@@ -1,18 +1,20 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userService = require("../services/userService");
-
-// Helper function to generate JWT
-const generateToken = (userId) => {
-  // JWT_SECRET should be set in your .env file
-  return jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: "30d", // Token expires in 30 days
-  });
-};
-
 /**
  * --- POST /api/auth/register ---
  * Registers a new user and returns a JWT.
+ * Request Body:
+ * - firstName: string (required)
+ * - lastName: string (required)
+ * - email: string (required, unique)
+ * - password: string (required, will be hashed)
+ * - phoneNumber: string (optional)
+ * - isAdmin: boolean (optional, default false)
+ * Response:
+ * - userId: integer (new user ID)
+ * - email: string (new user email)
+ * - token: string (JWT token for the new user)
  */
 exports.registerController = async (req, res) => {
   const {
@@ -64,6 +66,13 @@ exports.registerController = async (req, res) => {
 /**
  * --- POST /api/auth/login ---
  * Authenticates a user and returns a JWT.
+ * Request Body:
+ * - email: string (required)
+ * - password: string (required)
+ * Response:
+ * - userId: integer (user ID if authentication successful)
+ * - email: string (user email if authentication successful)
+ * - token: string (JWT token for the user)
  */
 exports.loginController = async (req, res) => {
   const { email, password } = req.body;
@@ -74,7 +83,6 @@ exports.loginController = async (req, res) => {
 
   try {
     // 1. Fetch user by email (we need a new service function for this)
-    // ASSUMPTION: You will implement a new PG function: get_user_by_email(text)
     const user = await userService.getUserByEmail(email);
 
     if (user && (await bcrypt.compare(password, user.password_hash))) {
@@ -93,3 +101,4 @@ exports.loginController = async (req, res) => {
     res.status(500).json({ error: "Server error during login" });
   }
 };
+

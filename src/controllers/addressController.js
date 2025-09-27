@@ -1,15 +1,20 @@
-const addressService = require("../services/addressService");
-
 /**
  * Handles all HTTP requests for the Address entity.
- * * Functions:
+ *
+ * Functions:
  * - createAddressController: POST /addresses
  * - getAddressesByUserIdController: GET /addresses/user/:userId
  * - updateAddressController: PUT /addresses/:addressId
  * - deleteAddressController: DELETE /addresses/:addressId
  */
-
-// --- POST /addresses ---
+const addressService = require("../services/addressService");
+/**
+ * --- POST /addresses ---
+ * Creates a new address record in the database.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Response} - Response with either the created address ID or an error message.
+ */
 exports.createAddressController = async (req, res) => {
   try {
     // 1. Extract and validate necessary data from the request body
@@ -54,7 +59,13 @@ exports.createAddressController = async (req, res) => {
   }
 };
 
-// --- GET /addresses/user/:userId ---
+/**
+ * --- GET /addresses/user/:userId ---
+ * Retrieves all addresses of a specific user from the database.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Response} - Response with either the addresses or an error message.
+ */
 exports.getAddressesByUserIdController = async (req, res) => {
   try {
     const userId = parseInt(req.params.userId);
@@ -73,7 +84,13 @@ exports.getAddressesByUserIdController = async (req, res) => {
   }
 };
 
-// --- PUT /addresses/:addressId ---
+/**
+ * --- PUT /addresses/:addressId ---
+ * Updates an existing address record in the database.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Response} - Response with either a success message or an error message.
+ */
 exports.updateAddressController = async (req, res) => {
   try {
     const addressId = parseInt(req.params.addressId);
@@ -100,7 +117,13 @@ exports.updateAddressController = async (req, res) => {
   }
 };
 
-// --- DELETE /addresses/:addressId ---
+/**
+ * --- DELETE /addresses/:addressId ---
+ * Deletes an existing address record from the database.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Response} - Response with either a success message or an error message.
+ */
 exports.deleteAddressController = async (req, res) => {
   try {
     const addressId = parseInt(req.params.addressId);
@@ -122,3 +145,4 @@ exports.deleteAddressController = async (req, res) => {
     res.status(500).json({ error: "Failed to delete address" });
   }
 };
+

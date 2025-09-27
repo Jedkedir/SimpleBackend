@@ -1,10 +1,13 @@
-const db = require("../db/pool");
-
 /**
  * Service module for all CartItem-related database operations.
+ * @module src/services/cartItemService
  */
-
-// --- CREATE/UPSERT (Add/Update) ---
+const db = require("../db/pool");
+/**
+ * Creates a new cart item or updates quantity of an existing item.
+ * @param { cartId, variantId, quantity } - Object containing cartId, variantId, and quantity.
+ * @returns { cartItemId } - The ID of the new cart item or existing cart item.
+ */
 async function addOrUpdateCartItem({ cartId, variantId, quantity }) {
   // Assumes a function that handles both adding a new item or updating quantity
   const sql = `SELECT add_or_update_cart_item($1, $2, $3) AS cart_item_id;`;
@@ -13,14 +16,22 @@ async function addOrUpdateCartItem({ cartId, variantId, quantity }) {
   return result.rows[0].cart_item_id;
 }
 
-// --- READ ---
+/**
+ * Fetches all cart items for a given cart ID.
+ * @param cartId - The ID of the cart.
+ * @returns { rows } - An array of objects containing cart item information.
+ */
 async function getCartItems(cartId) {
   const sql = `SELECT * FROM get_cart_items_by_cart_id($1);`;
   const result = await db.query(sql, [cartId]);
   return result.rows;
 }
 
-// --- DELETE ---
+/**
+ * Deletes a cart item by its ID.
+ * @param cartItemId - The ID of the cart item to delete.
+ * @returns { success } - A boolean indicating whether the deletion was successful.
+ */
 async function removeCartItem(cartItemId) {
   const sql = `SELECT delete_cart_item($1) AS success;`;
   const result = await db.query(sql, [cartItemId]);
@@ -32,3 +43,4 @@ module.exports = {
   getCartItems,
   removeCartItem,
 };
+

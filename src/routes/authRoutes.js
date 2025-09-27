@@ -1,16 +1,35 @@
-const express = require("express");
+/**
+ * Authentication API Routes
+ * Base Path: /api/auth
+ * @module src/routes/authRoutes
+ * @requires express
+ * @requires ../controllers/authController
+ * @exports router - The express router with authentication routes
+ */
+const express = require('express');
 const router = express.Router();
 const {
   registerController,
   loginController,
-} = require("../controllers/authController");
+} = require('../controllers/authController');
 
 /**
- * Authentication API Routes
- * Base Path: /api/auth
+ * Registers a new user and returns a JWT.
+ * @memberof module:src/routes/authRoutes
+ * @function registerController
+ * @param {Request} req - The Express request object
+ * @param {Response} res - The Express response object
  */
+router.post('/register', registerController);
 
-router.post("/register", registerController); // POST /api/auth/register
-router.post("/login", loginController); // POST /api/auth/login
+/**
+ * Authenticates a user and returns a JWT.
+ * @memberof module:src/routes/authRoutes
+ * @function loginController
+ * @param {Request} req - The Express request object
+ * @param {Response} res - The Express response object
+ */
+router.post('/login', loginController);
 
 module.exports = router;
+

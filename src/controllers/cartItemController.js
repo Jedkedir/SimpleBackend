@@ -1,10 +1,16 @@
-const cartItemService = require("../services/cartItemService");
-
 /**
  * Handles HTTP requests for Cart Items (adding/updating/removing products in the cart).
+ * @module src/controllers/cartItemController
+ * @description Handles database operations related to Cart Items.
  */
-
-// POST /cart-items (Add or Update)
+const cartItemService = require("../services/cartItemService");
+/**
+ * POST /cart-items (Add or Update)
+ * @description Adds or updates a cart item (changes the quantity of a product in the cart).
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ * @returns {Response} - Response with either the updated cart item or an error message.
+ */
 exports.addOrUpdateCartItemController = async (req, res) => {
   try {
     const { cartId, variantId, quantity } = req.body;
@@ -37,7 +43,13 @@ exports.addOrUpdateCartItemController = async (req, res) => {
   }
 };
 
-// GET /cart-items/:cartId
+/**
+ * GET /cart-items/:cartId
+ * @description Fetches all cart items belonging to a specific cart.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ * @returns {Response} - Response with an array of cart items or an error message.
+ */
 exports.getCartItemsController = async (req, res) => {
   try {
     const cartId = parseInt(req.params.cartId);
@@ -55,7 +67,13 @@ exports.getCartItemsController = async (req, res) => {
   }
 };
 
-// DELETE /cart-items/:id
+/**
+ * DELETE /cart-items/:id
+ * @description Deletes a cart item by its ID.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ * @returns {Response} - Response with either a success message or an error message.
+ */
 exports.removeCartItemController = async (req, res) => {
   try {
     const cartItemId = parseInt(req.params.id);
@@ -76,3 +94,4 @@ exports.removeCartItemController = async (req, res) => {
     res.status(500).json({ error: "Failed to remove cart item" });
   }
 };
+

@@ -1,10 +1,17 @@
-const productService = require("../services/productService");
-
 /**
  * Handles all HTTP requests for the Product entity.
+ * @module src/controllers/productController
+ * @description This module contains all controller functions for the Product entity.
  */
-
-// POST /products
+const product = require("../services/productService");
+/**
+ * POST /products
+ * @function createProductController
+ * @description Creates a new product.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} The created product ID.
+ */
 exports.createProductController = async (req, res) => {
   try {
     const { categoryId, name, description, basePrice } = req.body;
@@ -15,7 +22,7 @@ exports.createProductController = async (req, res) => {
         .json({ error: "Missing required product fields." });
     }
 
-    const productId = await productService.createProduct({
+    const productId = await product.createProduct({
       categoryId,
       name,
       description,
@@ -32,7 +39,14 @@ exports.createProductController = async (req, res) => {
   }
 };
 
-// GET /products/:id
+/**
+ * GET /products/:id
+ * @function getProductByIdController
+ * @description Fetches a single product by ID.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} The product details object or an error message.
+ */
 exports.getProductByIdController = async (req, res) => {
   try {
     const productId = parseInt(req.params.id);
@@ -41,7 +55,7 @@ exports.getProductByIdController = async (req, res) => {
       return res.status(400).json({ error: "Invalid product ID format." });
     }
 
-    const product = await productService.getProductById(productId);
+    const product = await product.getProductById(productId);
 
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
@@ -54,7 +68,14 @@ exports.getProductByIdController = async (req, res) => {
   }
 };
 
-// PUT /products/:id
+/**
+ * PUT /products/:id
+ * @function updateProductController
+ * @description Updates a product by ID.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} Success or error message.
+ */
 exports.updateProductController = async (req, res) => {
   try {
     const productId = parseInt(req.params.id);
@@ -64,7 +85,7 @@ exports.updateProductController = async (req, res) => {
       return res.status(400).json({ error: "Invalid product ID format." });
     }
 
-    const success = await productService.updateProduct(productId, productData);
+    const success = await product.updateProduct(productId, productData);
 
     if (!success) {
       return res
@@ -79,7 +100,14 @@ exports.updateProductController = async (req, res) => {
   }
 };
 
-// DELETE /products/:id
+/**
+ * DELETE /products/:id
+ * @function deleteProductController
+ * @description Deletes a product by ID.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} Success or error message.
+ */
 exports.deleteProductController = async (req, res) => {
   try {
     const productId = parseInt(req.params.id);
@@ -88,7 +116,7 @@ exports.deleteProductController = async (req, res) => {
       return res.status(400).json({ error: "Invalid product ID format." });
     }
 
-    const success = await productService.deleteProduct(productId);
+    const success = await product.deleteProduct(productId);
 
     if (!success) {
       return res.status(404).json({ error: "Product not found" });
@@ -100,3 +128,4 @@ exports.deleteProductController = async (req, res) => {
     res.status(500).json({ error: "Failed to delete product" });
   }
 };
+

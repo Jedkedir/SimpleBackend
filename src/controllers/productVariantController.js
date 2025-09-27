@@ -1,14 +1,19 @@
-const productVariantService = require("../services/productVariantService");
-
 /**
  * Handles all HTTP requests for the Product Variant entity.
+ * @module src/controllers/productVariantController
+ * @description Handles all HTTP requests for the Product Variant entity.
  */
-
-// POST /variants
+const productVariantService = require("../services/productVariantService");
+/**
+ * POST /variants
+ * @description Creates a new product variant.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} The created product variant ID.
+ */
 exports.createVariantController = async (req, res) => {
   try {
-    const { productId, sku, color, size, priceModifier, stockQuantity } =
-      req.body;
+    const { productId, sku, color, size, priceModifier, stockQuantity } = req.body;
 
     if (!productId || !sku || !size || stockQuantity === undefined) {
       return res
@@ -35,7 +40,13 @@ exports.createVariantController = async (req, res) => {
   }
 };
 
-// GET /variants/:id
+/**
+ * GET /variants/:id
+ * @description Fetches a single product variant by ID.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} The product variant details object or an error message.
+ */
 exports.getVariantByIdController = async (req, res) => {
   try {
     const variantId = parseInt(req.params.id);
@@ -57,7 +68,13 @@ exports.getVariantByIdController = async (req, res) => {
   }
 };
 
-// PUT /variants/:id
+/**
+ * PUT /variants/:id
+ * @description Updates a product variant.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} The updated product variant ID.
+ */
 exports.updateVariantController = async (req, res) => {
   try {
     const variantId = parseInt(req.params.id);
@@ -67,10 +84,7 @@ exports.updateVariantController = async (req, res) => {
       return res.status(400).json({ error: "Invalid variant ID format." });
     }
 
-    const success = await productVariantService.updateVariant(
-      variantId,
-      variantData
-    );
+    const success = await productVariantService.updateVariant(variantId, variantData);
 
     if (!success) {
       return res
@@ -85,7 +99,13 @@ exports.updateVariantController = async (req, res) => {
   }
 };
 
-// DELETE /variants/:id
+/**
+ * DELETE /variants/:id
+ * @description Deletes a product variant by ID.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} The deleted product variant ID.
+ */
 exports.deleteVariantController = async (req, res) => {
   try {
     const variantId = parseInt(req.params.id);
@@ -107,7 +127,13 @@ exports.deleteVariantController = async (req, res) => {
   }
 };
 
-// PUT /variants/:id/stock
+/**
+ * PUT /variants/:id/stock
+ * @description Updates the stock quantity of a product variant.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @returns {Promise} The updated product variant stock quantity.
+ */
 exports.updateVariantStockController = async (req, res) => {
   try {
     const variantId = parseInt(req.params.id);
@@ -143,3 +169,4 @@ exports.updateVariantStockController = async (req, res) => {
     res.status(500).json({ error: "Failed to update stock" });
   }
 };
+

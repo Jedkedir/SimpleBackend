@@ -1,10 +1,15 @@
-const db = require("../db/pool");
-
 /**
  * Service module for all ProductVariant-related database operations.
+ * @module src/services/productVariantService
+ * @description Handles database operations related to Product Variants.
  */
-
+const db = require("../db/pool");
 // --- CREATE ---
+/**
+ * Creates a new product variant.
+ * @param {productId, sku, color, size, priceModifier, stockQuantity} - Object containing product ID, SKU, color, size, price modifier, and stock quantity.
+ * @returns {variantId} - The ID of the new product variant.
+ */
 async function createVariant({
   productId,
   sku,
@@ -20,6 +25,11 @@ async function createVariant({
 }
 
 // --- READ ---
+/**
+ * Fetches a product variant by its ID.
+ * @param {variantId} - The ID of the product variant to fetch.
+ * @returns {variant} - The product variant object.
+ */
 async function getVariantById(variantId) {
   const sql = `SELECT * FROM get_product_variant_by_id($1);`;
   const result = await db.query(sql, [variantId]);
@@ -27,9 +37,15 @@ async function getVariantById(variantId) {
 }
 
 // --- UPDATE ---
+/**
+ * Updates a product variant.
+ * @param {variantId} - The ID of the product variant to update.
+ * @param {variantData} - Object containing SKU, color, size, price modifier, and stock quantity.
+ * @returns {success} - Whether the update was successful.
+ */
 async function updateVariant(
   variantId,
-  { sku, color, size, priceModifier, stockQuantity }
+  { sku, color, size, priceModifier, stockQuantity}
 ) {
   const sql = `SELECT update_product_variant($1, $2, $3, $4, $5, $6) AS success;`;
   const params = [variantId, sku, color, size, priceModifier, stockQuantity];
@@ -38,6 +54,11 @@ async function updateVariant(
 }
 
 // --- DELETE ---
+/**
+ * Deletes a product variant by its ID.
+ * @param {variantId} - The ID of the product variant to delete.
+ * @returns {success} - Whether the deletion was successful.
+ */
 async function deleteVariant(variantId) {
   const sql = `SELECT delete_product_variant($1) AS success;`;
   const result = await db.query(sql, [variantId]);
@@ -45,6 +66,12 @@ async function deleteVariant(variantId) {
 }
 
 // --- CUSTOM: Update Stock ---
+/**
+ * Updates the stock quantity of a product variant.
+ * @param {variantId} - The ID of the product variant to update stock.
+ * @param {quantityChange} - The quantity to change the stock by (e.g., -2 for decrease, 5 for increase).
+ * @returns {newStock} - The new stock quantity after the update.
+ */
 async function updateVariantStock(variantId, quantityChange) {
   const sql = `SELECT update_variant_stock($1, $2) AS new_stock;`;
   const result = await db.query(sql, [variantId, quantityChange]);
@@ -58,3 +85,4 @@ module.exports = {
   deleteVariant,
   updateVariantStock,
 };
+
