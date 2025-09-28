@@ -57,6 +57,11 @@ router.put("/:id", updateUserController);
 router.delete("/:id", deleteUserController);
 
 /**
+ * @description Returns the profile of the currently authenticated user.
+ */
+router.get("/profile", getUserByIdController); 
+
+/**
  * @exports router - The express router with user routes
  */
 module.exports = router;

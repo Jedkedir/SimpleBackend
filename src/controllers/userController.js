@@ -54,8 +54,15 @@ exports.createUserController = async (req, res) => {
  */
 exports.getUserByIdController = async (req, res) => {
   try {
-    const userId = parseInt(req.params.id);
+    let userId;
 
+    // If it's the profile route, use the authenticated user's ID
+    if (req.path === "/profile") {
+      userId = req.user.user_id;
+    } else {
+      userId = parseInt(req.params.id);
+    }
+    
     if (isNaN(userId)) {
       return res.status(400).json({ error: "Invalid user ID format." });
     }

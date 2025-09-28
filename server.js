@@ -7,7 +7,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const { pool } = require('./src/db/pool'); 
-
+const path = require('path')
 // Load environment variables from the .env file.
 // This ensures process.env.JWT_SECRET and other variables are available.
 dotenv.config(); 
@@ -31,7 +31,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const { protect } = require('./src/middleware/authMiddleware'); // Middleware to protect routes
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Use port from .env or default to 3000
+const PORT = process.env.PORT || 8000; 
 
 /**
  * --- 1. Middleware Setup ---
@@ -74,6 +74,8 @@ app.use('/api/carts', cartRoutes);
 app.use('/api/cart-items', cartItemRoutes);
 app.use('/api/order-items', orderItemRoutes);
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 /**
  * --- 3. Database Connection and Server Start ---

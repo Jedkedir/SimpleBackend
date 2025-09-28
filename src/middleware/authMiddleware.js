@@ -22,7 +22,7 @@ exports.protect = async (req, res, next) => {
 
       // 3. Attach user data to request (excluding password hash)
       // We use the get_user_by_id service function
-      const user = await userService.getUserById(decoded.userId);
+      const user = await userService.getUserById(decoded.id);
 
       if (!user) {
         return res

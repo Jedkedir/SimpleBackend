@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userService = require("../services/userService");
+const generateToken = require("../utils/generateToken");
 /**
  * --- POST /api/auth/register ---
  * Registers a new user and returns a JWT.
