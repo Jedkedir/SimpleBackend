@@ -13,7 +13,7 @@ const db = require("../db/pool");
  */
 async function createReview({ userId, productId, rating, content }) {
   const sql = `SELECT create_review($1, $2, $3, $4) AS review_id;`;
-  const params = [userId, productId, rating, content];
+  const params = [productId,userId , rating, content];
   const result = await db.query(sql, params);
   return result.rows[0].review_id;
 }
