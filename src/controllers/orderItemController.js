@@ -30,3 +30,24 @@ exports.getOrderItemsController = async (req, res) => {
   }
 };
 
+exports.createOrderItemsController = async (req, res) => {
+  try {    
+    const {orderId, variantId, quantity, price} = req.body
+    
+    if ( !orderId || !variantId || !quantity || !price) {
+      return res.status(400).json({ error: "Missing required orderItem fields." });
+    }
+
+    const orderItemId = await orderItemService.createOrderItems(orderId, variantId, quantity, price);
+
+    res.status(200).json({
+      message: "OrderItem created successfully.",
+      orderItemId
+    });
+  }
+  catch(err) {
+    console.error("Error adding order items:", error.message);
+    res.status(500).json({error: "Failed to add order items"});
+  }
+}
+

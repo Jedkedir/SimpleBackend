@@ -16,7 +16,14 @@ async function getOrderItems(orderId) {
   return result.rows;
 }
 
+async function createOrderItems(orderId, variantId, quantity, price) {
+  const sql = `SELECT * FROM create_order_item($1, $2, $3, $4) AS orderItemId;`;
+  const result = await db.query(sql, [orderId, variantId, quantity, price]);
+  return result.rows[0].orderItemId;
+}
+
 module.exports = {
   getOrderItems,
+  createOrderItems
 };
 

@@ -7,19 +7,19 @@ const db = require("../db/pool");
 // --- CREATE ---
 /**
  * Creates a new product variant.
- * @param {productId, sku, color, size, priceModifier, stockQuantity} - Object containing product ID, SKU, color, size, price modifier, and stock quantity.
+ * @param {productId, image_url, color, size, priceModifier, stockQuantity} - Object containing product ID, SKU, color, size, price modifier, and stock quantity.
  * @returns {variantId} - The ID of the new product variant.
  */
 async function createVariant({
   productId,
-  sku,
   color,
   size,
-  priceModifier,
   stockQuantity,
+  priceModifier,
+  image_url
 }) {
   const sql = `SELECT create_product_variant($1, $2, $3, $4, $5, $6) AS variant_id;`;
-  const params = [productId, sku, color, size, priceModifier, stockQuantity];
+  const params = [productId, color, size, stockQuantity, priceModifier, image_url];
   const result = await db.query(sql, params);
   return result.rows[0].variant_id;
 }
@@ -45,10 +45,10 @@ async function getVariantById(variantId) {
  */
 async function updateVariant(
   variantId,
-  { sku, color, size, priceModifier, stockQuantity}
+  { image_url, color, size, priceModifier, stockQuantity}
 ) {
   const sql = `SELECT update_product_variant($1, $2, $3, $4, $5, $6) AS success;`;
-  const params = [variantId, sku, color, size, priceModifier, stockQuantity];
+  const params = [variantId, color, size, stockQuantity, priceModifier,image_url];
   const result = await db.query(sql, params);
   return result.rows[0].success;
 }

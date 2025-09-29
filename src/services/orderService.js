@@ -15,12 +15,12 @@ const db = require("../db/pool");
  */
 async function createOrderFromCart({
   userId,
-  shippingAddressId,
-  billingAddressId,
+  total_amount,
+  shippingAddressId
 }) {
   // This function typically involves a transaction in the database (which you defined with triggers/procedures).
-  const sql = `SELECT create_order_from_cart($1, $2, $3) AS order_id;`;
-  const params = [userId, shippingAddressId, billingAddressId];
+  const sql = `SELECT create_order($1, $2, $3) AS order_id;`;
+  const params = [userId, total_amount,shippingAddressId];
   const result = await db.query(sql, params);
   return result.rows[0].order_id;
 }

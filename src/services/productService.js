@@ -12,7 +12,7 @@ const db = require("../db/pool");
  */
 async function createProduct({ categoryId, name, description, basePrice }) {
   const sql = `SELECT create_product($1, $2, $3, $4) AS product_id;`;
-  const params = [categoryId, name, description, basePrice];
+  const params = [name, description, basePrice, categoryId];
   const result = await db.query(sql, params);
   return result.rows[0].product_id;
 }
