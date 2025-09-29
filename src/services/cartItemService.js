@@ -8,10 +8,10 @@ const db = require("../db/pool");
  * @param { cartId, variantId, quantity } - Object containing cartId, variantId, and quantity.
  * @returns { cartItemId } - The ID of the new cart item or existing cart item.
  */
-async function addOrUpdateCartItem({ cartId, variantId, quantity }) {
+async function addOrUpdateCartItem({ userId, variantId, quantity }) {
   // Assumes a function that handles both adding a new item or updating quantity
-  const sql = `SELECT add_or_update_cart_item($1, $2, $3) AS cart_item_id;`;
-  const params = [cartId, variantId, quantity];
+  const sql = `SELECT add_to_cart($1, $2, $3) AS cart_item_id;`;
+  const params = [userId, variantId, quantity];
   const result = await db.query(sql, params);
   return result.rows[0].cart_item_id;
 }
@@ -33,8 +33,12 @@ async function getCartItems(cartId) {
  * @returns { success } - A boolean indicating whether the deletion was successful.
  */
 async function removeCartItem(cartItemId) {
-  const sql = `SELECT delete_cart_item($1) AS success;`;
-  const result = await db.query(sql, [cartItemId]);
+  const query = `
+    DELETE FROM cart_items
+    WHERE cart_item_id = $1
+    RETURNING TRUE AS success;
+  `;
+  const result = await db.query(query, [cartItemId]);
   return result.rows[0].success;
 }
 

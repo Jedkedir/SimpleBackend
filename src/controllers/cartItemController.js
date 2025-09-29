@@ -13,10 +13,11 @@ const cartItemService = require("../services/cartItemService");
  */
 exports.addOrUpdateCartItemController = async (req, res) => {
   try {
-    const { cartId, variantId, quantity } = req.body;
+    // Extract userId, variantId, and quantity from the request body
+    const { userId, variantId, quantity } = req.body;
 
     if (
-      !cartId ||
+      !userId ||
       !variantId ||
       quantity === undefined ||
       isNaN(quantity) ||
@@ -24,11 +25,11 @@ exports.addOrUpdateCartItemController = async (req, res) => {
     ) {
       return res
         .status(400)
-        .json({ error: "Missing or invalid cartId, variantId, or quantity." });
+        .json({ error: "Missing or invalid userId, variantId, or quantity." });
     }
 
     const cartItemId = await cartItemService.addOrUpdateCartItem({
-      cartId,
+      userId,
       variantId,
       quantity,
     });

@@ -12,8 +12,9 @@ const db = require("../db/pool");
  */
 async function createCart(userId) {
   // Note: A user's cart is often created automatically upon user creation or first session
-  const query = "INSERT INTO carts (user_id) VALUES ($1) RETURNING *";
+  const query = "SELECT get_or_create_cart($1) AS cart_id";
   const result = await db.query(query, [userId]);
+  console.log(userId, result.rows[0]);
   return result.rows[0].cart_id;
 }
 
@@ -25,11 +26,10 @@ async function createCart(userId) {
  */
 async function getCartByUserId(userId) {
   const query = `
-    SELECT c.cart_id, c.user_id, c.created_at
-    FROM carts c
-    WHERE c.user_id = $1
+    SELECT get_or_create_cart($1) AS cart_id
   `;
   const result = await db.query(query, [userId]);
+  
   return result.rows[0];
 }
 
