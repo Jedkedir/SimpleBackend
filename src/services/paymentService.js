@@ -36,9 +36,15 @@ async function createPayment({
  * @param {number} orderId - The ID of the order to fetch payment records for.
  * @returns {Promise<object[]>} An array of objects containing payment record information.
  */
-async function getPaymentsByOrderId(orderId) {
+async function getPaymentsByOrderId(orderId,payment_amount,payment_method,transaction_id,status) {
   const sql = `SELECT * FROM get_payments_by_order_id($1);`;
-  const result = await db.query(sql, [orderId]);
+  const result = await db.query(sql, [
+    orderId,
+    payment_amount,
+    payment_method,
+    transaction_id,
+    status,
+  ]);
   return result.rows;
 }
 
@@ -53,7 +59,7 @@ async function getPaymentsByOrderId(orderId) {
 async function updatePaymentStatus(paymentId, newStatus) {
   const sql = `SELECT update_payment_status($1, $2) AS success;`;
   const result = await db.query(sql, [paymentId, newStatus]);
-  return result.rows[0].success;
+  return result.rows[0];
 }
 
 module.exports = {

@@ -97,7 +97,6 @@ exports.updatePaymentStatusController = async (req, res) => {
       paymentId,
       newStatus
     );
-
     if (!success) {
       return res
         .status(404)
