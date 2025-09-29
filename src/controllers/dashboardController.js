@@ -1,6 +1,6 @@
 const product = require("../services/dashboardService");
 
-exports.getTotalSoldData = async (req, res) => {
+const getTotalSoldData = async (req, res) => {
     try {
         const {userId} = req.body;
         if(!userId){
@@ -14,7 +14,7 @@ exports.getTotalSoldData = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch total sold data" });
     }
 }
-exports.getTotalRevenueData = async (req, res) => {
+const getTotalRevenueData = async (req, res) => {
     try {
       const { userId } = req.body;
       if (!userId) {
@@ -27,7 +27,7 @@ exports.getTotalRevenueData = async (req, res) => {
       res.status(500).json({ error: "Failed to fetch total revenue data" });
     }
 }
-exports.getStokeNotificationMessage = async (req, res) => {
+const getStokeNotificationMessage = async (req, res) => {
     try {
       const { userId } = req.body;
       if (!userId) {
@@ -42,7 +42,7 @@ exports.getStokeNotificationMessage = async (req, res) => {
         .json({ error: "Failed to fetch stoke notification data" });
     }
 }
-exports.getOrderNotification = async (req, res) => {
+const getOrderNotification = async (req, res) => {
     try {
       const { userId } = req.body;
       if (!userId) {
@@ -56,4 +56,19 @@ exports.getOrderNotification = async (req, res) => {
         .status(500)
         .json({ error: "Failed to fetch stoke notification data" });
     }
+}
+exports.getUserData = async (res,req) => {
+  try {
+    return await {
+      totalSoldData: await getTotalSoldData(req, res),
+      totalRevenueData : await getTotalRevenueData(req, res),
+      stokeNotificationData : await getStokeNotificationMessage(req, res),
+      orderNotificationData : await getOrderNotification(req, res)
+    }
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error.message);
+    res
+      .status(500)
+      .json({ error: "Failed to fetch dashboard data" });
+  }
 }
