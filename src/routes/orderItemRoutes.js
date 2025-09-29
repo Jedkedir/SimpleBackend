@@ -22,8 +22,12 @@ const {
  * @returns {Response} - Response with an array of order items or an error message
  */
 router.get("/:orderId", getOrderItemsController);
+<<<<<<< HEAD
 router.post("/", createOrderItemsController)
 
+=======
+router.post("/", createOrderItemsController);
+>>>>>>> 36164c6f5b45e3db9a6cec0bf761a9596690e1b0
 /**
  * @exports router - The express router with Order Item routes
  */

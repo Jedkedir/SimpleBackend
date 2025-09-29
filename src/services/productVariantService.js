@@ -7,11 +7,19 @@ const db = require("../db/pool");
 // --- CREATE ---
 /**
  * Creates a new product variant.
+<<<<<<< HEAD
  * @param {productId, image_url, color, size, priceModifier, stockQuantity} - Object containing product ID, SKU, color, size, price modifier, and stock quantity.
+=======
+ * @param {productId, imageUrl, color, size, priceModifier, stockQuantity} - Object containing product ID, imageUrl, color, size, price modifier, and stock quantity.
+>>>>>>> 36164c6f5b45e3db9a6cec0bf761a9596690e1b0
  * @returns {variantId} - The ID of the new product variant.
  */
 async function createVariant({
   productId,
+<<<<<<< HEAD
+=======
+  imageUrl,
+>>>>>>> 36164c6f5b45e3db9a6cec0bf761a9596690e1b0
   color,
   size,
   stockQuantity,
@@ -19,7 +27,18 @@ async function createVariant({
   image_url
 }) {
   const sql = `SELECT create_product_variant($1, $2, $3, $4, $5, $6) AS variant_id;`;
+<<<<<<< HEAD
   const params = [productId, color, size, stockQuantity, priceModifier, image_url];
+=======
+  const params = [
+    productId,
+    color,
+    size,
+    stockQuantity,
+    priceModifier,
+    imageUrl,
+  ];
+>>>>>>> 36164c6f5b45e3db9a6cec0bf761a9596690e1b0
   const result = await db.query(sql, params);
   return result.rows[0].variant_id;
 }
@@ -40,15 +59,22 @@ async function getVariantById(variantId) {
 /**
  * Updates a product variant.
  * @param {variantId} - The ID of the product variant to update.
- * @param {variantData} - Object containing SKU, color, size, price modifier, and stock quantity.
+ * @param {variantData} - Object containing imageUrl, color, size, price modifier, and stock quantity.
  * @returns {success} - Whether the update was successful.
  */
 async function updateVariant(
   variantId,
+<<<<<<< HEAD
   { image_url, color, size, priceModifier, stockQuantity}
 ) {
   const sql = `SELECT update_product_variant($1, $2, $3, $4, $5, $6) AS success;`;
   const params = [variantId, color, size, stockQuantity, priceModifier,image_url];
+=======
+  { imageUrl, color, size, priceModifier, stockQuantity}
+) {
+  const sql = `SELECT update_product_variant($1, $2, $3, $4, $5, $6) AS success;`;
+  const params = [variantId, imageUrl, color, size, priceModifier, stockQuantity];
+>>>>>>> 36164c6f5b45e3db9a6cec0bf761a9596690e1b0
   const result = await db.query(sql, params);
   return result.rows[0].success;
 }

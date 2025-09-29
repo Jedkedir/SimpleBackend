@@ -29,10 +29,9 @@ exports.createOrderFromCartController = async (req, res) => {
       shippingAddressId,
       total_amount,
     });
-
     res.status(201).json({
       message: "Order placed successfully. Proceed to payment.",
-      orderId,
+      orderId
     });
   } catch (error) {
     console.error("Error creating order from cart:", error.message);

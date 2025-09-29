@@ -10,17 +10,26 @@ const db = require("../db/pool");
  * Creates a new order from a user's cart.
  * @param {number} userId - The ID of the user to create an order for.
  * @param {number} shippingAddressId - The ID of the shipping address to use.
- * @param {number} billingAddressId - The ID of the billing address to use.
+ * @param {number} total - The ID of the billing address to use.
  * @returns {Promise<number>} The ID of the newly created order.
  */
 async function createOrderFromCart({
   userId,
+<<<<<<< HEAD
   total_amount,
   shippingAddressId
 }) {
   // This function typically involves a transaction in the database (which you defined with triggers/procedures).
   const sql = `SELECT create_order($1, $2, $3) AS order_id;`;
   const params = [userId, total_amount,shippingAddressId];
+=======
+  shippingAddressId,
+  total_amount
+}) {
+  // This function typically involves a transaction in the database (which you defined with triggers/procedures).
+  const sql = `SELECT create_order($1, $2, $3) AS order_id;`;
+  const params = [userId, shippingAddressId, total_amount];
+>>>>>>> 36164c6f5b45e3db9a6cec0bf761a9596690e1b0
   const result = await db.query(sql, params);
   return result.rows[0].order_id;
 }
