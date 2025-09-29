@@ -1,22 +1,22 @@
 const db = require("../db/pool");
 
-async function getTotalSold(userId) {
+async function getTotalSold() {
   const sql = `
         SELECT SUM(ord_items.quantity) AS total_sold FROM order_items ord_items
     `;
-  const result = await db.query(sql, [userId]);
+  const result = await db.query(sql);
   return result.rows[0];
 }
 
-async function getTotalRevenue(userId) {
+async function getTotalRevenue() {
   const sql = `
         SELECT SUM(ord_it.quantity * ord_it.price) AS total_revenue FROM order_items ord_it
     `;
-  const result = await db.query(sql, [userId]);
+  const result = await db.query(sql);
   return result.rows[0];
 }
 
-async function getStockNotification(userId) {
+async function getStockNotification() {
   const sql = `
         SELECT 
         prod.product_id, 
@@ -28,11 +28,11 @@ async function getStockNotification(userId) {
         product_variants prod_var ON prod.product_id = prod_var.product_id
     WHERE prod_var.stock_quantity < 20
     `;
-  const result = await db.query(sql, [userId]);
+  const result = await db.query(sql);
   return result.rows[0];
 }
 
-async function getOrderNotification(userId) {
+async function getOrderNotification() {
   const sql = `
         SELECT 
             p.product_id,
@@ -45,7 +45,7 @@ async function getOrderNotification(userId) {
         JOIN product_variants pv ON oi.variant_id = pv.variant_id
         JOIN products p ON pv.product_id = p.product_id;
     `;
-  const result = await db.query(sql, [userId]);
+  const result = await db.query(sql);
   return result.rows[0];
 }
 
