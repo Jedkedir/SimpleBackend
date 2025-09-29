@@ -13,9 +13,9 @@ const productVariantService = require("../services/productVariantService");
  */
 exports.createVariantController = async (req, res) => {
   try {
-    const { productId, sku, color, size, priceModifier, stockQuantity } = req.body;
+    const { productId, imageUrl, color, size, priceModifier, stockQuantity } = req.body;
 
-    if (!productId || !sku || !size || stockQuantity === undefined) {
+    if (!productId || !imageUrl || !size || stockQuantity === undefined) {
       return res
         .status(400)
         .json({ error: "Missing required variant fields." });
@@ -23,7 +23,7 @@ exports.createVariantController = async (req, res) => {
 
     const variantId = await productVariantService.createVariant({
       productId,
-      sku,
+      imageUrl,
       color,
       size,
       priceModifier,

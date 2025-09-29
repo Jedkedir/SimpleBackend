@@ -13,6 +13,28 @@ const orderItemService = require("../services/orderItemService");
  * @param {Response} res - The Express response object
  * @returns {Promise<object[]>} An array of objects containing order item information.
  */
+exports.createOrderItemsController = async (req, res) => {
+  try {
+    const {orderId, variantId,quantity,price} = req.body;
+     if (!orderId || !variantId || !quantity || !price) {
+       return res.status(400).json({
+         error: "Missing required orderItem fields (userId,variantId,quantity,price).",
+       });
+     }
+
+     const orderItemId = await orderItemService.createOrderItems(orderId, variantId,quantity,price);
+     res.status(201).json({
+       message: "OrderItem created successfully.",
+       orderItemId,
+     });
+    
+  } catch (error) {
+    console.error("Error placing order:", error.message);
+    res
+      .status(500)
+      .json({ error: "Failed to place order", detail: error.message });
+  }
+};
 exports.getOrderItemsController = async (req, res) => {
   try {
     const orderId = parseInt(req.params.orderId);

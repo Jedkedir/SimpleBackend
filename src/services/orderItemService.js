@@ -4,6 +4,13 @@
  * @description Handles database operations related to Order Items.
  */
 const db = require("../db/pool");
+
+async function createOrderItems( orderId, variantId,quantity,price ) {
+  const sql = `SELECT create_order_item($1, $2, $3,$4) AS orderItem_id`;
+  const params = [orderId, variantId, quantity, price];
+  const result = await db.query(sql, params);
+  return result.rows[0].orderItem_id;
+}
 // --- READ ---
 /**
  * Fetches all order items for a given order ID.
@@ -18,5 +25,6 @@ async function getOrderItems(orderId) {
 
 module.exports = {
   getOrderItems,
+  createOrderItems
 };
 

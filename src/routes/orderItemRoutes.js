@@ -12,6 +12,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getOrderItemsController,
+  createOrderItemsController
 } = require("../controllers/orderItemController");
 
 /**
@@ -21,7 +22,7 @@ const {
  * @returns {Response} - Response with an array of order items or an error message
  */
 router.get("/:orderId", getOrderItemsController);
-
+router.post("/", createOrderItemsController);
 /**
  * @exports router - The express router with Order Item routes
  */

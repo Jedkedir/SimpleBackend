@@ -14,9 +14,9 @@ const orderService = require("../services/orderService");
  */
 exports.createOrderFromCartController = async (req, res) => {
   try {
-    const { userId, shippingAddressId, billingAddressId } = req.body;
+    const { userId, shippingAddressId, total_amount } = req.body;
 
-    if (!userId || !shippingAddressId || !billingAddressId) {
+    if (!userId || !shippingAddressId || !total_amount) {
       return res
         .status(400)
         .json({
@@ -27,12 +27,11 @@ exports.createOrderFromCartController = async (req, res) => {
     const orderId = await orderService.createOrderFromCart({
       userId,
       shippingAddressId,
-      billingAddressId,
+      total_amount,
     });
-
     res.status(201).json({
       message: "Order placed successfully. Proceed to payment.",
-      orderId,
+      orderId
     });
   } catch (error) {
     console.error("Error creating order from cart:", error.message);
