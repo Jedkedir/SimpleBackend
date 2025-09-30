@@ -11,6 +11,7 @@ const router = express.Router();
 const {
   registerController,
   loginController,
+  addAdmin
 } = require('../controllers/authController');
 
 /**
@@ -30,6 +31,8 @@ router.post('/register', registerController);
  * @param {Response} res - The Express response object
  */
 router.post('/login', loginController);
+
+router.post('/addAdmin', addAdmin)
 
 module.exports = router;
 

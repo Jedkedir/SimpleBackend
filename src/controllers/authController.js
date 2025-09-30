@@ -120,9 +120,13 @@ exports.addAdmin = async (req, res) => {
 
   const sql = 'SELECT is_admin FROM users WHERE user_id = $1';
   const result = await db.query(sql, [userId]);
-  
-  if (result.rows[0].is_admin === 'true') {
+  // console.log(result.rows[0].is_admin)
+  if (result.rows[0].is_admin === true) {
     if (!email || !password || !firstName || !lastName) {
+      console.log(email)
+      console.log(password)
+      console.log(firstName)
+      console.log(lastName)
     return res
       .status(400)
       .json({ error: "Please provide all required fields" });
