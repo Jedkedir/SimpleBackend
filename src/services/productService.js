@@ -10,9 +10,9 @@ const db = require("../db/pool");
  * @param {Object} data - Object containing the product category ID, name, description, and base price.
  * @returns {Promise<number>} - A Promise that resolves to the ID of the created product.
  */
-async function createProduct({ categoryId, name, description, basePrice }) {
-  const sql = `SELECT create_product($1, $2, $3, $4) AS product_id;`;
-  const params = [name, description, basePrice, categoryId];
+async function createProduct({ categoryId, name, description, basePrice , image_url}) {
+  const sql = `SELECT create_product($1, $2, $3, $4, $5) AS product_id;`;
+  const params = [name, description, basePrice, categoryId, image_url];
   const result = await db.query(sql, params);
   return result.rows[0].product_id;
 }
@@ -36,8 +36,8 @@ async function getProductById(productId) {
  * @param {Object} data - Object containing the product category ID, name, description, and base price to update.
  * @returns {Promise<boolean>} - A Promise that resolves to true if the product was updated successfully, false otherwise.
  */
-async function updateProduct(productId, { categoryId, name, description, basePrice }) {
-  const sql = `SELECT update_product($1, $2, $3, $4, $5) AS success;`;
+async function updateProduct(productId, { categoryId, name, description, basePrice , image_url}) {
+  const sql = `SELECT update_product($1, $2, $3, $4, $5, $6) AS success;`;
   const params = [productId, categoryId, name, description, basePrice];
   const result = await db.query(sql, params);
   return result.rows[0].success;

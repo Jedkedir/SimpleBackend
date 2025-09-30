@@ -4,6 +4,7 @@
  * @description This module contains all controller functions for the Product entity.
  */
 const product = require("../services/productService");
+const category = require("../services/categoryService");
 /**
  * POST /products
  * @function createProductController
@@ -15,7 +16,8 @@ const product = require("../services/productService");
 exports.createProductController = async (req, res) => {
   try {
 
-    const { categoryId, name, description, basePrice } = req.body;
+    const { categoryName, name, description, basePrice , image_url} = req.body;
+    const categoryId = await category.getCategoryByName(categoryName);
     console.log(req.body);
     if (!categoryId || !name || !basePrice) {
       return res
@@ -28,6 +30,7 @@ exports.createProductController = async (req, res) => {
       name,
       description,
       basePrice,
+      image_url
     });
 
     res.status(201).json({

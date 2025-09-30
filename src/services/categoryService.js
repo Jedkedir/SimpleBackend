@@ -55,10 +55,16 @@ async function deleteCategory(categoryId) {
   return result.rows[0].success;
 }
 
+async function getCategoryByName(categoryName) {
+  const sql = `SELECT category_id FROM categories WHERE name = $1;`;
+  const result = await db.query(sql, [categoryName]);
+  return result.rows[0];
+}
 module.exports = {
   createCategory,
   getAllCategories,
   updateCategory,
   deleteCategory,
+  getCategoryByName
 };
 
