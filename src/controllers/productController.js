@@ -17,8 +17,9 @@ exports.createProductController = async (req, res) => {
   try {
 
     const { categoryName, name, description, basePrice , image_url} = req.body;
-    const categoryId = await category.getCategoryByName(categoryName);
-    console.log(req.body);
+    const result = await category.getCategoryByName(categoryName);
+    const categoryId = result.category_id
+    
     if (!categoryId || !name || !basePrice) {
       return res
         .status(400)
