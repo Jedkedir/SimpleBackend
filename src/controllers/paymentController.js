@@ -32,7 +32,8 @@ exports.createPaymentController = async (req, res) => {
       transactionId,
       status,
     });
-
+    const sql = `UPDATE orders SET status = 'paid' WHERE order_id = ${orderId}`;
+    const result = await db.query(sql);
     res.status(201).json({
       message: "Payment record created successfully",
       paymentId,
