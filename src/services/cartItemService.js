@@ -13,6 +13,7 @@ async function addOrUpdateCartItem({ userId, variantId, quantity }) {
   const sql = `SELECT add_to_cart($1, $2, $3) AS cart_item_id;`;
   const params = [userId, variantId, quantity];
   const result = await db.query(sql, params);
+  console.log(result.rows[0])
   return result.rows[0].cart_item_id;
 }
 
