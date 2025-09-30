@@ -10,7 +10,7 @@ async function getInStock() {
         FROM 
             products prod
         LEFT JOIN
-            produt_variants prod_var ON prod.product_id = prod_var.product_id
+            product_variants prod_var ON prod.product_id = prod_var.product_id
         WHERE prod_var.stock_quantity > 0
     `
 
@@ -28,7 +28,7 @@ async function getOutOfStock() {
         FROM 
             products prod
         LEFT JOIN
-            produt_variants prod_var ON prod.product_id = prod_var.product_id
+            product_variants prod_var ON prod.product_id = prod_var.product_id
         WHERE prod_var.stock_quantity = 0
     `;
     const result = await db.query(sql);
