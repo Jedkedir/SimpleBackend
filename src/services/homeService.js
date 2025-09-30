@@ -16,6 +16,6 @@ async function getFeatures() {
 }
 
 module.exports = {
-  getTotalSold,
-  getTotalRevenue,
+  getBestSelling,
+  getFeatures,
 };
