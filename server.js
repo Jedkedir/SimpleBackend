@@ -28,6 +28,7 @@ const reviewRoutes = require('./src/routes/reviewRoutes');
 const dashboardRoutes = require("./src/routes/dashboardRoutes");
 const stockRoutes = require("./src/routes/stockStatusRoute");
 const homeRoutes = require("./src/routes/homeRoutes");
+const uploadRoutes = require("./src/routes/uploadRoutes");
 
 
 // Authentication Routes
@@ -80,6 +81,7 @@ app.use('/api/carts', cartRoutes);
 app.use('/api/cart-items', cartItemRoutes);
 app.use('/api/order-items', orderItemRoutes);
 app.use('/api/home', homeRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
