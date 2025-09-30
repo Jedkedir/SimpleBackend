@@ -1,22 +1,20 @@
 const db = require("../db/pool");
 
-
 async function getBestSelling() {
   const sql = `
       SELECT 
-          p.product_id,
-          pv.variant_id,
-          pv.image_url AS variant_image,
-          pv.price,
-          SUM(oi.quantity) AS total_sold
-      FROM order_items oi
-      JOIN orders o ON oi.order_id = o.order_id
-      JOIN product_variants pv ON oi.variant_id = pv.variant_id
-      JOIN products p ON pv.product_id = p.product_id
-      WHERE o.status = 'Completed'
-      GROUP BY p.product_id, pv.variant_id, pv.image_url, pv.price
-      ORDER BY total_sold DESC
-      LIMIT 10;
+    p.product_id,
+    pv.variant_id,
+    pv.image_url AS variant_image,
+    pv.price,
+    SUM(oi.quantity) AS total_sold
+FROM order_items oi
+JOIN orders o ON oi.order_id = o.order_id
+JOIN product_variants pv ON oi.variant_id = pv.variant_id
+JOIN products p ON pv.product_id = p.product_id
+GROUP BY p.product_id, pv.variant_id, pv.image_url, pv.price
+ORDER BY total_sold DESC
+LIMIT 10;
 
     `;
   const result = await db.query(sql);
