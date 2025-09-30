@@ -49,9 +49,28 @@ async function getOrderNotification() {
   return result.rows[0];
 }
 
+async function getTopSelling() {
+  const sql = `
+    SELECT 
+      p.product_id,
+      p.base_image_url,
+      SUM(oi.quantity) AS total_sold
+    FROM order_items oi
+      JOIN orders o ON oi.order_id = o.order_id
+      JOIN product_variants pv ON oi.variant_id = pv.variant_id
+      JOIN products p ON pv.product_id = p.product_id
+      GROUP BY p.product_id, p.name, p.price, p.base_image_url
+      ORDER BY total_sold DESC
+      LIMIT 10
+  `
+  const result = await db.query(sql);
+  return result.rows[0]
+}
+
 module.exports = {
   getTotalSold,
   getTotalRevenue,
   getStockNotification,
   getOrderNotification,
+  getTopSelling
 };
