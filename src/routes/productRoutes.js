@@ -27,6 +27,8 @@ const {
   getAllProductsController,
 } = require("../controllers/productController");
 
+router.get("/get-all", getAllProductsController);
+
 /**
  * @description Creates a new product.
  * @route POST /api/products
@@ -46,7 +48,6 @@ router.post("/", createProductController);
  */
 router.get("/:id", getProductByIdController);
 
-router.get("/get-all", getAllProductsController);
 
 /**
  * @description Updates a product by ID.
