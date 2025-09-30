@@ -89,7 +89,7 @@ exports.removeCartItemController = async (req, res) => {
       return res.status(404).json({ error: "Cart item not found" });
     }
 
-    res.status(204).send();
+    res.status(200).json({message: success});
   } catch (error) {
     console.error("Error removing cart item:", error.message);
     res.status(500).json({ error: "Failed to remove cart item" });
