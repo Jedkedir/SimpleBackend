@@ -26,6 +26,7 @@ const orderItemRoutes = require('./src/routes/orderItemRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 const reviewRoutes = require('./src/routes/reviewRoutes');
 const dashboardRoutes = require("./src/routes/dashboardRoutes");
+const stockRoutes = require("./src/routes/stockStatusRoute");
 
 
 // Authentication Routes
@@ -67,6 +68,7 @@ app.use('/api/orders', protect, orderRoutes);
 app.use('/api/payments', protect, paymentRoutes);
 app.use('/api/reviews', protect, reviewRoutes);
 app.use('/api/dashboard', protect, dashboardRoutes);
+app.use('/api/stock', protect, stockRoutes);
 
 // Catalog, Cart, and Order Item routes - protection handled internally for specific CRUD actions 
 // (e.g., viewing products is public, deleting products is protected/admin only).
