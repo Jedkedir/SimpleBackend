@@ -134,3 +134,13 @@ exports.deleteProductController = async (req, res) => {
   }
 };
 
+exports.getAllProductsController= async (req, res) => {
+  try {
+    const products = await product.getAllProducts();
+    res.status(200).json({products});
+  } catch (error) {
+    console.error("Error fetching products:", error.message);
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+};
+

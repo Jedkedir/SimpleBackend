@@ -54,11 +54,30 @@ async function deleteProduct(productId) {
   const result = await db.query(sql, [productId]);
   return result.rows[0].success;
 }
-
+async function getAllProducts() {
+  const sql = `SELECT 
+    p.product_id,
+    p.name AS product_name,
+    p.description,
+    p.price AS base_price,      
+    p.base_image_url,
+    pv.variant_id,
+    pv.color,
+    pv.size,
+    pv.price AS variant_price, 
+    pv.stock_quantity,
+    pv.image_url AS variant_image
+FROM products p
+LEFT JOIN product_variants pv ON p.product_id = pv.product_id
+ORDER BY p.product_id, pv.variant_id;`;
+  const result = await db.query(sql);
+  return result.rows;
+}
 module.exports = {
   createProduct,
   getProductById,
   updateProduct,
   deleteProduct,
+  getAllProducts,
 };
 

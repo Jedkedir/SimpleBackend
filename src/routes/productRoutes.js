@@ -24,6 +24,7 @@ const {
   getProductByIdController,
   updateProductController,
   deleteProductController,
+  getAllProductsController,
 } = require("../controllers/productController");
 
 /**
@@ -44,6 +45,8 @@ router.post("/", createProductController);
  * @returns {Response} - Response with either the product or an error message.
  */
 router.get("/:id", getProductByIdController);
+
+router.get("/get-all", getAllProductsController);
 
 /**
  * @description Updates a product by ID.
