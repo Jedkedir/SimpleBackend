@@ -19,14 +19,14 @@ const db = require("../db/pool");
 async function createAddress({
   userId,
   street,
+  street_2,
   city,
   state,
-  zipCode,
+  postalCode,
   country,
-  isDefault = false,
 }) {
   const sql = `SELECT create_address($1, $2, $3, $4, $5, $6, $7) AS address_id;`;
-  const params = [userId, street, city, state, zipCode, country, isDefault];
+  const params = [userId, street,street_2, city, state, postalCode, country];
   const result = await db.query(sql, params);
   return result.rows[0].address_id;
 }

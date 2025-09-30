@@ -20,17 +20,17 @@ exports.createAddressController = async (req, res) => {
     // 1. Extract and validate necessary data from the request body
     const {
       userId,
-      addressLine1,
-      addressLine2,
+      street,
+      street_2,
       city,
       state,
       postalCode,
       country,
-      isDefault,
+      
     } = req.body;
 
     // Basic validation check
-    if (!userId || !addressLine1 || !city || !postalCode || !country) {
+    if (!userId || !street || !city || !postalCode || !country) {
       return res.status(400).json({
         error:
           "Missing required address fields: userId, addressLine1, city, postalCode, and country.",
@@ -40,12 +40,12 @@ exports.createAddressController = async (req, res) => {
     // 2. Call the service layer function
     const addressId = await addressService.createAddress({
       userId,
-      street: addressLine1, // Mapping Express names to Service/DB names
+      street,
+      street_2, 
       city,
       state,
-      zipCode: postalCode, // Mapping Express names to Service/DB names
+      postalCode, 
       country,
-      isDefault,
     });
 
     // 3. Send successful response
