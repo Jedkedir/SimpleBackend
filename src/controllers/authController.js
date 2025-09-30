@@ -38,6 +38,9 @@ exports.registerController = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
+    const { rows } =   await pool.query('SELECT COUNT(*) FROM users');
+    const isAdmin = parseInt(rows[0].count) === 0;   
+
     // 2. Create user via the service (which calls the PG function)
     const userId = await userService.createUser({
       firstName,
