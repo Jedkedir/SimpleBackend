@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userService = require("../services/userService");
 const generateToken = require("../utils/generateToken");
+const db = require('../db/pool');
 /**
  * --- POST /api/auth/register ---
  * Registers a new user and returns a JWT.
@@ -105,4 +106,65 @@ exports.loginController = async (req, res) => {
     res.status(500).json({ error: "Server error during login" });
   }
 };
+
+
+exports.addAdmin = async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    phoneNumber,
+    userId,
+  } = req.body;
+
+  const sql = 'SELECT is_admin FROM users WHERE user_id = $1';
+  const result = await db.query(sql, [userId]);
+  
+  if (result.rows[0].is_admin === 'true') {
+    if (!email || !password || !firstName || !lastName) {
+    return res
+      .status(400)
+      .json({ error: "Please provide all required fields" });
+    }
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const passwordHash = await bcrypt.hash(password, salt);
+
+      // const { rows } =   await pool.query('SELECT COUNT(*) FROM users');
+      // const isAdmin = parseInt(rows[0].count) === 0;   
+
+
+      // 2. Create user via the service (which calls the PG function)
+      const userId = await userService.createUser({
+        firstName,
+        lastName,
+        email,
+        passwordHash,
+        phoneNumber,
+        isAdmin: true,
+      });
+
+      // 3. Generate token and respond
+      res.status(201).json({
+        userId,
+        email,
+        token: generateToken(userId),
+      });
+    }
+    catch (error) {
+      // Handle unique constraint error on email
+      if (error.message && error.message.includes("unique constraint")) {
+        return res.status(400).json({ error: "Email already registered" });
+      }
+      console.error("Error during registration:", error.message);
+      res.status(500).json({ error: "Server error during registration" });
+    }
+  }
+  else {
+    res.status(400).json({error: "You are not allowed to make this change"});
+  }
+
+  
+}
 
