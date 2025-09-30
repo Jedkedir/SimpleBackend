@@ -5,6 +5,7 @@
  * @description Handles HTTP requests for the Payment entity.
  */
 const paymentService = require("../services/paymentService");
+const db = require("../db/pool");
 // POST /payments (Records a payment attempt/success)
 /**
  * Handles POST requests to /payments.
