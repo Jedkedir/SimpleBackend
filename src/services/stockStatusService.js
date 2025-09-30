@@ -5,7 +5,7 @@ async function getInStock() {
         SELECT 
             prod.product_id,
             prod.name,
-            prod_var.stock_quantity AS stock_info
+            prod_var.stock_quantity AS stock_info,
             prod_var.image_url
         FROM 
             products prod
@@ -15,7 +15,7 @@ async function getInStock() {
     `
 
     const result = await db.query(sql);
-    return result.row[0];
+    return result.rows[0];
 }
 
 async function getOutOfStock() {
@@ -23,7 +23,7 @@ async function getOutOfStock() {
         SELECT 
             prod.product_id,
             prod.name,
-            prod_var.stock_quantity AS stock_info
+            prod_var.stock_quantity AS stock_info,
             prod_var.image_url
         FROM 
             products prod

@@ -26,6 +26,10 @@ exports.getStockData = async (req, res) => {
     const outOfStockData = await stock.getOutOfStock();
     const inStockData = await stock.getInStock();
 
+    if (!outOfStockData || !inStockData) {
+      return res.status(404).json({ error: "Stock data not found" });
+    }
+
     res.status(200).json({
       outOfStockData,
       inStockData,
