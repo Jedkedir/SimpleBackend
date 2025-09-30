@@ -68,7 +68,7 @@ exports.createOrderItemsController = async (req, res) => {
     });
   }
   catch(err) {
-    console.error("Error adding order items:", error.message);
+    console.error("Error adding order items:", err.message);
     res.status(500).json({error: "Failed to add order items"});
   }
 }
