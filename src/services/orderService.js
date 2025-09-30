@@ -4,6 +4,7 @@
  * @module src/services/orderService
  * @description This module provides functions for creating, reading and updating orders.
  */
+const { getOrderHistory } = require("../controllers/orderController");
 const db = require("../db/pool");
 // --- CREATE (Checkout) ---
 /**
@@ -62,10 +63,33 @@ async function updateOrderStatus(orderId, newStatus) {
   return result.rows[0].success;
 }
 
+async function fetchOrderHistory(userId) {
+  const sql = `
+    SELECT 
+      o.order_id,
+      o.order_date,
+      p.name AS product_name,
+      p.base_image_url,
+      oi.price,
+      oi.quantity,
+      a.address_line_1,
+      pv.color
+  FROM orders o
+  JOIN order_items oi ON o.order_id = oi.order_id
+  JOIN product_variants pv ON oi.variant_id = pv.variant_id
+  JOIN products p ON pv.product_id = p.product_id
+  JOIN addresses a ON o.shipping_address_id = a.address_id
+  WHERE o.user_id = $1
+  ORDER BY o.order_date DESC;
+  `
+  const result = await db.query(sql, [userId]);
+  return result.rows
+}
 module.exports = {
   createOrderFromCart,
   getOrderById,
   getOrdersByUserId,
   updateOrderStatus,
+  fetchOrderHistory
 };
 

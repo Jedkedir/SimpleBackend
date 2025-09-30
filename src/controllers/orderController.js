@@ -95,3 +95,23 @@ exports.getOrdersByUserIdController = async (req, res) => {
   }
 };
 
+exports.getOrderHistory = async (req, res) => {
+  try {
+    const userId = parseInt(req.params.userId);
+
+
+    if (isNaN(userId)) {
+      return res.status(400).json({ error: "Invalid user ID format." });
+    }
+
+    const orderHis = await orderService.fetchOrderHistory(userId);
+    res.status(200).json({
+      message: "order retrieved successfully",
+      orderHis
+    });
+  } catch (error) {
+    console.error("Error fetching user orders:", error.message);
+    res.status(500).json({ error: "Failed to fetch user orders" });
+  }
+}
+

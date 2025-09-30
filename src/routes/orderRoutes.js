@@ -19,6 +19,7 @@ const {
   createOrderFromCartController,
   getOrderByIdController,
   getOrdersByUserIdController,
+  getOrderHistory
 } = require("../controllers/orderController");
 
 /**
@@ -46,6 +47,8 @@ router.get("/:id", getOrderByIdController);
  * @returns {Response} - Response with an array of orders or an error message.
  */
 router.get("/user/:userId", getOrdersByUserIdController);
+
+router.get("/order-history/:userId", getOrderHistory);
 
 module.exports = router;
 
