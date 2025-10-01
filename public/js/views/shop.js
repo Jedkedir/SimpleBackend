@@ -1,4 +1,4 @@
-import { getShoppingPageData } from "../services/shopPageService"
+import { getShoppingPageData } from "../services/shopPageService.js"
 
 const body = document.querySelector('body')
 const main = document.querySelector('main')
@@ -6,8 +6,8 @@ const products = document.querySelector('.products')
 
 const pageData = await getShoppingPageData()
 
-if (pageData.success == False){
-
+if (pageData.success == false){
+    console.log(pageData.error)
 }else{
     grouped_by_id = group_by_product(pageDatadata.data)
     grouped_by_cat = group_by_category(grouped_by_id)

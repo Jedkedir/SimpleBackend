@@ -1,4 +1,4 @@
-import { apiGet } from "BaseService.js";
+import { apiGet } from "./BaseService.js";
 
 /**
  * Fetch all landing page data and return organized object

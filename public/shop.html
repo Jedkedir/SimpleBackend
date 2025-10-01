@@ -1,290 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="style/shop.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="style/shop.css" rel="stylesheet">
+  <script  type="module" src="js/views/shop.js" defer></script>
 </head>
 
 <body>
-     <header class="header">
-        <h2>Phantom Stitch.</h2>
-        <nav class="naver-link">
-              <ul class="nav-list">
-                <li class="nav-item"><a href="index.html"class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="product.html"class="nav-link">Shop</a></li>
-                <li class="nav-item"><a href="about.html"class="nav-link">About</a></li>
-                <li class="nav-item"><a href="cart.html"class="nav-link-icon"><img class="icon"src="sample/shopping-bag.png"alt="cart"></a></li>
-                <li class="nav-item"><a href="login.html"class="nav-link"><img class="icon"src="sample/user.png"alt="sign"></a></li>
-                 <li class="nav-item" onclick=showsidebar()><img src="sample/menu.png"alt="menu"class="menu-btn icon"></li>
-            </ul>
-            <ul class="sidebar">
-                <li class="nav-itemc" onclick=hidesidebar()><img class="icon"src="sample/close.png"alt="close"></li>
-                <li class="nav-itemi"><a href="login.html"class="nav-link2"><img class="log icon" src="sample/user.png"alt="sign">Log In</a></li>
-                <li class="nav-item2"><a href="index.html"class="nav-link">Home</a></li>
-                <li class="nav-item2"><a href="shop.html"class="nav-link">Shop</a></li>
-                <li class="nav-item2"><a href="about.html"class="nav-link">About</a></li>
-               
-            </ul>
-        </nav>
-    </header>
-<main class="main">
- 
-  <div class="heading">
-     <h2 > ALL PRODUCTS</h2>
-     <img class="icon hide"src="sample/search-i.png"alt="close"onclick=showaside()>
-    
-   <div class="wrap">
-    <div class="searchbar Hide_bar">
-    <img class="icon"src="sample/close.png"alt="close"onclick=hidesearchbar()>
-    <h3>All Products </h3>
-    <div class=""> <input class="i"type="text"placeholder="Search"></div>
-    
-    <div class="f-row">
-      <label for="T-shirt">T-shirt</label>
-      <input id="T-shirt"name="products"type="checkbox"value="T-shirt">
-    </div>
-    <div class="f-row">
-      <label for="shirt">Shirt</label>
-      <input id="shirt"name="products"type="checkbox"value="shirt">
-    </div>
-    <div class="f-row">
-      <label for="Jacket">Jacket and Hoddies</label>
-      <input id="Jacket"name="products"type="checkbox"value="jacket">
-    </div>
-    <div class="f-row">
-      <label for="dress">Dress</label>
-      <input id="dress"name="products"type="checkbox"value="dress">
-    </div>
-    <div class="f-row">
-      <label for="Trousers">Trousers</label>
-      <input id="Trousers"name="products"type="checkbox"value="trousers">
-    </div>
-    <div class="f-row" >
-      <label for="Jeans">Jeans</label>
-      <input id="Jeans"name="products"type="checkbox"value="jeans">
-    </div>
-    <div class="f-row">
-      <label for="Shoe">Shoe</label>
-      <input id="Shoe"name="products"type="checkbox"value="shoe">
-    </div>
-    <div class="f-row">
-      <label for="others">Others</label>
-      <input id="others"name="products"type="checkbox">
-    </div>
-    <h3>Filter by</h3>
-    <div class="f-row" >
-      <label for="Price">Price</label>
-      <select name="price"id="price">
-        <option value="$0-$50">$0-$50</option>
-      </select>
-    </div>
-    <div class="f-row">
-      <label for="size">Size</label>
-      <select name="size"id="size">
-        <option value="$0-$50">$0-$50</option>
-      </select>
-    </div>
-    
-    <div class="f-row">
-      <label for="color">Color</label>
-      <select name="price"id="color">
-        <option value="$0-$50">$0-$50</option>
-      </select>
-    </div>
-    </div>
-    </div>
-  </div>
-  <aside class="aside">
-     <h3>Browse By </h3>
-     <div > <input class="i"type="text"placeholder="Search"></div>
-    <h3>All Products </h3>
-    <div class="f-row">
-      <label for="T-shirt">T-shirt</label>
-      <input id="T-shirt"name="products"type="checkbox"value="T-shirt">
-    </div>
-    <div class="f-row">
-      <label for="shirt">Shirt</label>
-      <input id="shirt"name="products"type="checkbox"value="shirt">
-    </div>
-    <div class="f-row">
-      <label for="Jacket">Jacket and Hoddies</label>
-      <input id="Jacket"name="products"type="checkbox"value="jacket">
-    </div>
-    <div class="f-row">
-      <label for="dress">Dress</label>
-      <input id="dress"name="products"type="checkbox"value="dress">
-    </div>
-    <div class="f-row">
-      <label for="Trousers">Trousers</label>
-      <input id="Trousers"name="products"type="checkbox"value="trousers">
-    </div>
-    <div class="f-row" >
-      <label for="Jeans">Jeans</label>
-      <input id="Jeans"name="products"type="checkbox"value="jeans">
-    </div>
-    <div class="f-row">
-      <label for="Shoe">Shoe</label>
-      <input id="Shoe"name="products"type="checkbox"value="shoe">
-    </div>
-    <div class="f-row">
-      <label for="others">Others</label>
-      <input id="others"name="products"type="checkbox">
-    </div>
-    <h3>Filter by</h3>
-    <div class="f-row" >
-      <label for="Price">Price</label>
-      <select name="price"id="price">
-        <option value="$0-$50">$0-$50</option>
-      </select>
-    </div>
-    <div class="f-row">
-      <label for="size">Size</label>
-      <select name="size"id="size">
-        <option value="$0-$50">$0-$50</option>
-      </select>
-    </div>
-    
-    <div class="f-row">
-      <label for="color">Color</label>
-      <select name="price"id="color">
-        <option value="$0-$50">$0-$50</option>
-      </select>
-    </div>
-  </aside>
-   <div class="products">
-    
-      <div class="Product_scroll Hide_bar">
-                
-               <article class="Product_box"> 
-                <img class="Productimg"src="sample/search.jpg"alt="close">
-                <span>Product</span>
-                <span>$250</span>
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box"> 
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box"> 
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-            </div>
+  <header class="header">
+    <h2>Phantom Stitch.</h2>
+    <nav class="naver-link">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="product.html" class="nav-link">Shop</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="cart.html" class="nav-link-icon"><img class="icon" src="sample/shopping-bag.png"
+              alt="cart"></a></li>
+        <li class="nav-item"><a href="login.html" class="nav-link"><img class="icon" src="sample/user.png"
+              alt="sign"></a></li>
+        <li class="nav-item" onclick=showsidebar()><img src="sample/menu.png" alt="menu" class="menu-btn icon"></li>
+      </ul>
+      <ul class="sidebar">
+        <li class="nav-itemc" onclick=hidesidebar()><img class="icon" src="sample/close.png" alt="close"></li>
+        <li class="nav-itemi"><a href="login.html" class="nav-link2"><img class="log icon" src="sample/user.png"
+              alt="sign">Log In</a></li>
+        <li class="nav-item2"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item2"><a href="shop.html" class="nav-link">Shop</a></li>
+        <li class="nav-item2"><a href="about.html" class="nav-link">About</a></li>
 
+      </ul>
+    </nav>
+  </header>
+  <main class="main">
 
-            <div class="Product_scroll Hide_bar">
-                <article class="Product_box"> 
-                    <img class="Productimg"src="sample/search.jpg"alt="close">
-                    <span>Product</span>
-                    <span>$250</span>
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box"> 
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box"> 
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-            </div>
+    <div class="heading">
+      <h2> ALL PRODUCTS</h2>
+      <img class="icon hide" src="sample/search-i.png" alt="close" onclick=showaside()>
 
-            <div class="Product_scroll Hide_bar">
-                <article class="Product_box"> 
-                    <img class="Productimg"src="sample/search.jpg"alt="close">
-                    <span>Product</span>
-                    <span>$250</span>
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box"> 
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box"> 
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-            </div>
-   </div>
-</main>
-<footer>
-        <a href="login.html">Contact Us</a>
-        <p>&copf;2025 Phantom Stitch</p>
-    </footer>
+      <div class="wrap">
+        <div class="searchbar Hide_bar">
+          <img class="icon" src="sample/close.png" alt="close" onclick=hidesearchbar()>
+          <h3>All Products </h3>
+          <div class=""> <input class="i" type="text" placeholder="Search"></div>
+
+          <div class="f-row">
+            <label for="T-shirt">T-shirt</label>
+            <input id="T-shirt" name="products" type="checkbox" value="T-shirt">
+          </div>
+          <div class="f-row">
+            <label for="shirt">Shirt</label>
+            <input id="shirt" name="products" type="checkbox" value="shirt">
+          </div>
+          <div class="f-row">
+            <label for="Jacket">Jacket and Hoddies</label>
+            <input id="Jacket" name="products" type="checkbox" value="jacket">
+          </div>
+          <div class="f-row">
+            <label for="dress">Dress</label>
+            <input id="dress" name="products" type="checkbox" value="dress">
+          </div>
+          <div class="f-row">
+            <label for="Trousers">Trousers</label>
+            <input id="Trousers" name="products" type="checkbox" value="trousers">
+          </div>
+          <div class="f-row">
+            <label for="Jeans">Jeans</label>
+            <input id="Jeans" name="products" type="checkbox" value="jeans">
+          </div>
+          <div class="f-row">
+            <label for="Shoe">Shoe</label>
+            <input id="Shoe" name="products" type="checkbox" value="shoe">
+          </div>
+          <div class="f-row">
+            <label for="others">Others</label>
+            <input id="others" name="products" type="checkbox">
+          </div>
+          <h3>Filter by</h3>
+          <div class="f-row">
+            <label for="Price">Price</label>
+            <select name="price" id="price">
+              <option value="$0-$50">$0-$50</option>
+            </select>
+          </div>
+          <div class="f-row">
+            <label for="size">Size</label>
+            <select name="size" id="size">
+              <option value="$0-$50">$0-$50</option>
+            </select>
+          </div>
+
+          <div class="f-row">
+            <label for="color">Color</label>
+            <select name="price" id="color">
+              <option value="$0-$50">$0-$50</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="aside">
+      <h3>Browse By </h3>
+      <div> <input class="i" type="text" placeholder="Search"></div>
+      <h3>All Products </h3>
+      <div class="f-row">
+        <label for="T-shirt">T-shirt</label>
+        <input id="T-shirt" name="products" type="checkbox" value="T-shirt">
+      </div>
+      <div class="f-row">
+        <label for="shirt">Shirt</label>
+        <input id="shirt" name="products" type="checkbox" value="shirt">
+      </div>
+      <div class="f-row">
+        <label for="Jacket">Jacket and Hoddies</label>
+        <input id="Jacket" name="products" type="checkbox" value="jacket">
+      </div>
+      <div class="f-row">
+        <label for="dress">Dress</label>
+        <input id="dress" name="products" type="checkbox" value="dress">
+      </div>
+      <div class="f-row">
+        <label for="Trousers">Trousers</label>
+        <input id="Trousers" name="products" type="checkbox" value="trousers">
+      </div>
+      <div class="f-row">
+        <label for="Jeans">Jeans</label>
+        <input id="Jeans" name="products" type="checkbox" value="jeans">
+      </div>
+      <div class="f-row">
+        <label for="Shoe">Shoe</label>
+        <input id="Shoe" name="products" type="checkbox" value="shoe">
+      </div>
+      <div class="f-row">
+        <label for="others">Others</label>
+        <input id="others" name="products" type="checkbox">
+      </div>
+      <h3>Filter by</h3>
+      <div class="f-row">
+        <label for="Price">Price</label>
+        <select name="price" id="price">
+          <option value="$0-$50">$0-$50</option>
+        </select>
+      </div>
+      <div class="f-row">
+        <label for="size">Size</label>
+        <select name="size" id="size">
+          <option value="$0-$50">$0-$50</option>
+        </select>
+      </div>
+
+      <div class="f-row">
+        <label for="color">Color</label>
+        <select name="price" id="color">
+          <option value="$0-$50">$0-$50</option>
+        </select>
+      </div>
+    </aside>
+    <!--Important calss-->
+    <article class="products">
+        
+    </article>
+  </main>
+  <footer>
+    <a href="login.html">Contact Us</a>
+    <p>&copf;2025 Phantom Stitch</p>
+  </footer>
 
   <script>
-   function showsidebar(){
-    const sidebar = document.querySelector('.sidebar')
-        sidebar.style.display='flex'
-    
-   }
-   function hidesidebar(){
-    const sidebar = document.querySelector('.sidebar')
-        sidebar.style.display='none'
-    
-   }
-      function showaside(){
-    const sidebar = document.querySelector('.searchbar')
-        sidebar.style.display='flex '
-         const s = document.querySelector('.heading')
-        s.style.height='50vh'
-        s.style.width='50vh'
-    
-   }
-    function hidesearchbar(){
-    const searchbar = document.querySelector('.searchbar')
-        searchbar.style.display='none'
-    const heading= document.querySelector('.heading')
-    heading.style.height='2%'
-    
-   }
+    function showsidebar() {
+      const sidebar = document.querySelector('.sidebar')
+      sidebar.style.display = 'flex'
+
+    }
+    function hidesidebar() {
+      const sidebar = document.querySelector('.sidebar')
+      sidebar.style.display = 'none'
+
+    }
+    function showaside() {
+      const sidebar = document.querySelector('.searchbar')
+      sidebar.style.display = 'flex '
+      const s = document.querySelector('.heading')
+      s.style.height = '50vh'
+      s.style.width = '50vh'
+
+    }
+    function hidesearchbar() {
+      const searchbar = document.querySelector('.searchbar')
+      searchbar.style.display = 'none'
+      const heading = document.querySelector('.heading')
+      heading.style.height = '2%'
+
+    }
   </script>
 </body>
+
 </html>
