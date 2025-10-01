@@ -35,14 +35,15 @@ async function getProductById(productId) {
       pv.stock_quantity,
       pv.color,
       c.name AS catName,
-      c.category_id
+      c.category_id,
+      pv.variant_id
     FROM products p
     JOIN product_variants pv ON p.product_id = pv.product_id
     JOIN categories c ON p.category_id = c.category_id
     WHERE p.product_id = $1
 `;
   const result = await db.query(sql, [productId]);
-  return result.rows[0];
+  return result.rows;
 }
 
 // --- UPDATE ---
