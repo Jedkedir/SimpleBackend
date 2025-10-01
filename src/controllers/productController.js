@@ -44,6 +44,27 @@ exports.createProductController = async (req, res) => {
   }
 };
 
+exports.getProductByCategory = async (req, res) => {
+  try {
+    const catName = req.body.catName
+    console.log(catName)  
+
+    const productData = await product.getProductsByCatName(catName);
+
+    if (!productData) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json({
+      similarPro: productData
+  });
+  }
+  catch (error) {
+    console.error("Error fetching product:", error.message);
+    res.status(500).json({ error: "Failed to fetch product" });
+  }
+}
+
 /**
  * GET /products/:id
  * @function getProductByIdController
@@ -61,6 +82,8 @@ exports.getProductByIdController = async (req, res) => {
     }
 
     const productData = await product.getProductById(productId);
+    console.log(productData)
+    
     
     if (!productData) {
       return res.status(404).json({ error: "Product not found" });
@@ -137,6 +160,7 @@ exports.deleteProductController = async (req, res) => {
 exports.getAllProductsController= async (req, res) => {
   try {
     const products = await product.getAllProducts();
+    
     res.status(200).json({products});
   } catch (error) {
     console.error("Error fetching products:", error.message);

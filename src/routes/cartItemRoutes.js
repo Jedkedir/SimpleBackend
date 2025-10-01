@@ -29,7 +29,7 @@ const {
  * @param {Integer} quantity - The quantity of the product being added.
  * @returns {Response} - Response with either the updated cart item or an error message.
  */
-router.post("/", addOrUpdateCartItemController);
+router.post("/", addOrUpdateCartItemController);  
 
 /**
  * @description Fetches all cart items belonging to a specific cart.
@@ -37,7 +37,7 @@ router.post("/", addOrUpdateCartItemController);
  * @param {Integer} cartId - The cart ID to fetch items for.
  * @returns {Response} - Response with an array of cart items or an error message.
  */
-router.get("/:cartId", getCartItemsController);
+router.get("/:userId", getCartItemsController);
 
 /**
  * @description Deletes a cart item by its ID.

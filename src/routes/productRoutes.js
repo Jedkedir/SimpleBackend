@@ -25,6 +25,7 @@ const {
   updateProductController,
   deleteProductController,
   getAllProductsController,
+  getProductByCategory,
 } = require("../controllers/productController");
 
 router.get("/get-all", getAllProductsController);
@@ -47,6 +48,9 @@ router.post("/", createProductController);
  * @returns {Response} - Response with either the product or an error message.
  */
 router.get("/:id", getProductByIdController);
+
+
+router.post("/get-by-cat", getProductByCategory);
 
 
 /**

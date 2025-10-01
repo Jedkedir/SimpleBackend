@@ -53,15 +53,19 @@ exports.addOrUpdateCartItemController = async (req, res) => {
  */
 exports.getCartItemsController = async (req, res) => {
   try {
-    const cartId = parseInt(req.params.cartId);
+    const userId = parseInt(req.params.userId);
+    console.log(userId)
 
-    if (isNaN(cartId)) {
+    if (isNaN(userId)) {
       return res.status(400).json({ error: "Invalid cart ID format." });
     }
 
-    const items = await cartItemService.getCartItems(cartId);
+    const items = await cartItemService.getCartItems(userId);
+    console.log(items)
 
-    res.status(200).json(items);
+    res.status(200).json({
+      cartItems: items
+    });
   } catch (error) {
     console.error("Error fetching cart items:", error.message);
     res.status(500).json({ error: "Failed to fetch cart items" });

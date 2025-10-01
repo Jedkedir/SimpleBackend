@@ -60,7 +60,9 @@ exports.getReviewsByProductIdController = async (req, res) => {
     }
 
     const reviews = await reviewService.getReviewsByProductId(productId);
-    res.status(200).json(reviews);
+    res.status(200).json({
+      reviewsRes: reviews
+    });
   } catch (error) {
     console.error("Error fetching reviews:", error.message);
     res.status(500).json({ error: "Failed to fetch reviews" });

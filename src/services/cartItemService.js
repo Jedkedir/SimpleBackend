@@ -19,12 +19,29 @@ async function addOrUpdateCartItem({ userId, variantId, quantity }) {
 
 /**
  * Fetches all cart items for a given cart ID.
- * @param cartId - The ID of the cart.
+ * @param userId - The ID of the cart.
  * @returns { rows } - An array of objects containing cart item information.
  */
-async function getCartItems(cartId) {
-  const sql = `SELECT * FROM get_cart_items_by_cart_id($1);`;
-  const result = await db.query(sql, [cartId]);
+async function getCartItems(userId) {
+  const sql = `
+    SELECT 
+    ci.cart_item_id,
+    ci.cart_id,
+    ci.variant_id,
+    ci.quantity,
+    pv.color AS variant_color,
+    pv.size AS variant_size,
+    pv.price AS variant_price,
+    pv.image_url AS variant_image,
+    p.name AS product_name
+FROM cart_items ci
+JOIN carts c ON ci.cart_id = c.cart_id
+JOIN product_variants pv ON ci.variant_id = pv.variant_id
+JOIN products p ON pv.product_id = p.product_id
+WHERE c.user_id = $1;
+
+    ;`;
+  const result = await db.query(sql, [userId]);
   return result.rows;
 }
 
