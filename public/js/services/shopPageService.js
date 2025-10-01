@@ -7,7 +7,7 @@ export async function getShoppingPageData() {
   try {
     // Fetch all data in parallel
     const shopData = await apiGet("/products/get-all");
-    console.log(shopData)
+   
 
     // Return organized data object
     return {
