@@ -41,11 +41,11 @@ CREATE DATABASE clothingDB;
 ```
 - **Load Schema**: 
 ```bash
-psql -d clothingDB -f schema_and_indexing.sql
+schema_and_indexing.sql
 ```
 - **Load Procedures**: 
 ```bash
-psql -d clothingDB -f procedures_and_triggers.sql
+procedures_and_triggers.sql
 ```
 
 #### 2. Project Setup
@@ -84,14 +84,14 @@ The database is highly normalized to handle the complexities of e-commerce data:
 | Table            | Purpose                                              | Key Relations |
 |------------------|------------------------------------------------------|---------------|
 | users            | Stores user credentials and profile data.             | Primary entity. |
-| categories       | Organizes products (supports nested categories).      | `parent_category_id` references categories. |
+| categories       | Organizes products (supports nested categories).      |  |
 | products         | Core product information.                             | Links to categories. |
 | product_variants | Size, color, stock, and image URL for product versions.| Links to products. |
 | carts, cart_items| Stores current items in a user's shopping cart.       | Links to users and product_variants. |
 | orders, order_items | Completed transactions and the items included.     | Links to users, addresses, and product_variants. |
 
 **Key Stored Procedures**
-The `crud_procedures.sql` file contains essential utility functions, including:
+The `schema_and_indexing.sql` file contains essential utility functions, including:
 
 - `get_or_create_cart(p_user_id)`: Ensures every user has an active cart.
 - `add_to_cart(p_user_id, p_variant_id, p_quantity)`: Handles insertion or updating quantity if the item is already present.
