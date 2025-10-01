@@ -82,7 +82,7 @@ exports.getProductByIdController = async (req, res) => {
     }
 
     const productData = await product.getProductById(productId);
-    console.log(productData)
+    // console.log(productData)
     
     
     if (!productData) {

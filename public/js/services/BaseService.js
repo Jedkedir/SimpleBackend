@@ -11,7 +11,7 @@
  */
 export async function baseRequest(endpoint, options = {}) {
   try {
-    const url = `/api${endpoint}`;
+    const url = `http://localhost:8000/api${endpoint}`;
 
     // Default headers
     const headers = {

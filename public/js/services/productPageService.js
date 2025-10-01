@@ -5,17 +5,18 @@ import { apiGet, apiPost } from "./BaseService.js";
  */
 export async function getProductPageData(productId) {
   try {
+
     // Fetch all data in parallel
-    const [productData] = await apiGet(`/products/: ${productId}`);
-    const [reviewData] = await apiGet(`reviews/product/:${productId}`)    
+    const productData = await apiGet(`/products/${productId}`);
+    const reviewData = await apiGet(`/products/${productId}`)    
     // const [addReview] = await apiPost("/reviews", { body: review});
-    const [similarData] = await apiPost('products/get-by-cat', {body: productData.catName})
+    const similarData = await apiPost('/products/get-by-cat', {body: productData.catName})
 
     // Return organized data object
     return {
       success: true,
       data: {
-        Product: productData.products || [],   
+        Product: productData || [],   
         Reviews: reviewData.reviewRes || [],
         SimilarProducts: similarData.similarPro || [],
         user: {
@@ -26,6 +27,7 @@ export async function getProductPageData(productId) {
       },
     };
   } catch (error) {
+
     console.error("Service: Failed to fetch product page data:", error);
     return {
       success: false,

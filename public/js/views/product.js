@@ -12,17 +12,22 @@ const quantity = document.querySelector('.quantity')
 
 const url = new URL(window.location.href);
 
-
+console.log(url)
 const params = new URLSearchParams(url.search);
 
 
 const id = params.get('id');
 try {
+    console.log("hello" )
+
     const pageData = await getProductPageData(id)
+        console.log(pageData)
+
     if (pageData.success){
-        product_detail(product)
+        product_detail(pageData.data.Product)
 
     }
+    console.log(pageData.data)
 } catch (error) {
     console.log(error)
 }
@@ -48,11 +53,3 @@ function product_detail(product) {
     })
 }
 
-
-product = {
-    name: "savage",
-    description: "Hello am under the water",
-    image: "sample/shirt.jpg",
-    colors: [{ src: "sample/user.jpg" }, { src: "sample/landing1.jpg" }],
-    sizes: ['s', 'm', 'l']
-}

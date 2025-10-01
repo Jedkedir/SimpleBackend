@@ -40,7 +40,7 @@ function product_category(grouped_by_cat) {
             product_img.classList.add("Productimg")
 
             product_tile.addEventListener('click',()=>{
-                 window.location.href = "/"+groupedElements[0]["product_id"]
+                  window.location.href = "/public/product.html?id="+groupedElements[0]["product_id"]
             })
 
             product_img.src = groupedElements[0]["base_image_url"]
