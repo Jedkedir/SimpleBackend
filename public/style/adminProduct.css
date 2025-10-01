@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+header {
+    font-family: 'Inter',Arial, Helvetica, sans-serif;
+    width: 100%;
+
+    padding: 1%;
+    margin-bottom: 1%;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: black;
+    color: white;
+}
+
+header h2{
+    width: 50%;
+}
+
+header nav {
+    
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+
+main {
+    width: 100%;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+.inputs {
+    display: flex;
+    gap: 30px;
+    justify-content: right;
+    
+}
+
+.base_inputs {
+    width: 50%;
+
+    padding: 1%;
+
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.image_inputs {
+    width: 50%;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+
+}
+.image_inputs button{
+    width: 15em;
+    height: 15em;
+}
+.image_inputs p {
+    width: 13em;
+    text-align: left;
+}
+
+.base_inputs input, .base_inputs textarea{
+    width: max(20vw,200px);
+}
+
+.base_inputs textarea {
+    resize: none;
+}
+
+.more_buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+.more_buttons  button{
+    width: 10%;
+}
+
+footer {
+    background-color: #524343;
+    color: white;
+    margin-top: 3%;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+
+}
+footer a{
+    color: white;
+}
+

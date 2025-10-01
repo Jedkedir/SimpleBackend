@@ -1,0 +1,190 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../sample/blackStore\ 1.svg);
+}
+
+/* Container for the login section */
+.container {
+
+    width: 95%;
+    max-width: 400px; /* Mobile-first width */
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Sections stacked vertically on mobile */
+.hold {
+    display: flex;
+    flex-direction: column; /* Mobile-first: vertical stack */
+}
+
+/* Each section */
+.sec {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Right section image */
+.sec img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 15px;
+}
+ 
+.image{
+    display: none;
+}
+
+/* Headings */
+.sec h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* User icon */
+#user-icon {
+    font-size: 50px;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+    transition: color 0.3s;
+}
+
+/* Labels and inputs */
+label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    width: 100%;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border: 2px solid gray;
+    outline: none;
+}
+
+/* Show password checkbox */
+#show-pass {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+/* Sign Up button */
+/*
+button {
+    padding: 12px;
+    background-color: gray;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: darkgray;
+    transform: translateY(-2px);
+}
+*/
+
+/* Footer */
+.fot {
+    width: 100%;
+    text-align: center;
+    background: #524343;
+    color: #fff;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+.fot span {
+    display: block;
+    margin-top: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem
+}
+
+.login-btn {
+    width: 50%;
+}
+
+.signup-btn{
+    width: 50%;
+}
+
+.login-btn, .signup-btn {
+    border: 3px solid #88540F;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: white;
+    font-size: 1.2em;
+    font-weight: 550;
+    border-radius: 45px;
+    height: 140%;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    background: #88540F;
+    color: white;
+    font-size: 1.5em;
+}
+
+/* Larger screens: tablet/desktop */
+@media (min-width: 769px) {
+    .container {
+        max-width: 900px;
+    }
+
+    .hold {
+        flex-direction: row; /* Side by side sections on desktop */
+    }
+    body {
+        background-image: none;
+    }
+    .sec {
+        padding: 30px;
+        flex: 1;
+    }
+    .image {
+        display: block;
+    }
+   
+}
