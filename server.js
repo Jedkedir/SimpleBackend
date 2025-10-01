@@ -38,12 +38,11 @@ const { protect } = require('./src/middleware/authMiddleware'); // Middleware to
 
 const app = express();
 const PORT = process.env.PORT || 8000; 
+// Global variable to hold the cached HTML content
+let cachedIndexHtml = null; 
 
-/**
- * --- 1. Middleware Setup ---
- */
+
 // Enable CORS for frontend communication
-// Allows all origins for development (CHANGE TO YOUR FRONTEND URL IN PRODUCTION)
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); 
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -57,10 +56,22 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 
-/**
- * --- 2. Route Mounting ---
- * All API endpoints are prefixed with '/api'.
- */
+
+// Custom route for the root path (/) that serves the CACHED HTML file.
+app.get('/', (req, res) => {
+    if (cachedIndexHtml) {
+        // Set aggressive browser caching headers for the static page
+        res.set('Cache-Control', 'public, max-age=3600'); // Cache in browser for 1 hour
+        res.set('Content-Type', 'text/html');
+        // Serve the cached content directly from memory
+        return res.send(cachedIndexHtml);
+    }
+    // Fallback if caching failed, though this should ideally not be reached
+    console.warn('Cached HTML not available, serving file without explicit caching headers.');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Route Mounting 
 
 // Public Auth routes (Login, Register) - NO PROTECTION
 app.use('/api/auth', authRoutes);
@@ -96,13 +107,9 @@ app.use(express.static(path.join(__dirname, "public"), {
   lastModified: true 
 }));
 
-/**
- * --- 3. Database Connection and Server Start ---
- */
-/**
- * Connects to the PostgreSQL database pool and starts the Express server.
- * @function connectAndListen
- */
+
+ // Database Connection and Server Start ---
+ 
 async function connectAndListen() {
     try {
         // Attempt a simple query to verify the database connection
