@@ -5,15 +5,18 @@ const main = document.querySelector('main')
 const products = document.querySelector('.products')
 
 const pageData = await getShoppingPageData()
-
-if (pageData.success == false){
-    console.log(pageData.error)
-}else{
-    grouped_by_id = group_by_product(pageDatadata.data)
-    grouped_by_cat = group_by_category(grouped_by_id)
-    product_category(grouped_by_cat)
-
+try {
+    if (pageData.success == false) {
+      //console.log(pageData.error);
+    } else {
+      let grouped_by_id = group_by_product(pageData.data);
+      let grouped_by_cat = group_by_category(grouped_by_id);
+      product_category(grouped_by_cat);
+    }
+} catch (error) {
+    console.log(error);
 }
+
 function product_category(grouped_by_cat) {
     for(const categ_key in grouped_by_cat){
         let productWrapper = document.createElement('div')
@@ -57,8 +60,8 @@ function product_category(grouped_by_cat) {
     }
 }
 function group_by_product(response) {
-
-    grouped = response.products.reduce((accumulator, item) => {
+    console.log(response)
+   let  grouped = response.Products.reduce((accumulator, item) => {
 
         const id = item["product_id"];
 
@@ -80,7 +83,7 @@ function group_by_category(response) {
     let accumulator = {}
     for (const keys in response) {
 
-        item = response[keys]
+        let item = response[keys]
         console.log(item)
         const category = item["category"];
         
