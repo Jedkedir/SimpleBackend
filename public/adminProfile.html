@@ -1,11 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Profile</title>
+    <link href="style/adminProfile.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="header">
+      <h2>Phantom Stitch.</h2>
+      <nav class="naver-link">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="adminDashboard.html" class="nav-link">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a href="adminProduct.html" class="nav-link">Products</a>
+          </li>
+          <li class="nav-item">
+            <a href="adminStock.html" class="nav-link">Stock</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link"
+              ><img class="icon" src="sample/vector.png" alt="sign"
+            /></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <img src="sample/user.jpg" alt="Profile icon" />
+      <section class="user_info">
+        <div class="user_info_left">
+          <label>First name</label>
+          <label class="name"> John</label>
+          <p>Email</p>
+          <p class="email">JohnDoe@email.com</p>
+        </div>
+        <div class="user_info_right">
+          <label>Last Name</label>
+          <label class="name"> Doe</label>
+        </div>
+      </section>
+
+      <section class="add_admin">
+        <h2>Add Adminstrator</h2>
+        <div class="user_info2">
+          <div class="user_info_left">
+            <div class="inner-i">
+              <label for="First_name">First name</label>
+              <input type="text" id="First_name" name="First_name" />
+            </div>
+
+            <div class="inner-i">
+              <label for="Email">Email</label>
+              <input type="email" id="Email" name="Email" />
+            </div>
+            <div class="inner-i">
+              <label for="pass">New Password</label>
+              <input type="password" id="pass" name="password" />
+            </div>
+          </div>
+          <div class="user_info_right2">
+            <div class="inner-i">
+              <label for="last_name">Last name</label>
+              <input type="text" id="last_name" name="Last_name" />
+            </div>
+
+            <div class="inner-i">
+              <label for="password">Confirm Password</label>
+              <input
+                class="conf"
+                type="password"
+                id="password"
+                name="password"
+              />
+            </div>
+          </div>
+        </div>
+        <button>Add</button>
+      </section>
+    </main>
+    <footer>
+      <a href="login.html">Contact Us</a>
+      <p>&copf;2025 Phantom Stitch</p>
+    </footer>
+    <script>
+      function showsidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.style.display = "flex";
+      }
+      function hidesidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.style.display = "none";
+      }
+    </script>
+  </body>
 </html>

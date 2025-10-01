@@ -17,7 +17,7 @@ export async function initCartPage() {
 }
 
 function renderCart(cartItems) {
-  const container = document.getElementById("cart-items");//TODO
+  const container = document.getElementById("cart-items"); //TODO
   if (!container) return;
 
   if (cartItems.length === 0) {

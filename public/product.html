@@ -1,180 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style/newproduct.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Page</title>
+    <link rel="stylesheet" href="style/newproduct.css" />
     <script type="module" src="js/views/product.js" defer></script>
-</head>
-<body>
-     <header class="header">
-        <h2>Phantom Stitch.</h2>
-        <nav class="naver-link">
-              <ul class="nav-list">
-                <li class="nav-item"><a href="index.html"class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="product.html"class="nav-link">Shop</a></li>
-                <li class="nav-item"><a href="about.html"class="nav-link">About</a></li>
-                <li class="nav-item"><a href="cart.html"class="nav-link-icon"><img class="icon"src="sample/shopping-bag.png"alt="cart"></a></li>
-                <li class="nav-item"><a href="login.html"class="nav-link"><img class="icon"src="sample/user.png"alt="sign"></a></li>
-                 <li class="nav-item" onclick=showsidebar()><img src="sample/menu.png"alt="menu"class="menu-btn icon"></li>
-            </ul>
-            <ul class="sidebar">
-                <li class="nav-itemc" onclick=hidesidebar()><img class="icon"src="sample/close.png"alt="close"></li>
-                <li class="nav-itemi"><a href="login.html"class="nav-link2"><img class="log icon" src="sample/user.png"alt="sign">Log In</a></li>
-                <li class="nav-item2"><a href="index.html"class="nav-link">Home</a></li>
-                <li class="nav-item2"><a href="shop.html"class="nav-link">Shop</a></li>
-                <li class="nav-item2"><a href="about.html"class="nav-link">About</a></li>
-               
-            </ul>
-        </nav>
+  </head>
+  <body>
+    <header class="header">
+      <h2>Phantom Stitch.</h2>
+      <nav class="naver-link">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="shop.html" class="nav-link">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="userCart.html" class="nav-link-icon"
+              ><img class="icon" src="sample/shopping-bag.png" alt="cart"
+            /></a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link"
+              ><img class="icon" src="sample/user.png" alt="sign"
+            /></a>
+          </li>
+          <li class="nav-item" onclick="showsidebar()">
+            <img src="sample/menu.png" alt="menu" class="menu-btn icon" />
+          </li>
+        </ul>
+        <ul class="sidebar">
+          <li class="nav-itemc" onclick="hidesidebar()">
+            <img class="icon" src="sample/close.png" alt="close" />
+          </li>
+          <li class="nav-itemi">
+            <a href="login.html" class="nav-link2"
+              ><img class="log icon" src="sample/user.png" alt="sign" />Log
+              In</a
+            >
+          </li>
+          <li class="nav-item2">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item2">
+            <a href="shop.html" class="nav-link">Shop</a>
+          </li>
+          <li class="nav-item2">
+            <a href="about.html" class="nav-link">About</a>
+          </li>
+        </ul>
+      </nav>
     </header>
-    
-    
+
     <main>
-        <a href="" class="Return_button"><img src="sample/back-button.png"alt="backnutton"class="back-btn"></a>
-        <section class="Product_detail">
-  
-            <div class="Product_description">
-                <img src="sample/search.jpg" alt="" class="Product_image">
-                
-                <h3>Description</h3>
-                <p class="description">I'm a product detail. I'm a great place to add more information about your product such as sizing, material, care and cleaning instructions. This is also a great space to write what makes this product special and how your customers can benefit from this item. Buyers like to know the specifics of what they are buying</p>
-            </div>
-            <div class="Product_variants">
-                <h1 class="product_name">T-Shirt</h1>
-                <h2>$250</h2>
-                <label for="colors">Color</label>
-                <div class="colors">
-                    
-                </div>
-                <label for="size">Size</label>
-                <select name="" id="size">
-                
-                   
-                </select>
-                <label for="Quantity">Quantity</label>
-                <input type="number"class="num">
-                <button class="cart-btn">Add to cart</button>
-                <button class ="pur-btn">Purchase Now</button>
+      <a href="" class="Return_button"
+        ><img src="sample/back-button.png" alt="backnutton" class="back-btn"
+      /></a>
+      <section class="Product_detail">
+        <div class="Product_description">
+          <img src="sample/search.jpg" alt="" class="Product_image" />
 
-            </div>
-        </section>
-        <section class="Product_review">
-            <div class="Product_review_title">
-                <h2>Product Review</h2>
-                <a href="">View All</a>
-            </div>
-            
-            <div class="Product_review_comments Hide_bar">
-                <article class="comment">
-                    <form>
-                        <label for ="comment">Comment</label>
-                        <textarea id="comment" name="comment"cols="30"rows="8"placeholder="Write ur comment"></textarea>
-                        <button class="send-btn"> Send</button>
-                    </form>
-                </article >
-                <article class="review_box">
-                    <div class="inner-review-cont">
-                        <img src="sample/user2.png"alt="user"class="icon">
-                        <div>
-                        <h2>Bob</h2>
-                        <time>12/12/2012</time>
-                        </div>
-                        <span>5 <img src="sample/star.png"alt="user"class="icon"></span>
-                    </div>
-                     <p>
-                        I'm a product detail. I'm a great place to add more information about your product such as sizing, material, care and cleaning instructions. This is also a great space to write what makes this product special and how your customers can benefit from this item. Buyers 
-                     </p>
+          <h3>Description</h3>
+          <p class="description">
+            I'm a product detail. I'm a great place to add more information
+            about your product such as sizing, material, care and cleaning
+            instructions. This is also a great space to write what makes this
+            product special and how your customers can benefit from this item.
+            Buyers like to know the specifics of what they are buying
+          </p>
+        </div>
+        <div class="Product_variants">
+          <h1 class="product_name">T-Shirt</h1>
+          <h2>$250</h2>
+          <label for="colors">Color</label>
+          <div class="colors"></div>
+          <label for="size">Size</label>
+          <select name="" id="size"></select>
+          <label for="Quantity">Quantity</label>
+          <input type="number" class="num" />
+          <button class="cart-btn">Add to cart</button>
+          <button class="pur-btn">Purchase Now</button>
+        </div>
+      </section>
+      <section class="Product_review">
+        <div class="Product_review_title">
+          <h2>Product Review</h2>
+          <a href="">View All</a>
+        </div>
 
-                </article >
-                <article class="review_box">
-                    <p>Review</p>
-                </article>
-                <article class="review_box">
-                    <p>Review</p>
-                </article >
-                <article class="review_box">
-                    <p>Review</p>
-                </article >
-                <article class="review_box">
-                    <p>Review</p>
-                </article>
-                <article class="review_box">
-                    <p>Review</p>
-                </article >
-                <article class="review_box">
-                    <p>Review</p>
-                </article >
-                <article class="review_box">
-                    <p>Review</p>
-                </article>
-                <article class="review_box">
-                    <p>Review</p>
-                </article >
-                <article class="review_box">
-                    <p>Review</p>
-                </article >
-                <article class="review_box">
-                    <p>Review</p>
-                </article>
+        <div class="Product_review_comments Hide_bar">
+          <article class="comment">
+            <form>
+              <label for="comment">Comment</label>
+              <textarea
+                id="comment"
+                name="comment"
+                cols="30"
+                rows="8"
+                placeholder="Write ur comment"
+              ></textarea>
+              <button class="send-btn">Send</button>
+            </form>
+          </article>
+          <article class="review_box">
+            <div class="inner-review-cont">
+              <img src="sample/user2.png" alt="user" class="icon" />
+              <div>
+                <h2>Bob</h2>
+                <time>12/12/2012</time>
+              </div>
+              <span
+                >5 <img src="sample/star.png" alt="user" class="icon"
+              /></span>
             </div>
-        </section>
-        <section class="Similar_product">
-            <h2>Similar Products</h2>
-            <div class="Similar_product_scroll Hide_bar">
-               <article class="Product_box"> 
-                    <img class="Productimg"src="sample/search.jpg"alt="close">
-                    <span>Product</span>
-                    <span>$250</span>
-                </article>
-               <article class="Product_box"> 
-                    <img class="Productimg"src="sample/search.jpg"alt="close">
-                    <span>Product</span>
-                    <span>$250</span>
-                </article>
-            <article class="Product_box"> 
-                    <img class="Productimg"src="sample/search.jpg"alt="close">
-                    <span>Product</span>
-                    <span>$250</span>
-                </article>
-                <article class="Product_box"> 
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box">
-                    Products
-                </article>
-                <article class="Product_box"> 
-                    Products
-                </article>
-                <article class="Similar_product_box">
-                    Products
-                </article>
-                <article class="Similar_product_box">
-                    Products
-                </article>
+            <p>
+              I'm a product detail. I'm a great place to add more information
+              about your product such as sizing, material, care and cleaning
+              instructions. This is also a great space to write what makes this
+              product special and how your customers can benefit from this item.
+              Buyers
+            </p>
+          </article>
+          <article class="review_box">
+            <div class="inner-review-cont">
+              <img src="sample/user2.png" alt="user" class="icon" />
+              <div>
+                <h2>Bob</h2>
+                <time>12/12/2012</time>
+              </div>
+              <span
+                >5 <img src="sample/star.png" alt="user" class="icon"
+              /></span>
             </div>
-        </section>
+            <p>
+              I'm a product detail. I'm a great place to add more information
+              about your product such as sizing, material, care and cleaning
+              instructions. This is also a great space to write what makes this
+              product special and how your customers can benefit from this item.
+              Buyers
+            </p>
+          </article>
+          <article class="review_box">
+            <div class="inner-review-cont">
+              <img src="sample/user2.png" alt="user" class="icon" />
+              <div>
+                <h2>Bob</h2>
+                <time>12/12/2012</time>
+              </div>
+              <span
+                >5 <img src="sample/star.png" alt="user" class="icon"
+              /></span>
+            </div>
+            <p>
+              I'm a product detail. I'm a great place to add more information
+              about your product such as sizing, material, care and cleaning
+              instructions. This is also a great space to write what makes this
+              product special and how your customers can benefit from this item.
+              Buyers
+            </p>
+          </article>
+          <article class="review_box">
+            <div class="inner-review-cont">
+              <img src="sample/user2.png" alt="user" class="icon" />
+              <div>
+                <h2>Bob</h2>
+                <time>12/12/2012</time>
+              </div>
+              <span
+                >5 <img src="sample/star.png" alt="user" class="icon"
+              /></span>
+            </div>
+            <p>
+              I'm a product detail. I'm a great place to add more information
+              about your product such as sizing, material, care and cleaning
+              instructions. This is also a great space to write what makes this
+              product special and how your customers can benefit from this item.
+              Buyers
+            </p>
+          </article>
+          <article class="review_box">
+            <div class="inner-review-cont">
+              <img src="sample/user2.png" alt="user" class="icon" />
+              <div>
+                <h2>Bob</h2>
+                <time>12/12/2012</time>
+              </div>
+              <span
+                >5 <img src="sample/star.png" alt="user" class="icon"
+              /></span>
+            </div>
+            <p>
+              I'm a product detail. I'm a great place to add more information
+              about your product such as sizing, material, care and cleaning
+              instructions. This is also a great space to write what makes this
+              product special and how your customers can benefit from this item.
+              Buyers
+            </p>
+          </article>
+          <article class="review_box">
+            <div class="inner-review-cont">
+              <img src="sample/user2.png" alt="user" class="icon" />
+              <div>
+                <h2>Bob</h2>
+                <time>12/12/2012</time>
+              </div>
+              <span
+                >5 <img src="sample/star.png" alt="user" class="icon"
+              /></span>
+            </div>
+            <p>
+              I'm a product detail. I'm a great place to add more information
+              about your product such as sizing, material, care and cleaning
+              instructions. This is also a great space to write what makes this
+              product special and how your customers can benefit from this item.
+              Buyers
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="Similar_product">
+        <h2>Similar Products</h2>
+        <div class="Similar_product_scroll Hide_bar">
+          <article class="Product_box">
+            <img class="Productimg" src="sample/search.jpg" alt="close" />
+            <span>Product</span>
+            <span>$250</span>
+          </article>
+          <article class="Product_box">
+            <img class="Productimg" src="sample/search.jpg" alt="close" />
+            <span>Product</span>
+            <span>$250</span>
+          </article>
+          <article class="Product_box">
+            <img class="Productimg" src="sample/search.jpg" alt="close" />
+            <span>Product</span>
+            <span>$250</span>
+          </article>
+          <article class="Product_box">
+            <img class="Productimg" src="sample/search.jpg" alt="close" />
+            <span>Product</span>
+            <span>$250</span>
+          </article>
+          <article class="Product_box">
+            <img class="Productimg" src="sample/search.jpg" alt="close" />
+            <span>Product</span>
+            <span>$250</span>
+          </article>
+          <article class="Product_box">
+            <img class="Productimg" src="sample/search.jpg" alt="close" />
+            <span>Product</span>
+            <span>$250</span>
+          </article>
+        </div>
+      </section>
     </main>
     <footer>
-        <a href="login.html">Contact Us</a>
-        <p>&copf;2025 Phantom Stitch</p>
+      <a href="login.html">Contact Us</a>
+      <p>&copf;2025 Phantom Stitch</p>
     </footer>
-        <script>
-   function showsidebar(){
-    const sidebar = document.querySelector('.sidebar')
-        sidebar.style.display='flex'
-        
-    
-   }
-   function hidesidebar(){
-    const sidebar = document.querySelector('.sidebar')
-        sidebar.style.display='none'
-    
-   }
-  </script>
-</body>
+    <script>
+      function showsidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.style.display = "flex";
+      }
+      function hidesidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.style.display = "none";
+      }
+    </script>
+  </body>
 </html>

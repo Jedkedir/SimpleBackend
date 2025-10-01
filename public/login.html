@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Login page</title>
-    <link rel="stylesheet" href="style/login.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-   
-</head>
-<body>
+    <link rel="stylesheet" href="style/login.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <title>Log In</title>
+  </head>
+  <body>
     <div class="container">
-        <section class="hold">
-            <div class="sec">
-                <form method="get"  action="/login/:email">
-                    <h2>Phantom Stitch</h2>
-                    <h2>Log In</h2>
-                    <i id="user-icon" class="bi bi-person-fill"></i> 
-                    <label for="user-name">Email:</label>
-                    <input type="text" id="loginEmail" name="user-name" placeholder="Email" required>
-                    <label for="Password">Password:</label>
-                    <input type="password" id="loginPassword" name="Password" placeholder="Password" required>
-                    
-                    <!-- Show/Hide password toggle 
-                    <input type="checkbox" id="show-pass"> Show Password
-                --><div class="buttons">
-                    <button class="login-btn">Log In</button>
-                    <button class="signup-btn">Sign Up</button>
-                </div>
-                    
-                </form>
-                
-            </div>
-            <div class="sec image">
-                <img src="sample/blackStore 1.svg" alt="image of clothes"/>
-            </div>
-        </section>
-        <div class="fot">
-            <span>&copy; 2025 Phantom Stitch</span>
-        </div>
-    </div>
+      <section class="hold">
+        <div class="sec">
+          <form method="get" action="/login/:email">
+            <h2>Phantom Stitch</h2>
+            <h2>Log In</h2>
+            <i id="user-icon" class="bi bi-person-fill"></i>
+            <label for="user-name">Email:</label>
+            <input
+              type="text"
+              id="loginEmail"
+              name="user-name"
+              placeholder="Email"
+              required
+            />
+            <label for="Password">Password:</label>
+            <input
+              type="password"
+              id="loginPassword"
+              name="Password"
+              placeholder="Password"
+              required
+            />
 
-   
-</body>
+            <!-- Show/Hide password toggle 
+                    <input type="checkbox" id="show-pass"> Show Password
+                -->
+            <div class="buttons">
+              <button class="login-btn">Log In</button>
+              <button class="signup-btn">Sign Up</button>
+            </div>
+          </form>
+        </div>
+        <div class="sec image">
+          <img src="sample/blackStore 1.svg" alt="image of clothes" />
+        </div>
+      </section>
+      <div class="fot">
+        <span>&copy; 2025 Phantom Stitch</span>
+      </div>
+    </div>
+  </body>
 </html>

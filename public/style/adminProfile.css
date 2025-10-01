@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background: #ffffff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+h1,h2{
+    font-family: 'Inter',sans-serif;
+    font-weight: bold;
+}
+header {
+  position: absolute; 
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin-bottom: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  z-index: 10;
+  font-weight: bold;
+  font-family: 'Inter',sans-serif;
+}
+
+.header{
+    width:100%;
+    padding-left: 2%;
+    top:0;
+    left:0;
+    position: fixed;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+   
+}
+
+header h2{
+    width: 50%;
+    font-weight: 700;
+}
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 18%;
+    align-items: center;
+}
+.nav-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+    color: black;
+    
+    padding-right: 5%;
+    align-items: center;
+}
+.nav-item {
+    margin-right: 25%;
+    align-items: right;
+
+    
+}
+.nav-item a{
+    font-size: 16px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+   
+}
+.icon{
+    width: 25px;
+    height: 25px;
+    color: white;
+}
+
+footer {
+    background-color: #524343;
+    color: white;
+    margin-top: 3%;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 35%;
+    font-family:'Jura',sans-serif;
+    font-weight: lighter;
+    font-size: smaller;
+}
+
+footer a{
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    margin-top: 5.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+main img{
+    width: 10em;
+}
+
+.user_info {
+   
+    display: flex;
+    justify-content: center;
+    gap: 15%;  
+    font-family: 'Inter',sans-serif;
+    font-family: 100;
+    font-size: medium; 
+    background-color: #ffffff;
+    width: 50%;
+    margin-left: 1rem;
+    padding: 1rem;
+
+}
+.add_admin {
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15%;  
+    font-family: 'Inter',sans-serif;
+    font-family: 100;
+    font-size: medium; 
+    background-color: #ffffff;
+    width: 50%;
+    margin-left: 1rem;
+    padding: 1rem;
+    flex-direction: column;
+    margin-top: 5%;
+
+}
+.user_info2{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    padding: 1rem;
+    width: 100%;
+}
+
+.user_info_left, .user_info_right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+      
+
+}
+.user_info_left label{
+   padding-top: 5%;
+   padding-right: 50%;
+   margin-top: 1%;
+
+}
+.user_info_right2{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-content: center;
+    align-items: left;
+    gap: 15px;
+}
+#last_name{
+    width: 72%;
+}
+.conf{
+    width: 52%;
+}
+input{
+    padding: 2%;
+    border: none;
+    border-radius: 5px;
+    background-color: lightgrey;
+    color: black;
+    font-family: inherit;
+}
+
+button{
+    padding: 2%;
+    border-radius: 5px;
+    width:25%;
+    background-color: black;
+    color: #ffffff;
+    font-weight: bold;
+}
+button:hover{
+    background-color: #ffffff;
+    color: black;
+}
+
+.name{
+    font-weight: bolder;
+    font-size: larger;
+    padding-left:8% ;
+    margin-bottom: 2%;
+}
+
+.email{
+    font-weight: bolder;
+    font-size: larger;
+    padding-left: 8%;
+    margin-top: 2%;
+}
+.user_info_right {
+    align-items: start;
+     padding-left: 20%;
+     
+     gap:10%;
+     
+}
+
+
+@media (max-width:768px){
+
+main{
+    margin-top: 7.5rem;
+    height: 100%;
+}
+.user_info{
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    
+}
+.add_admin{
+    width: 100%;
+}
+.user_info2{
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+.user_info_right,.user_info_left{
+    align-self: center;
+    justify-content: space-between;
+    width:50%;
+    padding-top: 2%;
+}
+.user_info_right{
+    
+    padding-left: 0%;
+}
+.user_info_right2{
+    padding: 0%;
+    align-self: center;
+    justify-content: space-between;
+    width:50%;
+    padding-top: 2%;
+}
+input{
+width: 100%;
+}
+.name{
+    padding-left: 0%;
+}
+.email{
+    padding-left: 0%;
+}
+.nav-item a{
+    font-size: smaller;
+    
+}
+.nav-item{
+    margin-right: 12%;
+}
+#last_name{
+    width: 100%;
+}
+.conf{
+    width: 100%;
+}
+}
+
+
+
+@media (max-width:844px) {
+    .add_admin{
+    width: 100%;
+}
+.user_info2{
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+.user_info_right,.user_info_left{
+    align-self: center;
+    justify-content: space-between;
+    width:50%;
+    padding-top: 2%;
+}
+.user_info_right{
+    
+    padding-left: 0%;
+}
+.user_info_right2{
+   
+    align-self: center;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    width:50%;
+    padding-top: 2%;
+}
+input {
+width: 100%;}
+#last_name{
+    width: 100%;
+}
+.conf{
+    width: 100%;
+}
+.nav-item a{
+    font-size: smaller;
+    
+}
+.nav-item{
+    margin-right: 12%;
+}
+}

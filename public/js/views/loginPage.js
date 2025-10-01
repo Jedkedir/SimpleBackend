@@ -1,4 +1,4 @@
-const API_BASE_URL = "/api"; 
+const API_BASE_URL = "/api";
 
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
@@ -17,10 +17,6 @@ async function handleLogin(email, password) {
       localStorage.setItem("userToken", data.token);
       localStorage.setItem("userId", data.userId);
       // Save token and user ID
-
-
-
-
     } else {
       // Failure: Display error message from backend (e.g., "Invalid credentials")
       localStorage.removeItem("userToken");
@@ -30,7 +26,6 @@ async function handleLogin(email, password) {
     console.error("Network or unexpected error during login:", error);
   }
 }
-
 
 async function handleRegister(userData) {
   try {
@@ -46,11 +41,10 @@ async function handleRegister(userData) {
       // Success: Registration returns a token upon creation
       localStorage.setItem("userToken", data.token);
       localStorage.setItem("userId", data.userId);
-      
+
       //  clear the form
     } else {
       // Failure: Display error message (e.g., "Email already in use")
-      
     }
   } catch (error) {
     console.error("Network or unexpected error during registration:", error);
@@ -69,7 +63,6 @@ loginForm.addEventListener("submit", (event) => {
 registerForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  
   const fName = document.getElementById("fName").value;
   const lName = document.getElementById("lName").value;
   const phone = document.getElementById("phone").value;

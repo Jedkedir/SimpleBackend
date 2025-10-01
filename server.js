@@ -51,6 +51,8 @@ app.use((req, res, next) => {
     next();
 });
 
+
+
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
@@ -87,7 +89,12 @@ app.use('/api/upload', uploadRoutes);
 
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), {
+  maxAge: "1d", 
+  etag: true,  
+  lastModified: true 
+}));
 
 /**
  * --- 3. Database Connection and Server Start ---
