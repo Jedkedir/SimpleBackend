@@ -1,3 +1,4 @@
+import { AddToCartPageData } from "../services/addToCartService.js"
 import { getProductPageData } from "../services/productPageService.js"
 
 const body = document.querySelector('body')
@@ -24,7 +25,7 @@ try {
         console.log(pageData)
 
     if (pageData.success){
-        product_detail(pageData.data.Product)
+        product_detail(pageData.data)
 
     }
     console.log(pageData.data)
@@ -33,23 +34,57 @@ try {
 }
 
 function product_detail(product) {
-    pname.textContent = product.name
-    description.textContent = product.description
+    pname.textContent = product.Product[0].name
+    description.textContent = product.Product[0].description
     image.src = product.image
 
-    product.colors.forEach(color => {
+    let selected_variant = product.Product[0].variant_id
+
+    product.Product.forEach(color => {
         let img = document.createElement('img')
-        img.src = color.src
+        img.src = color.color.src
         console.log(colors.src)
         img.addEventListener('click', () => {
             image.src = img.src
+            selected_variant = color.variant_id
         })
-        colors.appendChild(img)
+        colors.appendChild(img  )
     });
-    product.sizes.forEach(size => {
+    product.Product.forEach(size => {
         let s = document.createElement('option')
-        s.value, s.textContent = size
+        s.value, s.textContent = size.size
         sizes.appendChild(s)
     })
+    let num = document.querySelector(".num")
+    let cartbtn = document.querySelector('.cart-btn')
+    cartbtn.addEventListener('click',()=>{
+        if (localStorage.getItem("userId")==null){
+            let info = {
+                userId: 2,//localStorage.getItem("userId"),
+                variantId: selected_variant,
+                quantity: num.value}
+                console.log(info)
+        }else{
+            // windows.location.href = 
+         }
+        try {
+            let info = {
+                userId: 1,//localStorage.getItem("userId"),
+                variantId: selected_variant,
+                quantity: num.value}
+                console.log(info)
+            let result = AddToCartPageData(info)
+            if (result.success){
+                console.log('item ordered successfully')
+            }else{
+                console.log('item order failed')
+
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        }
+       
+    )
 }
 

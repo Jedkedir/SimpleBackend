@@ -33,6 +33,7 @@ exports.addOrUpdateCartItemController = async (req, res) => {
       variantId,
       quantity,
     });
+    // console.log(cartItemId)
 
     res.status(201).json({
       message: "Cart item quantity updated or item added successfully",
