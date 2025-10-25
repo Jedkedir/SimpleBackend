@@ -7,7 +7,7 @@ export function updateNavigation() {
   const userRole = localStorage.getItem("userRole");
   const userToken = localStorage.getItem("userToken");
 
-  // Update Dashboard link for admin - only if mainCollapse exists
+  
   if (mainCollapse) {
     let dashboardItem = document.getElementById("dashboard-nav");
 
@@ -29,14 +29,14 @@ export function updateNavigation() {
     }
   }
 
-  // Update Login/Logout button - only if loginBtn exists
+  
   const loginBtn = document.getElementById("loginBtn");
   if (loginBtn) {
     if (userToken) {
       loginBtn.textContent = "Logout";
       loginBtn.href = "#";
 
-      // Remove existing event listeners to prevent duplicates
+      
       loginBtn.replaceWith(loginBtn.cloneNode(true));
       const newLoginBtn = document.getElementById("loginBtn");
 
@@ -51,15 +51,15 @@ export function updateNavigation() {
     } else {
       loginBtn.textContent = "Login";
       loginBtn.href = "login.html";
-      // Remove any existing logout event listeners
+      
       loginBtn.replaceWith(loginBtn.cloneNode(true));
     }
   }
 
-  // Add cart access protection - only if cartId exists
+  
   const cartLink = document.getElementById("cartId");
   if (cartLink) {
-    // Remove existing event listeners
+    
     cartLink.replaceWith(cartLink.cloneNode(true));
     const newCartLink = document.getElementById("cartId");
 
@@ -75,5 +75,5 @@ export function updateNavigation() {
   console.log("✅ Navigation updated successfully");
 }
 
-// Export for use in other modules
+
 export default { updateNavigation };

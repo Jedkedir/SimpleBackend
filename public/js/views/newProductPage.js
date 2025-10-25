@@ -1,4 +1,4 @@
-import { newProductPageData } from "../services/NewProductPageService.js";
+import { newProductPageData } from "../services/newProductPageService.js";
 
 export async function initNewProductPage() {
   console.log("Initializing new product page...");
@@ -20,7 +20,7 @@ function setupEventListeners() {
     console.log("Add variant button listener added");
   }
 
-  // Initialize with one variant
+  
   addVariantField();
 }
 
@@ -30,7 +30,7 @@ async function handleProductSubmit(event) {
 
   const formData = new FormData(event.target);
 
-  // Validate required fields
+  
   const name = formData.get("name");
   const description = formData.get("description");
   const price = formData.get("price");
@@ -79,7 +79,7 @@ async function handleProductSubmit(event) {
       event.target.reset();
       clearVariants();
 
-      // Redirect to product or dashboard after success
+      
       setTimeout(() => {
         window.location.href = "dashboard.html";
       }, 2000);
@@ -190,7 +190,7 @@ function addVariantField() {
   variantsContainer.appendChild(variantRow);
   console.log("Variant field added");
 
-  // Add remove event listener
+  
   const removeBtn = variantRow.querySelector(".remove-variant");
   removeBtn.addEventListener("click", () => {
     const allVariants = document.querySelectorAll(".variant-row");
@@ -207,7 +207,7 @@ function clearVariants() {
   const variantsContainer = document.getElementById("variants-container");
   if (variantsContainer) {
     variantsContainer.innerHTML = "";
-    // Add one empty variant by default
+    
     addVariantField();
   }
 }

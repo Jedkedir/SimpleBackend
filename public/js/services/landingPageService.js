@@ -5,10 +5,10 @@ import { apiGet } from "./BaseService.js";
  */
 export async function getLandingPageData() {
   try {
-    // Fetch all data in parallel
+    
     const homeData = await apiGet("/home");
     console.log("homeData");
-    // Return organized data object
+    
     return {
       success: true,
       data: {
@@ -90,7 +90,7 @@ export async function getProductDetails(productId) {
   }
 }
 
-// Helper function
+
 function getFallbackData() {
   return {
     bestSelling: [],

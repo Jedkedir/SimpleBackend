@@ -2,7 +2,7 @@
 
 import { getDashboardPageData } from '../services/dashboardPageService.js';
 
-// Utility functions
+
 function showLoading(show) {
     const spinner = document.getElementById('loading-spinner');
     if (show) {
@@ -34,32 +34,32 @@ function showSuccess(message) {
     }, 3000);
 }
 
-// Update key metrics
+
 function updateKeyMetrics(data) {
     console.log('Updating metrics with:', data);
     
-    // Total Sold
+    
     const totalSold = data.totalSoldData?.total_sold || "0";
     const soldElement = document.querySelector('.sold_amount');
     if (soldElement) soldElement.textContent = totalSold;
 
-    // Total Revenue
+    
     const totalRevenue = data.totalRevenueData?.total_revenue || "0.00";
     const revenueElement = document.querySelector('.revenue_amount');
     if (revenueElement) revenueElement.textContent = '$' + totalRevenue;
 
-    // Stock Alerts
+    
     const stockAlertCount = (data.stokeNotificationData?.stock_notification <= 5) ? 1 : 0;
     const stockElement = document.getElementById('stock-alerts-count');
     if (stockElement) stockElement.textContent = stockAlertCount;
 
-    // New Orders
+    
     const newOrdersCount = data.orderNotificationData ? 1 : 0;
     const ordersElement = document.getElementById('new-orders-count');
     if (ordersElement) ordersElement.textContent = newOrdersCount;
 }
 
-// Render top selling data
+
 function renderTopSellingChart(topSellingData) {
     const barGraphContainer = document.querySelector('.bar_graph');
     if (!barGraphContainer) return;
@@ -90,7 +90,7 @@ function renderTopSellingChart(topSellingData) {
     `;
 }
 
-// Create notification elements
+
 function createStockNotificationElement(notification) {
     const div = document.createElement('div');
     div.className = 'alert alert-warning alert-dismissible fade show mb-2';
@@ -116,18 +116,18 @@ function createOrderNotificationElement(order) {
     return div;
 }
 
-// Render notifications
+
 function renderNotifications(data) {
     const notificationContainer = document.querySelector('.notification');
     const recentActionContainer = document.querySelector('.recent_action');
     
     if (!notificationContainer || !recentActionContainer) return;
     
-    // Clear existing content
+    
     notificationContainer.innerHTML = '';
     recentActionContainer.innerHTML = '';
 
-    // Stock Notifications
+    
     if (data.stokeNotificationData && data.stokeNotificationData.stock_notification <= 5) {
         const notificationElement = createStockNotificationElement(data.stokeNotificationData);
         notificationContainer.appendChild(notificationElement);
@@ -135,7 +135,7 @@ function renderNotifications(data) {
         notificationContainer.innerHTML += '<p class="text-muted">No stock notifications</p>';
     }
 
-    // Order Notifications
+    
     if (data.orderNotificationData && Object.keys(data.orderNotificationData).length > 0) {
         const orderElement = createOrderNotificationElement(data.orderNotificationData);
         notificationContainer.appendChild(orderElement);
@@ -143,7 +143,7 @@ function renderNotifications(data) {
         notificationContainer.innerHTML += '<p class="text-muted">No new orders</p>';
     }
 
-    // Recent Actions
+    
     const recentActions = [];
     
     if (data.stokeNotificationData && data.stokeNotificationData.stock_notification <= 5) {
@@ -196,7 +196,7 @@ function renderNotifications(data) {
     }
 }
 
-// Main initialization function
+
 export async function initializeDashboard() {
   try {
     showLoading(true);
@@ -206,12 +206,12 @@ export async function initializeDashboard() {
       updateKeyMetrics(result.data);
       renderTopSellingChart(result.data.topSellingData);
       renderNotifications(result.data);
-      //showSuccess('Dashboard loaded successfully');
+      
     } else {
       showError(result.error || "Failed to load dashboard data");
     }
   } catch (error) {
-    // showError('An error occurred while loading the dashboard');
+    
     console.error("Dashboard initialization error:", error);
   } finally {
     showLoading(false);

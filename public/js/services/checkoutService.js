@@ -57,7 +57,7 @@ export async function createOrder(orderData) {
   }
 }
 
-// In checkoutService.js - update createOrderItems with better error handling
+
 
 export async function createOrderItems(orderItemsData) {
     try {

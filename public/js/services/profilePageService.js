@@ -15,10 +15,10 @@ export async function getUserProfileData() {
       };
     }
 
-    // Fetch user profile data
+    
     const profileData = await apiGet(`/users/${userId}`);
     
-    // Return organized data object
+    
     return {
       success: true,
       data: {
@@ -53,10 +53,10 @@ export async function getAdminProfileData() {
       };
     }
 
-    // Fetch admin profile data
+    
     const profileData = await apiGet(`/profile/admin/${adminId}`);
     
-    // Return organized data object
+    
     return {
       success: true,
       data: {
@@ -94,7 +94,7 @@ export async function updateUserProfile(profileData) {
       body: profileData
     });
     
-    // Update local storage if successful
+    
     if (response.success && response.data.user) {
       localStorage.setItem('user', JSON.stringify(response.data.user));
     }
@@ -128,7 +128,7 @@ export async function updateAdminProfile(profileData) {
       body: profileData
     });
     
-    // Update local storage if successful
+    
     if (response.success && response.data.admin) {
       localStorage.setItem('user', JSON.stringify(response.data.admin));
     }
@@ -147,9 +147,9 @@ export async function updateAdminProfile(profileData) {
 export async function postReviewOfProduct(review) {
   try {
 
-    // Fetch all data in parallel
+    
     const [reviewData] = await apiPost('reviews', {body: review})
-    // Return organized data object
+    
     return {
       success: true,     
     };
@@ -224,7 +224,7 @@ export async function getProductDetails(productId) {
   }
 }
 
-// Helper functions
+
 function getFallbackUserData() {
   return {
     user: {

@@ -1,8 +1,7 @@
 import { getStockPageData } from "../services/stockPageService.js";
 
-// Export the initialization function
+
 export function initStockPage() {
-  console.log("🚀 Initializing stock page...");
   initializeStockPage();
 }
 
@@ -48,7 +47,7 @@ function updateStockSummary(data) {
 
 window.handleImageError = function (img) {
   console.log("🖼️ Image failed to load:", img.src);
-  img.onerror = null; // Prevent infinite loop
+  img.onerror = null; 
   img.src = "/sample/placeholder-images.webp";
   img.alt = "Placeholder image";
 };

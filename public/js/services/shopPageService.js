@@ -5,10 +5,10 @@ import { apiGet, apiPost } from "./BaseService.js";
  */
 export async function getShopPageData(page = 1, limit = 12) {
   try {
-    // Fetch all products
+    
     const response = await apiGet("/products/get-all");
 
-    // Transform the data to match the expected structure
+    
     const products = (response.products || []).map((product) => ({
       id: product.product_id,
       variantId: product.variant_id,
@@ -64,11 +64,11 @@ export async function searchProducts(searchParams) {
       limit = 12,
     } = searchParams;
 
-    // First get all products
+    
     const response = await apiGet("/products/get-all");
     let products = response.products || [];
 
-    // Apply search filter
+    
     if (search) {
       const searchLower = search.toLowerCase();
       products = products.filter(
@@ -80,14 +80,14 @@ export async function searchProducts(searchParams) {
       );
     }
 
-    // Apply category filter
+    
     if (categories.length > 0) {
       products = products.filter((product) =>
         categories.includes((product.category_name || "").toLowerCase())
       );
     }
 
-    // Apply price filter
+    
     if (priceMin !== null) {
       products = products.filter(
         (product) =>
@@ -103,19 +103,19 @@ export async function searchProducts(searchParams) {
       );
     }
 
-    // Apply color filter
+    
     if (colors.length > 0) {
       products = products.filter((product) =>
         colors.includes((product.color || "").toLowerCase())
       );
     }
 
-    // Apply size filter
+    
     if (sizes.length > 0) {
       products = products.filter((product) => sizes.includes(product.size));
     }
 
-    // Apply sorting
+    
     if (sort) {
       switch (sort) {
         case "price-low":
@@ -143,7 +143,7 @@ export async function searchProducts(searchParams) {
       }
     }
 
-    // Transform the data
+    
     const transformedProducts = products.map((product) => ({
       id: product.product_id,
       name: product.product_name || product.name,
@@ -161,7 +161,7 @@ export async function searchProducts(searchParams) {
       discount: getDiscount(product),
     }));
 
-    // Apply pagination
+    
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
     const paginatedProducts = transformedProducts.slice(startIndex, endIndex);
@@ -200,9 +200,7 @@ function isNew(product) {
   const today = new Date();
   return createdAt.getDate() === today.getDate();
 }
-/*
-  get product discount based on how long ago it was created
-*/
+
 function getDiscount(product) {
   const createdAt = new Date(product.created_at);
   const today = new Date();
@@ -258,7 +256,7 @@ export async function getProductById(productId) {
  */
 export async function addToCart(productId, variantId = null, quantity = 1) {
   try {
-    // Get user data from localStorage
+    
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
     const userId = userData.id;
     console.log(userId);
@@ -269,17 +267,17 @@ export async function addToCart(productId, variantId = null, quantity = 1) {
       };
     }
 
-    // First, get the user's cart or create one
+    
     let cartResponse = await apiGet(`/carts/user/${userId}`);
 
     if (!cartResponse || !cartResponse.cart_id) {
-      // Create a new cart if one doesn't exist
+      
       cartResponse = await apiPost("/carts", { userId });
     }
 
     const cartId = cartResponse.cart_id;
 
-    // Add item to cart
+    
     const cartItemData = {
       cartId: cartId,
       productId: productId,
@@ -303,7 +301,7 @@ export async function addToCart(productId, variantId = null, quantity = 1) {
   }
 }
 
-// Helper function to get full image URL
+
 function getFullImageUrl(imagePath) {
   if (!imagePath) {
     return "sample/placeholder-images.webp"; // Fallback image
@@ -323,7 +321,7 @@ function getFullImageUrl(imagePath) {
   return `http://localhost:8000/images/${imagePath}`;
 }
 
-// Helper functions
+
 function getFallbackShopData() {
   return {
     products: [],

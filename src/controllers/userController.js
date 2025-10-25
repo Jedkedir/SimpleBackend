@@ -36,7 +36,7 @@ exports.getUserByIdController = async (req, res) => {
   try {
     let userId;
 
-    // If it's the profile route, use the authenticated user's ID
+    
     if (req.path === "/profile") {
       userId = req.user.user_id;
     } else {
@@ -100,7 +100,7 @@ exports.deleteUserController = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    res.status(204).send(); // 204 No Content for successful deletion
+    res.status(204).send(); 
   } catch (error) {
     console.error("Error deleting user:", error.message);
     res.status(500).json({ error: "Failed to delete user" });

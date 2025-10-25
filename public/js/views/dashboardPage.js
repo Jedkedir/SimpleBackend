@@ -1,4 +1,4 @@
-import { getDashboardPageData } from "../services/DashboardPageService.js";
+import { getDashboardPageData } from "../services/dashboardPageService.js";
 
 export async function initDashboardPage() {
   showLoading();

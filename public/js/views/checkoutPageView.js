@@ -8,7 +8,7 @@ import {
 
 let checkoutPage;
 
-// Global state
+
 let currentStep = "address";
 let selectedAddress = null;
 let selectedPaymentMethod = null;
@@ -71,14 +71,14 @@ async function loadCartItems(userId) {
  * Setup event listeners for checkout page
  */
 function setupEventListeners() {
-  // Payment method selection
+  
   document.querySelectorAll(".payment-method-card").forEach((card) => {
     card.addEventListener("click", () => {
       selectPaymentMethod(card);
     });
   });
 
-  // Address form validation
+  
   const addressForm = document.getElementById("address-form");
   if (addressForm) {
     addressForm.addEventListener("input", validateAddressForm);
@@ -89,17 +89,17 @@ function setupEventListeners() {
  * Select payment method
  */
 function selectPaymentMethod(card) {
-  // Remove selected class from all cards
+  
   document.querySelectorAll(".payment-method-card").forEach((c) => {
     c.classList.remove("selected");
   });
 
-  // Add selected class to clicked card
+  
   card.classList.add("selected");
 
   selectedPaymentMethod = card.dataset.method;
 
-  // Show/hide credit card form
+  
   const creditCardForm = document.getElementById("credit-card-form");
   if (selectedPaymentMethod === "credit_card") {
     creditCardForm.style.display = "block";
@@ -107,7 +107,7 @@ function selectPaymentMethod(card) {
     creditCardForm.style.display = "none";
   }
 
-  // Update pay now button text
+  
   const payNowBtn = document.getElementById("pay-now-btn");
   if (payNowBtn) {
     if (selectedPaymentMethod === "cash") {
@@ -152,10 +152,10 @@ function updateOrderSummary() {
     return sum + item.variant_price * item.quantity;
   }, 0);
 
-  const tax = subtotal * 0.1; // 10% tax
+  const tax = subtotal * 0.1; 
   const total = subtotal + tax;
 
-  // Update items list
+  
   container.innerHTML = cartItems
     .map(
       (item) => `
@@ -178,7 +178,7 @@ function updateOrderSummary() {
     )
     .join("");
 
-  // Update totals
+  
   if (subtotalElement) subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
 
   const taxElement = document.getElementById("summary-tax");
@@ -198,7 +198,7 @@ async function proceedToOrder() {
     return;
   }
 
-  // Collect address data
+  
   const addressData = {
     userId: localStorage.getItem("userId"),
     street: document.getElementById("street").value.trim(),
@@ -214,14 +214,14 @@ async function proceedToOrder() {
   try {
     showLoading();
 
-    // Create address
+    
     const addressResult = await createAddress(addressData, saveAddress);
     console.log("Address result:", addressResult);
     if (addressResult.success) {
       shippingAddressId = addressResult.data.addressId;
       selectedAddress = addressData;
 
-      // Update UI
+      
       showSelectedAddress();
       showOrderStep();
       updateOrderItemsList();
@@ -315,13 +315,13 @@ async function processPayment() {
   try {
     showLoading();
 
-    // Create order first
+    
     const orderResult = await createCheckoutOrder();
 
     if (orderResult.success) {
       const orderId = orderResult.data.orderId;
 
-      // Process payment if not cash
+      
       if (selectedPaymentMethod !== "cash") {
         const paymentResult = await createPayment(orderId);
 
@@ -331,11 +331,11 @@ async function processPayment() {
           showError(paymentResult.error || "Payment failed");
         }
       } else {
-        // For cash, just show order confirmation without payment processing
+        
         showConfirmation(orderId, null, false);
       }
 
-      // Clear cart
+      
       localStorage.removeItem("cartItems");
     } else {
       showError(orderResult.error || "Failed to create order");
@@ -360,7 +360,7 @@ async function placeOrderWithoutPayment() {
     if (orderResult.success) {
       const orderId = orderResult.data.orderId;
       
-      // For cash on delivery, create a pending payment record
+      
       const paymentData = {
         orderId: parseInt(orderId),
         amount: parseFloat(updateOrderSummary().total),
@@ -374,7 +374,7 @@ async function placeOrderWithoutPayment() {
       
       showConfirmation(orderId, null, false);
 
-      // Clear cart
+      
       localStorage.removeItem("cartItems");
     } else {
       showError(orderResult.error || "Failed to create order");
@@ -399,7 +399,7 @@ async function createCheckoutOrder() {
   }
 
   const orderData = {
-    userId: parseInt(userId), // Ensure it's a number
+    userId: parseInt(userId), 
     shippingAddressId: shippingAddressId,
     total_amount: totals.total,
   };
@@ -411,17 +411,17 @@ async function createCheckoutOrder() {
     const orderId = orderResult.data.orderId;
     console.log("Created order with ID:", orderId);
 
-    // Create order items array for bulk creation
+    
     const orderItemsData = cartItems.map((item) => ({
-      orderId: parseInt(orderId), // Ensure orderId is a number
-      variantId: parseInt(item.variant_id), // Ensure variantId is a number
-      quantity: parseInt(item.quantity), // Ensure quantity is a number
-      price: parseFloat(item.variant_price), // Ensure price is a number
+      orderId: parseInt(orderId), 
+      variantId: parseInt(item.variant_id), 
+      quantity: parseInt(item.quantity), 
+      price: parseFloat(item.variant_price), 
     }));
 
     console.log("Creating order items with data:", orderItemsData);
 
-    // Use the bulk creation endpoint
+    
     const orderItemsResult = await createOrderItems(orderItemsData);
 
     if (orderItemsResult.success) {
@@ -452,7 +452,7 @@ async function createPayment(orderId) {
 
   console.log("Creating payment:", paymentData);
   
-  // Call the API, not itself recursively
+  
   return await createPaymentAPI(paymentData);
 }
 
@@ -463,7 +463,7 @@ function generateTransactionId() {
   return "txn_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
 }
 
-// Step navigation methods
+
 function showOrderStep() {
   document.getElementById("address-step").classList.remove("active");
   document.getElementById("order-step").style.display = "block";
@@ -521,7 +521,7 @@ function backToOrder() {
   currentStep = "order";
 }
 
-// Utility functions
+
 function showLoading() {
   const spinner = document.getElementById("loading-spinner");
   if (spinner) spinner.classList.remove("d-none");
@@ -546,7 +546,7 @@ function showError(message) {
   }
 }
 
-// Global functions for HTML onclick handlers
+
 window.proceedToOrder = proceedToOrder;
 window.proceedToPayment = proceedToPayment;
 window.processPayment = processPayment;

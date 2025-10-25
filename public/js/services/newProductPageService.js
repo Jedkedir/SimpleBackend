@@ -9,7 +9,7 @@ export async function newProductPageData(productData) {
     
     const { product, variants, images } = productData;
     
-    // Upload product images first and get URLs
+    
     let productImageUrl = '';
     if (images && images.length > 0 && images[0].size > 0) {
       console.log("Uploading product images...");
@@ -25,7 +25,7 @@ export async function newProductPageData(productData) {
       }
     }
 
-    // Create the product with image URL
+    
     const productPayload = {
       ...product,
       image_url: productImageUrl
@@ -41,12 +41,12 @@ export async function newProductPageData(productData) {
     }
 
     console.log("Creating variants for product ID:", addedProductId);
-    // Create variants
+    
     for (const variant of variants) {
       console.log("Processing variant:", variant);
       let variantImageUrl = '';
       
-      // Upload variant image if exists
+      
       if (variant.images && variant.images.length > 0 && variant.images[0].size > 0) {
         console.log("Uploading variant image...");
         const variantFormData = new FormData();

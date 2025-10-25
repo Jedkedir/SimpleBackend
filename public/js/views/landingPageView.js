@@ -124,7 +124,7 @@ function renderFeatured(products) {
 
 
 function setupEventListeners() {
-  // Add event listeners for landing page interactions
+  
 }
 
 function showLoading() {
@@ -155,7 +155,7 @@ function showError(message) {
   }
 }
 
-// Global function for product navigation
+
 window.viewProduct = function(productId, variantId) {
   window.location.href = `product.html?id=${productId}&variantId=${variantId}`;
 };

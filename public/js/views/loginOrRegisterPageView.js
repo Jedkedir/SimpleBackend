@@ -7,16 +7,16 @@ import { loginUser, registerUser } from "../services/loginOrRegisterService.js";
 export function initLoginOrRegisterPage() {
   console.log("Initializing login/register page");
 
-  // Check which page we're on and run appropriate code
+  
   const loginForm = document.getElementById("loginForm");
   const registerForm = document.getElementById("registerForm");
 
-  // LOGIN PAGE FUNCTIONALITY
+  
   if (loginForm) {
     initLoginPage();
   }
 
-  // SIGNUP PAGE FUNCTIONALITY
+  
   if (registerForm) {
     initRegisterPage();
   }
@@ -29,14 +29,14 @@ function initLoginPage() {
   const loginForm = document.getElementById("loginForm");
   const signupBtn = document.getElementById("signupBtn");
 
-  // Sign up button redirect (for login page)
+  
   if (signupBtn) {
     signupBtn.addEventListener("click", function () {
       window.location.href = "Signup.html";
     });
   }
 
-  // Login form submission
+  
   loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -53,7 +53,7 @@ function initLoginPage() {
 function initRegisterPage() {
   const registerForm = document.getElementById("registerForm");
 
-  // Add password toggle functionality
+  
   const toggleButtons = document.querySelectorAll(".toggle-password");
   toggleButtons.forEach((button) => {
     button.addEventListener("click", function () {
@@ -64,11 +64,11 @@ function initRegisterPage() {
     });
   });
 
-  // Register form submission
+  
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // Validate passwords match
+    
     const password = document.getElementById("passwordReg").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
@@ -110,7 +110,7 @@ async function handleLogin(email, password) {
         "success"
       );
 
-      // Redirect to dashboard or home page after successful login
+      
       setTimeout(() => {
         window.location.href = "index.html";
       }, 1500);
@@ -139,10 +139,10 @@ async function handleRegister(userData) {
         "success"
       );
 
-      // Clear the form
+      
       document.getElementById("registerForm").reset();
 
-      // Redirect after successful registration
+      
       setTimeout(() => {
         window.location.href = "index.html";
       }, 1500);
@@ -169,7 +169,7 @@ function showMessage(elementId, message, type) {
     element.style.display = "block";
     element.className = type + "-message";
 
-    // Auto-hide success messages after 3 seconds
+    
     if (type === "success") {
       setTimeout(() => {
         element.style.display = "none";

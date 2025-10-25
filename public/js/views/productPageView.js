@@ -2,14 +2,14 @@ import {
   getProductPageData,
   postReviewOfProduct,
   addToCart,
-} from "../services/ProductPageService.js";
+} from "../services/productPageService.js";
 
 let currentProductId = null;
 let currentVariantId = null;
 let selectedVariant = null;
 
 export async function initProductPage() {
-  // Get product ID from URL
+  
   const urlParams = new URLSearchParams(window.location.search);
   currentProductId = urlParams.get("id");
   currentVariantId = urlParams.get("variantId");
@@ -47,7 +47,7 @@ console.log("Selected Variant:",selectedVariant);
 
   const hasVariants = variants && variants.length > 0;
 
-  // Get current user from auth state
+  
   const userId = localStorage.getItem("userId");
   container.innerHTML = `
     <div class="col-lg-6">
@@ -223,18 +223,18 @@ console.log("Selected Variant:",selectedVariant);
     </div>
   `;
 
-  // Store variant info for validation
+  
   container.dataset.hasVariants = hasVariants;
 
-  // Setup variant selection
+  
   setupVariantSelection(variants);
 
-  // Setup add to cart button
+  
   setupAddToCartButton(userId);
 }
 
 function setupVariantSelection(variants) {
-  // Variant thumbnail click handlers
+  
   document.querySelectorAll(".variant-thumbnail").forEach((thumbnail) => {
     thumbnail.addEventListener("click", function () {
       const variantId = this.dataset.variantId;
@@ -244,7 +244,7 @@ function setupVariantSelection(variants) {
       const variantPrice = this.dataset.variantPrice;
       const variantStock = parseInt(this.dataset.variantStock);
 
-      // Update selected variant
+      
       selectedVariant = {
         id: variantId,
         image: variantImage,
@@ -254,12 +254,12 @@ function setupVariantSelection(variants) {
         stock_quantity: variantStock,
       };
 
-      // Update UI
+      
       updateVariantSelection(this, variantImage);
     });
   });
 
-  // Auto-select first variant if none selected and variants exist
+  
   if (variants && variants.length > 0 && !selectedVariant) {
     const firstVariant = document.querySelector(".variant-thumbnail");
     if (firstVariant) {
@@ -269,13 +269,13 @@ function setupVariantSelection(variants) {
 }
 
 function updateVariantSelection(selectedThumbnail, variantImage) {
-  // Update thumbnails active state
+  
   document.querySelectorAll(".variant-thumbnail").forEach((thumb) => {
     thumb.classList.remove("active", "border-primary");
   });
   selectedThumbnail.classList.add("active", "border-primary");
 
-  // Update main product image
+  
   const mainImage = document.getElementById("main-product-image");
   if (mainImage && variantImage) {
     mainImage.src = variantImage;
@@ -291,7 +291,7 @@ function updateVariantSelection(selectedThumbnail, variantImage) {
         ? `In Stock (${selectedVariant.stock_quantity} available)`
         : "Out of Stock";
   }
-  // Update selected variant info
+  
   const selectedVariantInfo = document.getElementById("selected-variant-info");
   if (selectedVariantInfo && selectedVariant) {
     selectedVariantInfo.style.display = "block";
@@ -312,7 +312,7 @@ function updateVariantSelection(selectedThumbnail, variantImage) {
     `;
   }
 
-  // Update add to cart button state
+  
   const addToCartBtn = document.getElementById("add-to-cart-btn");
   if (addToCartBtn) {
     if (selectedVariant.stock_quantity === 0) {
@@ -455,7 +455,7 @@ async function handleReviewSubmit(event) {
     if (result.success) {
       showSuccess("Review submitted successfully!");
       event.target.reset();
-      // Refresh reviews
+      
       setTimeout(() => {
         initProductPage();
       }, 1000);
@@ -469,12 +469,12 @@ async function handleReviewSubmit(event) {
   hideLoading();
 }
 
-// Global functions
+
 window.viewProduct = function (productId) {
   window.location.href = `product.html?id=${productId}`;
 };
 
-// In productPageView.js, update the add to cart function
+
 window.addToCartHandler = async function (userId) {
   try {
     const userRole = localStorage.getItem("userRole");
@@ -491,13 +491,13 @@ window.addToCartHandler = async function (userId) {
       return;
     }
     
-    // Validate variant selection
+    
     if (!selectedVariant) {
       showError("Please select a variant");
       return;
     }
 
-    // Validate stock
+    
     if (selectedVariant.stock_quantity === 0) {
       showError("This variant is out of stock");
       return;
@@ -510,7 +510,7 @@ window.addToCartHandler = async function (userId) {
 
     if (result.success) {
       showSuccess("Product added to cart successfully!");
-      // Update cart count in navbar
+      
       updateCartCount();
     } else {
       showError(result.error || "Failed to add product to cart");
@@ -528,7 +528,7 @@ window.addToWishlist = function (productId) {
 };
 
 function updateCartCount() {
-  // Update cart count in navbar
+  
   const cartCountElements = document.querySelectorAll(".cart-count");
   cartCountElements.forEach((element) => {
     const currentCount = parseInt(element.textContent) || 0;

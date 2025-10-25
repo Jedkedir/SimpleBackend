@@ -87,7 +87,7 @@ exports.createOrderItemFromArrayController = async (req, res) => {
 
    
 
-    // Validate each order item with detailed logging
+    
     for (const [index, item] of orderItems.entries()) {
     
 
@@ -121,7 +121,7 @@ exports.createOrderItemFromArrayController = async (req, res) => {
 
    
 
-    // Call the service with the exact data
+    
     const orderItemIds = await orderItemService.createOrderItemFromArray(
       orderItems
     );
@@ -137,7 +137,7 @@ exports.createOrderItemFromArrayController = async (req, res) => {
    
   } catch (err) {
    
-    // Check for specific database errors
+    
     if (err.code) {
       console.error("Database error code:", err.code);
     }

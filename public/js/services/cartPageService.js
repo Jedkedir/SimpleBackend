@@ -2,12 +2,12 @@ import { apiGet, apiDelete, apiPost,apiPut } from "./BaseService.js";
 
 export async function getCartPageData() {
   try {
-    // Get cart ID from localStorage or create new one
+    
    
     let userId = localStorage.getItem("userId") || null;
     
     if (!userId) {
-      // If no cart exists, return empty data
+      
       return {
         success: true,
         data: {
@@ -22,7 +22,7 @@ export async function getCartPageData() {
       };
     }
 
-    // Fetch cart items
+    
     const cartItemsData = await apiGet(`/cart-items/${userId}`);
     const orderHistoryData = await apiGet(`/orders/order-history/${userId}`);
     
@@ -145,7 +145,7 @@ export async function getProductDetails(productId) {
   }
 }
 
-// Helper function
+
 function getFallbackData() {
   return {
     CartItemData: [],

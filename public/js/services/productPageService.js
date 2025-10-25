@@ -3,23 +3,23 @@ import { apiGet, apiPost } from "./BaseService.js";
 export async function getProductPageData(productId, variantId) {
   try {
     
-    // First, get the product data to extract the category
+    
     const productResponse = await apiGet(`/products/${productId}`);
     
-    // Extract category name from product data
+    
     let categoryName = "";
 
     if (Array.isArray(productResponse) && productResponse.length > 0) {
-      // If it's an array, get category from first variant
+      
       categoryName = productResponse[0].catname || productResponse[0].category;
     } else if (productResponse && typeof productResponse === "object") {
-      // If it's a single object
+      
       categoryName = productResponse.catname || productResponse.category;
     }
 
     
 
-    // Now make parallel calls for reviews and similar products
+    
     const [reviewResponse, similarResponse] = await Promise.all([
       apiGet(`/reviews/product/${productId}`).catch((err) => ({
         error: err.message,
@@ -28,10 +28,10 @@ export async function getProductPageData(productId, variantId) {
         ? apiPost("/products/get-by-cat/", { catName: categoryName }).catch(
             (err) => ({ error: err.message })
           )
-        : Promise.resolve({ similarPro: [] }), // Empty if no category
+        : Promise.resolve({ similarPro: [] }), 
     ]);
 
-    // Process product data
+    
     let productData = productResponse;
     let currentVariant = null;
     let variants = [];
@@ -45,7 +45,7 @@ export async function getProductPageData(productId, variantId) {
       variants = [productData];
     }
 
-    // Process review data
+    
     let reviews = [];
     if (reviewResponse && !reviewResponse.error) {
       reviews =
@@ -56,7 +56,7 @@ export async function getProductPageData(productId, variantId) {
         [];
     }
 
-    // Process similar products data
+    
     let similarProducts = [];
     if (similarResponse && !similarResponse.error) {
       similarProducts =
@@ -66,7 +66,7 @@ export async function getProductPageData(productId, variantId) {
         similarResponse ||
         [];
 
-      // Filter out the current product from similar products
+      
       similarProducts = similarProducts.filter((product) => {
         const productIdToCompare = product.product_id || product.id;
         return productIdToCompare !== parseInt(productId);
@@ -205,7 +205,7 @@ export async function getProductDetails(productId) {
   }
 }
 
-// Helper function
+
 function getFallbackData() {
   return {
     Product: null,

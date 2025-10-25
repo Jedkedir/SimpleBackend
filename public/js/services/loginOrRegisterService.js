@@ -11,7 +11,7 @@ import {
  */
 class LoginOrRegisterService {
   constructor() {
-    // No parent constructor needed
+    
   }
 
   async loginUser(loginData) {
@@ -23,10 +23,10 @@ class LoginOrRegisterService {
       if (response.token) {
         console.log("Login successful, token received");
 
-        // Store token
+        
         setAuthToken(response.token);
 
-        // Get or create user data
+        
         const userData = {
           userId: response.userId,
           email: response.email || loginData.email,
@@ -36,7 +36,7 @@ class LoginOrRegisterService {
           token:response.token||"",
         };
 
-        // Store user data
+        
         setCurrentUser(userData);
 
         console.log("Final user data:", userData);
@@ -65,7 +65,7 @@ class LoginOrRegisterService {
         lastName: registerData.lastName,
       });
 
-      // Prepare data for registration
+      
       const registrationPayload = {
         firstName: registerData.firstName,
         lastName: registerData.lastName,
@@ -81,7 +81,7 @@ class LoginOrRegisterService {
       if (response.token) {
         console.log("Registration successful, token received");
 
-        // Create complete user data object
+        
         const userData = {
           userId: response.userId,
           email: response.email || registerData.email,
@@ -94,7 +94,7 @@ class LoginOrRegisterService {
 
         console.log("User data after registration:", userData);
 
-        // Store authentication data
+        
         setAuthToken(response.token);
         setCurrentUser(userData);
 
@@ -109,7 +109,7 @@ class LoginOrRegisterService {
     } catch (error) {
       console.error("Registration error:", error);
 
-      // Handle specific error cases
+      
       if (
         error.message.includes("unique constraint") ||
         error.message.includes("already registered")
@@ -149,10 +149,10 @@ class LoginOrRegisterService {
   }
 }
 
-// Create singleton instance
+
 const loginOrRegisterService = new LoginOrRegisterService();
 
-// Export individual functions
+
 export const loginUser = (loginData) =>
   loginOrRegisterService.loginUser(loginData);
 export const registerUser = (registerData) =>

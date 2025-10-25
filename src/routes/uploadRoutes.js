@@ -8,7 +8,7 @@ const {
 const path = require("path");
 const fs = require("fs");
 
-// Single image upload route
+
 router.post("/upload-single", uploadSingle, handleUploadErrors, (req, res) => {
   try {
     if (!req.file) {
@@ -40,7 +40,7 @@ router.post("/upload-single", uploadSingle, handleUploadErrors, (req, res) => {
   }
 });
 
-// Multiple images upload route
+
 router.post(
   "/upload-multiple",
   uploadMultiple,
@@ -80,7 +80,7 @@ router.post(
   }
 );
 
-// Get all uploaded images
+
 router.get("/images", (req, res) => {
   try {
     const imagesDir = path.join(__dirname, "../../public/images");
@@ -120,13 +120,13 @@ router.get("/images", (req, res) => {
   }
 });
 
-// DELETE route 
+
 router.delete("/upload/delete/:filename", (req, res) => {
   try {
     const filename = req.params.filename;
     console.log("Delete request for filename:", filename);
 
-    // Security check: prevent directory traversal
+    
     if (
       filename.includes("..") ||
       filename.includes("/") ||
@@ -141,7 +141,7 @@ router.delete("/upload/delete/:filename", (req, res) => {
     const filePath = path.join(__dirname, "../../public/images", filename);
     console.log("Full file path:", filePath);
 
-    // Check if file exists
+    
     if (!fs.existsSync(filePath)) {
       console.log("File not found:", filePath);
       return res.status(404).json({
@@ -150,7 +150,7 @@ router.delete("/upload/delete/:filename", (req, res) => {
       });
     }
 
-    // Delete the file
+    
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error("Error deleting file:", err);

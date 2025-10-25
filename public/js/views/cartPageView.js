@@ -181,14 +181,14 @@ async function removeCartItemHandler(itemId) {
     const result = await removeCartItem(itemId);
 
     if (result.success) {
-      // Remove item from local array
+      
       cartItems = cartItems.filter((item) => item.cart_item_id !== itemId);
 
-      // Re-render cart
+      
       renderCart(cartItems);
       showSuccess("Item removed from cart");
 
-      // Update cart count in navbar
+      
       updateNavbarCartCount();
     } else {
       showError(result.error || "Failed to remove item from cart");
@@ -218,10 +218,10 @@ async function updateQuantityHandler(itemId, change) {
     const result = await updateCartItemQuantity(itemId, newQuantity);
 
     if (result.success) {
-      // Update local array
+      
       item.quantity = newQuantity;
 
-      // Re-render cart
+      
       renderCart(cartItems);
       showSuccess("Quantity updated");
     } else {
@@ -241,7 +241,7 @@ function proceedToCheckout() {
     return;
   }
 
-  // Check if user can checkout
+  
   const userRole = localStorage.getItem("userRole");
   if (!userRole) {
     showError("Please log in to proceed with checkout");
@@ -258,7 +258,7 @@ function proceedToCheckout() {
 
  
 
-  // Save cart items and proceed to checkout
+  
   try {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   } catch (error) {
@@ -333,7 +333,7 @@ function getOrderStatusColor(status) {
   }
 }
 
-// Global functions
+
 window.updateQuantityHandler = updateQuantityHandler; 
 window.removeCartItemHandler = removeCartItemHandler;
 window.proceedToCheckout = proceedToCheckout;

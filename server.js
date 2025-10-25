@@ -157,6 +157,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 
+/**
+ * Establishes a connection to the PostgreSQL database pool and starts the Express server.
+ * If the connection to the database pool fails, it will log the error and exit the process.
+ * If the server start fails, it will log the error and exit the process.
+ * @throws {Error} If the database connection or server start fails.
+ */
+
 async function connectAndListen() {
   try {
     

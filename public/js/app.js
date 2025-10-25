@@ -3,7 +3,7 @@
  * Main application entry point and router
  */
 
-// Import all view modules
+
 import { initLandingPage } from "./views/landingPageView.js";
 import { initLoginOrRegisterPage } from "./views/loginOrRegisterPageView.js";
 import { initProductPage } from "./views/productPageView.js";
@@ -15,7 +15,14 @@ import { initShopPage } from "./views/shopPageView.js";
 import {initCheckoutPage} from "./views/checkoutPageView.js";
 import { updateNavigation } from "./services/navigationService.js"; 
 
-// Router function to initialize the correct page
+
+/**
+ * Initializes the page based on the current URL path.
+ * Uses a switch statement to call the specific initialization function for each page.
+ * If no specific initialization function is found, it will log a message and do nothing.
+ * If an error occurs during initialization, it will log the error to the console.
+ */
+
 function initializePage() {
   const path = window.location.pathname;
   const filename = path.split("/").pop() || "index.html";
@@ -23,7 +30,7 @@ function initializePage() {
   console.log("Initializing page:", filename);
 
   try {
-    // Update navigation on every page load
+    
     updateNavigation();
 
     switch (filename) {
@@ -58,7 +65,7 @@ function initializePage() {
         break;
       default:
         console.log("No specific initialization for:", filename);
-        // If no specific handler, try to initialize landing page as fallback
+        
         if (document.getElementById("best-selling-products")) {
           initLandingPage();
         }
@@ -68,8 +75,8 @@ function initializePage() {
   }
 }
 
-// Initialize when DOM is loaded
+
 document.addEventListener("DOMContentLoaded", initializePage);
 
-// Handle browser back/forward buttons
+
 window.addEventListener("popstate", initializePage);

@@ -3,7 +3,7 @@ const cartService = require("../services/cartService");
 
 exports.getOrCreateCartController = async (req, res) => {
   try {
-    const userId = parseInt(req.body.userId || req.query.userId); // Get from body or query
+    const userId = parseInt(req.body.userId || req.query.userId); 
 
     if (isNaN(userId)) {
       return res.status(400).json({
@@ -11,11 +11,11 @@ exports.getOrCreateCartController = async (req, res) => {
       });
     }
 
-    // Attempt to fetch existing cart
+    
     let cart = await cartService.getCartByUserId(userId);
 
     if (!cart) {
-      // If cart doesn't exist, create a new one
+      
       const cartId = await cartService.createCart(userId);
       cart = {
         cart_id: cartId,
@@ -27,7 +27,7 @@ exports.getOrCreateCartController = async (req, res) => {
         cart,
       });
     } else {
-      // Return existing cart
+      
       res.status(200).json(cart);
     }
   } catch (error) {

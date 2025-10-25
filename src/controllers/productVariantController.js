@@ -103,7 +103,7 @@ exports.deleteVariantController = async (req, res) => {
 exports.updateVariantStockController = async (req, res) => {
   try {
     const variantId = parseInt(req.params.id);
-    const { quantityChange } = req.body; // e.g., 5 for stock increase, -2 for decrease
+    const { quantityChange } = req.body; 
 
     if (
       isNaN(variantId) ||

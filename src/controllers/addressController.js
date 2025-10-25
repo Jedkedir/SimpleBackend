@@ -3,7 +3,7 @@ const addressService = require("../services/addressService");
 
 exports.createAddressController = async (req, res) => {
   try {
-    // 1. Extract and validate necessary data from the request body
+    
     const {
       userId,
       street,
@@ -15,7 +15,7 @@ exports.createAddressController = async (req, res) => {
       
     } = req.body;
 
-    // Basic validation check
+    
     if (!userId || !street || !city || !postalCode || !country) {
       return res.status(400).json({
         error:
@@ -23,7 +23,7 @@ exports.createAddressController = async (req, res) => {
       });
     }
 
-    // 2. Call the service layer function
+    
     const addressId = await addressService.createAddress({
       userId,
       street,
@@ -34,7 +34,7 @@ exports.createAddressController = async (req, res) => {
       country,
     });
 
-    // 3. Send successful response
+    
     res.status(201).json({
       message: "Address created successfully",
       addressId,
@@ -54,7 +54,7 @@ exports.getAddressesByUserIdController = async (req, res) => {
       return res.status(400).json({ error: "Invalid user ID format." });
     }
 
-    // Call the service layer function
+    
     const addresses = await addressService.getAddressesByUserId(userId);
 
     res.status(200).json(addresses);
@@ -68,17 +68,17 @@ exports.getAddressesByUserIdController = async (req, res) => {
 exports.updateAddressController = async (req, res) => {
   try {
     const addressId = parseInt(req.params.addressId);
-    const addressData = req.body; // Pass all relevant fields from the body
+    const addressData = req.body; 
 
     if (isNaN(addressId)) {
       return res.status(400).json({ error: "Invalid address ID format." });
     }
 
-    // Call the service layer function
+    
     const success = await addressService.updateAddress(addressId, addressData);
 
     if (!success) {
-      // If the update stored procedure returns false, it means the ID was not found
+      
       return res
         .status(404)
         .json({ error: "Address not found or nothing to update." });
@@ -99,14 +99,14 @@ exports.deleteAddressController = async (req, res) => {
       return res.status(400).json({ error: "Invalid address ID format." });
     }
 
-    // Call the service layer function
+    
     const success = await addressService.deleteAddress(addressId);
 
     if (!success) {
       return res.status(404).json({ error: "Address not found" });
     }
 
-    res.status(204).send(); // 204 No Content for successful deletion
+    res.status(204).send(); 
   } catch (error) {
     console.error("Error deleting address:", error.message);
     res.status(500).json({ error: "Failed to delete address" });

@@ -146,7 +146,7 @@ function setupPagination(totalCount) {
 
   let paginationHTML = "";
 
-  // Previous button
+  
   paginationHTML += `
     <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
       <a class="page-link" href="#" onclick="changePage(${
@@ -155,7 +155,7 @@ function setupPagination(totalCount) {
     </li>
   `;
 
-  // Page numbers
+  
   for (let i = 1; i <= totalPages; i++) {
     if (
       i === 1 ||
@@ -172,7 +172,7 @@ function setupPagination(totalCount) {
     }
   }
 
-  // Next button
+  
   paginationHTML += `
     <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
       <a class="page-link" href="#" onclick="changePage(${
@@ -187,7 +187,7 @@ function setupPagination(totalCount) {
 function setupEventListeners() {
  
 
-  // Search functionality
+  
   const searchInput = document.getElementById("search-input");
   const searchBtn = document.getElementById("search-btn");
 
@@ -200,13 +200,13 @@ function setupEventListeners() {
     });
   }
 
-  // Sort functionality
+  
   const sortSelect = document.getElementById("sort-select");
   if (sortSelect) {
     sortSelect.addEventListener("change", handleSort);
   }
 
-  // Filter functionality
+  
   const applyFiltersBtn = document.getElementById("apply-filters");
   const clearFiltersBtn = document.getElementById("clear-filters");
 
@@ -218,7 +218,7 @@ function setupEventListeners() {
     clearFiltersBtn.addEventListener("click", clearAllFilters);
   }
 
-  // Color and size filter buttons
+  
   document.querySelectorAll(".color-filter").forEach((btn) => {
     btn.addEventListener("click", function () {
       this.classList.toggle("btn-primary");
@@ -257,7 +257,7 @@ async function handleSort() {
 async function applyFilters() {
   
 
-  // Collect category filters
+  
   currentFilters.categories = [];
   document
     .querySelectorAll('input[type="checkbox"]:checked')
@@ -267,7 +267,7 @@ async function applyFilters() {
       }
     });
 
-  // Collect price filters
+  
   const priceMin = document.getElementById("price-min");
   const priceMax = document.getElementById("price-max");
 
@@ -278,13 +278,13 @@ async function applyFilters() {
     ? parseFloat(priceMax.value) || null
     : null;
 
-  // Collect color filters
+  
   currentFilters.colors = [];
   document.querySelectorAll(".color-filter.btn-primary").forEach((btn) => {
     currentFilters.colors.push(btn.dataset.color);
   });
 
-  // Collect size filters
+  
   currentFilters.sizes = [];
   document.querySelectorAll(".size-filter.btn-primary").forEach((btn) => {
     currentFilters.sizes.push(btn.dataset.size);
@@ -292,7 +292,7 @@ async function applyFilters() {
 
   currentPage = 1;
 
-  // Close offcanvas
+  
   const offcanvas = bootstrap.Offcanvas.getInstance(
     document.getElementById("filterOffcanvas")
   );
@@ -394,7 +394,7 @@ function showSuccess(message) {
   }
 }
 
-// Global functions
+
 window.viewProduct = function (productId,variantId) {
   window.location.href = `product.html?id=${productId}&variantId=${variantId}`;
 };
@@ -424,7 +424,7 @@ window.changePage = function (page) {
 window.clearAllFilters = function () {
   
 
-  // Reset filters
+  
   currentFilters = {
     categories: [],
     priceMin: null,
@@ -435,7 +435,7 @@ window.clearAllFilters = function () {
     sort: "",
   };
 
-  // Reset UI
+  
   document
     .querySelectorAll('input[type="checkbox"]')
     .forEach((cb) => (cb.checked = false));

@@ -3,7 +3,7 @@ const cartItemService = require("../services/cartItemService");
 
 exports.addOrUpdateCartItemController = async (req, res) => {
   try {
-    // Extract userId, variantId, and quantity from the request body
+    
     const { userId, variantId, quantity } = req.body;
     console.log(req.body)
     if (

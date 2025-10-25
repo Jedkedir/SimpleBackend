@@ -21,26 +21,26 @@ exports.registerController = async (req, res) => {
   }
 
   try {
-    // 1. Hash the password
+    
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // Check if this is the first user (make them admin)
+    
     const { rows } = await db.query('SELECT COUNT(*) FROM users');
     const userCount = parseInt(rows[0].count);
     const isFirstUser = userCount === 0;
 
-    // 2. Create user via the service (which calls the PG function)
+    
     const userId = await userService.createUser({
       firstName,
       lastName,
       email,
       passwordHash,
       phoneNumber,
-      isAdmin: isFirstUser, // First user becomes admin
+      isAdmin: isFirstUser, 
     });
 
-    // 3. Generate token and respond
+    
     res.status(201).json({
       userId,
       email,
@@ -52,7 +52,7 @@ exports.registerController = async (req, res) => {
       role: isFirstUser ? "admin" : "user",
     });
   } catch (error) {
-    // Handle unique constraint error on email
+    
     if (error.message && error.message.includes("unique constraint")) {
       return res.status(400).json({ error: "Email already registered" });
     }
@@ -70,11 +70,11 @@ exports.loginController = async (req, res) => {
   }
 
   try {
-    // 1. Fetch user by email (we need a new service function for this)
+    
     const user = await userService.getUserByEmail(email);
 
     if (user && (await bcrypt.compare(password, user.password_hash))) {
-      // 2. Password matches, generate token
+      
       res.json({
         userId: user.user_id,
         firstName: user.first_name,
@@ -86,7 +86,7 @@ exports.loginController = async (req, res) => {
         role: user.is_admin ? "admin" : "user",
       });
     } else {
-      // 3. Authentication failed
+      
       res.status(401).json({ error: "Invalid credentials" });
     }
   } catch (error) {
@@ -108,7 +108,7 @@ exports.addAdmin = async (req, res) => {
 
   const sql = 'SELECT is_admin FROM users WHERE user_id = $1';
   const result = await db.query(sql, [userId]);
-  // console.log(result.rows[0].is_admin)
+  
   if (result.rows[0].is_admin === true) {
     if (!email || !password || !firstName || !lastName) {
       console.log(email)
@@ -123,11 +123,11 @@ exports.addAdmin = async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       const passwordHash = await bcrypt.hash(password, salt);
 
-      // const { rows } =   await pool.query('SELECT COUNT(*) FROM users');
-      // const isAdmin = parseInt(rows[0].count) === 0;   
+      
+      
 
 
-      // 2. Create user via the service (which calls the PG function)
+      
       const userId = await userService.createUser({
         firstName,
         lastName,
@@ -137,7 +137,7 @@ exports.addAdmin = async (req, res) => {
         isAdmin: true,
       });
 
-      // 3. Generate token and respond
+      
       res.status(201).json({
         userId,
         email,
@@ -145,7 +145,7 @@ exports.addAdmin = async (req, res) => {
       });
     }
     catch (error) {
-      // Handle unique constraint error on email
+      
       if (error.message && error.message.includes("unique constraint")) {
         return res.status(400).json({ error: "Email already registered" });
       }
