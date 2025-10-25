@@ -1,0 +1,16 @@
+.hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('sample/landing1.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            color: white;
+        }
+        .product-card {
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .navbar-brand img {
+            height: 40px;
+        }

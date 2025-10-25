@@ -166,6 +166,16 @@ form {
     color: white;
     font-size: 1.5em;
 }
+ .error-message, .success-message, .loading-message {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        display: none;
+      }
+      .error-message { background: #ffebee; color: #c62828; }
+      .success-message { background: #e8f5e8; color: #2e7d32; }
+      .loading-message { background: #e3f2fd; color: #1565c0; }
 
 /* Larger screens: tablet/desktop */
 @media (min-width: 769px) {

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - StyleHub Clothing Store | Stock Control & Monitoring</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Admin navigation">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="sample/clothing-store-logo.jpg" alt="StyleHub Clothing Store - Inventory Management" class="me-2" style="height: 40px;">
+                    StyleHub Admin
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle admin navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Store Front</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="stock.html">Inventory Management</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="new-product.html">Add New Product</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <!-- Page Header -->
+        <header class="row">
+            <div class="col-12">
+                <h1>Inventory Management</h1>
+                <p class="lead text-muted">Monitor and manage product stock levels</p>
+            </div>
+        </header>
+
+        <!-- Stock Summary Section -->
+        <section class="row mt-4" aria-labelledby="stock-summary-heading">
+            <h2 id="stock-summary-heading" class="visually-hidden">Stock Level Summary</h2>
+            
+            <div class="col-md-4 mb-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h3 class="h6 card-title">Products In Stock</h3>
+                                <p id="in-stock-count" class="h3 mb-0" aria-live="polite">0</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-check-circle fs-1" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h3 class="h6 card-title">Low Stock Alerts</h3>
+                                <p id="low-stock-count" class="h3 mb-0" aria-live="polite">0</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-exclamation-triangle fs-1" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+                <div class="card bg-danger text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h3 class="h6 card-title">Out of Stock Items</h3>
+                                <p id="out-of-stock-count" class="h3 mb-0" aria-live="polite">0</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-x-circle fs-1" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Out of Stock Products Section -->
+        <section class="row mt-4" aria-labelledby="out-of-stock-heading">
+            <div class="col-12">
+                <div class="card border-danger">
+                    <div class="card-header bg-danger text-white">
+                        <h2 id="out-of-stock-heading" class="h5 mb-0">
+                            <i class="bi bi-x-circle me-2" aria-hidden="true"></i>
+                            Out of Stock Products - Requires Attention
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="out-of-stock-products" role="region" aria-live="polite" aria-label="Out of stock products list">
+                            <!-- Out of stock products will be loaded here -->
+                            <div class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading out of stock products...</span>
+                                </div>
+                                <p class="text-muted mt-2">Loading out of stock products...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- In Stock Products Section -->
+        <section class="row mt-4" aria-labelledby="in-stock-heading">
+            <div class="col-12">
+                <div class="card border-success">
+                    <div class="card-header bg-success text-white">
+                        <h2 id="in-stock-heading" class="h5 mb-0">
+                            <i class="bi bi-check-circle me-2" aria-hidden="true"></i>
+                            Products Currently In Stock
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="in-stock-products" role="region" aria-live="polite" aria-label="In stock products list">
+                            <!-- In stock products will be loaded here -->
+                            <div class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading in stock products...</span>
+                                </div>
+                                <p class="text-muted mt-2">Loading products currently in stock...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Stock Update Modal -->
+    <div class="modal fade" id="stockUpdateModal" tabindex="-1" aria-labelledby="stock-update-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="stock-update-title" class="modal-title h5">Update Product Stock Level</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close stock update modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="product-id-to-update">
+                    <div class="mb-3">
+                        <label for="new-stock-quantity" class="form-label">New Stock Quantity</label>
+                        <input type="number" class="form-control" id="new-stock-quantity" min="0" required aria-describedby="stock-quantity-help">
+                        <div id="stock-quantity-help" class="form-text">Enter the updated quantity for this product.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel Update</button>
+                    <button type="button" class="btn btn-primary" id="confirm-stock-update">Update Stock Level</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="d-none" role="status" aria-live="polite">
+        <div class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background: rgba(0,0,0,0.5); z-index: 9999;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading inventory data, please wait...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div id="error-alert" class="alert alert-danger alert-dismissible fade show d-none position-fixed top-0 start-50 translate-middle-x" style="z-index: 9998; margin-top: 20px;" role="alert" aria-live="assertive">
+        <strong><i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i>Inventory Error:</strong>
+        <span id="error-message"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close error message"></button>
+    </div>
+
+    <!-- Success Alert -->
+    <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none position-fixed top-0 start-50 translate-middle-x" style="z-index: 9998; margin-top: 20px;" role="alert" aria-live="polite">
+        <strong><i class="bi bi-check-circle me-2" aria-hidden="true"></i>Success:</strong>
+        <span id="success-message"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close success message"></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

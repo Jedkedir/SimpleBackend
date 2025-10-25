@@ -1,30 +1,86 @@
-import { apiGet, apiPost } from "BaseService.js";
+import { apiGet, apiPost, apiPostFormData } from "./BaseService.js";
 
 /**
- * Fetch all landing page data and return organized object
+ * Create new product with variants
  */
 export async function newProductPageData(productData) {
   try {
-    // Fetch all data in parallel
-    const {product, variants} = productData;
+    console.log("Starting product creation with data:", productData);
     
-    const addedProduct = await apiPost("/products/", {body: product});
-    const addedProductId = addedProduct.product_id;
+    const { product, variants, images } = productData;
     
+    // Upload product images first and get URLs
+    let productImageUrl = '';
+    if (images && images.length > 0 && images[0].size > 0) {
+      console.log("Uploading product images...");
+      const imageFormData = new FormData();
+      imageFormData.append('images', images[0]);
+      
+      const uploadResult = await apiPostFormData("/upload/upload-multiple", imageFormData);
+      console.log("Image upload result:", uploadResult);
+      
+      if (uploadResult.success && uploadResult.data.files.length > 0) {
+        productImageUrl = uploadResult.data.files[0].url;
+        console.log("Product image URL:", productImageUrl);
+      }
+    }
+
+    // Create the product with image URL
+    const productPayload = {
+      ...product,
+      image_url: productImageUrl
+    };
+    
+    console.log("Creating product with payload:", productPayload);
+    const addedProduct = await apiPost("/products", productPayload);
+    console.log("Product created response:", addedProduct);
+    
+    const addedProductId = addedProduct.productId;
+    if (!addedProductId) {
+      throw new Error("No product ID returned from server");
+    }
+
+    console.log("Creating variants for product ID:", addedProductId);
+    // Create variants
     for (const variant of variants) {
-        await apiPost("/variants/", {body: { ...variant, product_id: addedProductId}})
+      console.log("Processing variant:", variant);
+      let variantImageUrl = '';
+      
+      // Upload variant image if exists
+      if (variant.images && variant.images.length > 0 && variant.images[0].size > 0) {
+        console.log("Uploading variant image...");
+        const variantFormData = new FormData();
+        variantFormData.append('images', variant.images[0]);
+        
+        const variantUploadResult = await apiPostFormData("/upload/upload-multiple", variantFormData);
+        console.log("Variant image upload result:", variantUploadResult);
+        
+        if (variantUploadResult.success && variantUploadResult.data.files.length > 0) {
+          variantImageUrl = variantUploadResult.data.files[0].url;
+          console.log("Variant image URL:", variantImageUrl);
+        }
+      }
+      
+      const variantPayload = {
+        ...variant, 
+        productId: addedProductId,
+        image_url: variantImageUrl
+      };
+      
+      console.log("Creating variant with payload:", variantPayload);
+      const variantResult = await apiPost("/variants", variantPayload);
+      console.log("Variant created response:", variantResult);
     }
         
-    // Return organized data object
+    console.log("Product creation completed successfully");
     return {
       success: true,      
     };
   } catch (error) {
-    console.error("Service: Failed to fetch new product page data:", error);
+    console.error("Service: Failed to create product:", error);
     return {
       success: false,
-      error: error.message,
-      data: getFallbackData(),
+      error: error.message || "Failed to create product",
     };
   }
 }
@@ -87,15 +143,3 @@ export async function getProductDetails(productId) {
     };
   }
 }
-
-// Helper function
-function getFallbackData() {
-  return {  
-    user: {
-      isAuthenticated: false,
-      name: "Guest",
-      cartItems: 0,
-    },
-  };
-}
-

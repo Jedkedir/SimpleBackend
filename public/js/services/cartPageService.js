@@ -1,34 +1,87 @@
-import { apiGet } from "BaseService.js";
+import { apiGet, apiDelete, apiPost,apiPut } from "./BaseService.js";
 
-/**
- * Fetch all landing page data and return organized object
- */
 export async function getCartPageData() {
   try {
-    // Fetch all data in parallel
-    const [cartItemsData] = await apiGet(`/cart-items/:${cartId}`);
-    const [orderHistoryData] = await apiGet(`/order/orders-history/:${orderId}`)
+    // Get cart ID from localStorage or create new one
+   
+    let userId = localStorage.getItem("userId") || null;
+    
+    if (!userId) {
+      // If no cart exists, return empty data
+      return {
+        success: true,
+        data: {
+          CartItemData: [],
+          OrderHistoryData: [],
+          user: {
+            isAuthenticated: !!localStorage.getItem("authToken"),
+            name: "Guest",
+            cartItems: 0,
+          },
+        },
+      };
+    }
 
-    // Return organized data object
+    // Fetch cart items
+    const cartItemsData = await apiGet(`/cart-items/${userId}`);
+    const orderHistoryData = await apiGet(`/orders/order-history/${userId}`);
+    
     return {
       success: true,
       data: {
         CartItemData: cartItemsData.cartItems || [],
         OrderHistoryData: orderHistoryData.orderHis || [],
-
         user: {
           isAuthenticated: !!localStorage.getItem("authToken"),
           name: "Guest",
-          cartItems: 0,
+          cartItems: cartItemsData.items?.length || 0,
         },
       },
     };
   } catch (error) {
-    console.error("Service: Failed to fetch dashboard page data:", error);
+    console.error("Service: Failed to fetch cart page data:", error);
     return {
       success: false,
       error: error.message,
       data: getFallbackData(),
+    };
+  }
+}
+
+export async function updateCartItemQuantity(itemId, quantity) {
+  try {
+    console.log(itemId, quantity);
+    const result = await apiPut(`/cart-items/`, { 
+      cart_item_id: itemId,
+      quantity : quantity
+    });
+console.log(result);
+    return {
+      success: true,
+      data: result,
+    };
+  } catch (error) {
+    console.error("Service: Failed to update cart item:", error);
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+}
+
+export async function removeCartItem(itemId) {
+  try {
+    const result = await apiDelete(`/cart-items/${itemId}`);
+
+    return {
+      success: true,
+      data: result,
+    };
+  } catch (error) {
+    console.error("Service: Failed to remove cart item:", error);
+    return {
+      success: false,
+      error: error.message,
     };
   }
 }
@@ -95,8 +148,8 @@ export async function getProductDetails(productId) {
 // Helper function
 function getFallbackData() {
   return {
-   CartItemData: [],
-   orderHistoryData: [],
+    CartItemData: [],
+    OrderHistoryData: [],
     user: {
       isAuthenticated: false,
       name: "Guest",
@@ -104,4 +157,3 @@ function getFallbackData() {
     },
   };
 }
-

@@ -9,15 +9,19 @@
  * @param {Object} options - Fetch options
  * @returns {Promise} - Response data
  */
-export async function baseRequest(endpoint, options = {}) {
+async function baseRequest(endpoint, options = {}) {
   try {
     const url = `http://localhost:8000/api${endpoint}`;
 
-    // Default headers
+    // Default headers (only set if not FormData)
     const headers = {
-      "Content-Type": "application/json",
       ...options.headers,
     };
+
+    // Don't set Content-Type for FormData - let browser set it
+    if (!(options.body instanceof FormData)) {
+      headers["Content-Type"] = "application/json";
+    }
 
     // Add authorization header if token exists
     const token = getAuthToken();
@@ -31,8 +35,12 @@ export async function baseRequest(endpoint, options = {}) {
       ...options,
     };
 
-    // Add body for non-GET requests
-    if (config.body && typeof config.body === "object") {
+    // Stringify body only if it's an object and not FormData
+    if (
+      config.body &&
+      typeof config.body === "object" &&
+      !(config.body instanceof FormData)
+    ) {
       config.body = JSON.stringify(config.body);
     }
 
@@ -47,7 +55,9 @@ export async function baseRequest(endpoint, options = {}) {
     if (!response.ok) {
       const errorData = await parseErrorResponse(response);
       throw new Error(
-        errorData.message || `HTTP error! status: ${response.status}`
+        errorData.message ||
+          errorData.error ||
+          `HTTP error! status: ${response.status}`
       );
     }
 
@@ -112,6 +122,19 @@ export async function apiPost(endpoint, data) {
 }
 
 /**
+ * POST request with FormData (for file uploads)
+ * @param {string} endpoint - API endpoint
+ * @param {FormData} formData - FormData object
+ * @returns {Promise} - Response data
+ */
+export async function apiPostFormData(endpoint, formData) {
+  return baseRequest(endpoint, {
+    method: "POST",
+    body: formData,
+  });
+}
+
+/**
  * PUT request
  * @param {string} endpoint - API endpoint
  * @param {Object} data - Request body
@@ -138,7 +161,7 @@ export async function apiDelete(endpoint) {
  * @returns {string|null} - JWT token or null
  */
 export function getAuthToken() {
-  return localStorage.getItem("authToken");
+  return localStorage.getItem("userToken");
 }
 
 /**
@@ -146,15 +169,15 @@ export function getAuthToken() {
  * @param {string} token - JWT token
  */
 export function setAuthToken(token) {
-  localStorage.setItem("authToken", token);
+  localStorage.setItem("userToken", token);
 }
 
 /**
  * Remove authentication token (logout)
  */
 export function removeAuthToken() {
-  localStorage.removeItem("authToken");
-  localStorage.removeItem("userData");
+  localStorage.removeItem("userToken");
+  localStorage.removeItem("userId");
 }
 
 /**
@@ -171,8 +194,11 @@ export function isAuthenticated() {
  */
 export function getCurrentUser() {
   try {
-    const userData = localStorage.getItem("userData");
-    return userData ? JSON.parse(userData) : null;
+
+    const userToken =localStorage.getItem("userToken");
+    const userId =localStorage.getItem("userId");
+    const userRole =localStorage.getItem("userRole");
+    return userId ? JSON.parse(userId) : null;
   } catch {
     return null;
   }
@@ -182,6 +208,8 @@ export function getCurrentUser() {
  * Set current user data
  * @param {Object} userData - User data
  */
-export function setCurrentUser(userData) {
-  localStorage.setItem("userData", JSON.stringify(userData));
+export function setCurrentUser(data) {
+  localStorage.setItem("userToken", data.token);
+  localStorage.setItem("userId", data.userId);
+  localStorage.setItem("userRole", data.role);
 }

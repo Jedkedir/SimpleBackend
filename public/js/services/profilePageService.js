@@ -1,36 +1,144 @@
-import { apiGet, apiPost } from "BaseService.js";
+import { apiGet, apiPost } from "./BaseService.js";
 
 /**
- * Fetch all landing page data and return organized object
+ * Fetch user profile data
  */
-export async function getProfilePageData(userId) {
+export async function getUserProfileData() {
   try {
-    // Fetch all data in parallel
-    const [profileCredentials] = await apiGet(`/profile/userCredentials: ${userId}`);
-    const [profileUserData] = await apiGet(`reviews/product/:${userId}`)    
-    // const [addReview] = await apiPost("/reviews", { body: review});
-    const [similarData] = await apiPost('products/get-by-cat', {body: productData.catName})
+    const user = localStorage.getItem('userId') || '{}';
+    const userId = user.id;
+    
+    if (!userId) {
+      return {
+        success: false,
+        error: "User not authenticated"
+      };
+    }
 
+    // Fetch user profile data
+    const profileData = await apiGet(`/users/${userId}`);
+    
     // Return organized data object
     return {
       success: true,
       data: {
-        Product: productData.products || [],   
-        Reviews: reviewData.reviewRes || [],
-        SimilarProducts: similarData.similarPro || [],
-        user: {
-          isAuthenticated: !!localStorage.getItem("authToken"),
-          name: "Guest",
-          cartItems: 0,
-        },
+        user: profileData.user || user,
+        stats: profileData.stats || { totalOrders: 0, totalSpent: 0 },
+        orders: profileData.orders || [],
+        addresses: profileData.addresses || []
       },
     };
   } catch (error) {
-    console.error("Service: Failed to fetch product page data:", error);
+    console.error("Service: Failed to fetch user profile data:", error);
     return {
       success: false,
       error: error.message,
-      data: getFallbackData(),
+      data: getFallbackUserData(),
+    };
+  }
+}
+
+/**
+ * Fetch admin profile data
+ */
+export async function getAdminProfileData() {
+  try {
+    const userRole = localStorage.getItem('userRole')
+    const adminId = localStorage.getItem('userId');
+    
+    if (userRole !== 'admin') {
+      return {
+        success: false,
+        error: "Admin not authenticated"
+      };
+    }
+
+    // Fetch admin profile data
+    const profileData = await apiGet(`/profile/admin/${adminId}`);
+    
+    // Return organized data object
+    return {
+      success: true,
+      data: {
+        admin: profileData.admin || user,
+        stats: profileData.stats || { totalUsers: 0, totalProducts: 0, totalOrders: 0, totalRevenue: 0 },
+        activities: profileData.activities || []
+      },
+    };
+  } catch (error) {
+    console.error("Service: Failed to fetch admin profile data:", error);
+    return {
+      success: false,
+      error: error.message,
+      data: getFallbackAdminData(),
+    };
+  }
+}
+
+/**
+ * Update user profile
+ */
+export async function updateUserProfile(profileData) {
+  try {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userId = user.id;
+    
+    if (!userId) {
+      return {
+        success: false,
+        error: "User not authenticated"
+      };
+    }
+
+    const response = await apiPost(`/profile/${userId}`, {
+      body: profileData
+    });
+    
+    // Update local storage if successful
+    if (response.success && response.data.user) {
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+    }
+    
+    return response;
+  } catch (error) {
+    console.error("Service: Failed to update user profile:", error);
+    return {
+      success: false,
+      error: error.message
+    };
+  }
+}
+
+/**
+ * Update admin profile
+ */
+export async function updateAdminProfile(profileData) {
+  try {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const adminId = user.id;
+    
+    if (!adminId) {
+      return {
+        success: false,
+        error: "Admin not authenticated"
+      };
+    }
+
+    const response = await apiPost(`/profile/admin/${adminId}`, {
+      body: profileData
+    });
+    
+    // Update local storage if successful
+    if (response.success && response.data.admin) {
+      localStorage.setItem('user', JSON.stringify(response.data.admin));
+    }
+    
+    return response;
+  } catch (error) {
+    console.error("Service: Failed to update admin profile:", error);
+    return {
+      success: false,
+      error: error.message
     };
   }
 }
@@ -116,17 +224,30 @@ export async function getProductDetails(productId) {
   }
 }
 
-// Helper function
-function getFallbackData() {
+// Helper functions
+function getFallbackUserData() {
   return {
-    Product: [],
-    Reviews: [],
-    SimilarProduct: [],
     user: {
       isAuthenticated: false,
       name: "Guest",
-      cartItems: 0,
+      email: "",
     },
+    stats: { totalOrders: 0, totalSpent: 0 },
+    orders: [],
+    addresses: []
+  };
+}
+
+function getFallbackAdminData() {
+  return {
+    admin: {
+      isAuthenticated: false,
+      name: "Admin",
+      email: "",
+      role: "Administrator"
+    },
+    stats: { totalUsers: 0, totalProducts: 0, totalOrders: 0, totalRevenue: 0 },
+    activities: []
   };
 }
 

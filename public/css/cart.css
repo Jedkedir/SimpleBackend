@@ -1,0 +1,12 @@
+ .cart-item-image {
+            height: 80px;
+            width: 80px;
+            object-fit: cover;
+        }
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+        }
+        .order-status-badge {
+            font-size: 0.75rem;
+        }

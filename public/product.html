@@ -3,276 +3,193 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Page</title>
-    <link rel="stylesheet" href="style/newproduct.css" />
-    <script type="module" src="js/views/product.js" defer></script>
+    <title>Product Details - StyleHub Clothing Store | Premium Fashion Collection</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/product.css" />
   </head>
   <body>
-    <header class="header">
-      <h2>Phantom Stitch.</h2>
-      <nav class="naver-link">
-        <ul class="nav-list">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="shop.html" class="nav-link">Shop</a>
-          </li>
-          <li class="nav-item">
-            <a href="about.html" class="nav-link">About</a>
-          </li>
-          <li class="nav-item">
-            <a href="userCart.html" class="nav-link-icon"
-              ><img class="icon" src="sample/shopping-bag.png" alt="cart"
-            /></a>
-          </li>
-          <li class="nav-item">
-            <a href="login.html" class="nav-link"
-              ><img class="icon" src="sample/user.png" alt="sign"
-            /></a>
-          </li>
-          <li class="nav-item" onclick="showsidebar()">
-            <img src="sample/menu.png" alt="menu" class="menu-btn icon" />
-          </li>
-        </ul>
-        <ul class="sidebar">
-          <li class="nav-itemc" onclick="hidesidebar()">
-            <img class="icon" src="sample/close.png" alt="close" />
-          </li>
-          <li class="nav-itemi">
-            <a href="login.html" class="nav-link2"
-              ><img class="log icon" src="sample/user.png" alt="sign" />Log
-              In</a
-            >
-          </li>
-          <li class="nav-item2">
-            <a href="index.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item2">
-            <a href="shop.html" class="nav-link">Shop</a>
-          </li>
-          <li class="nav-item2">
-            <a href="about.html" class="nav-link">About</a>
-          </li>
-        </ul>
+    <!-- Header with Navigation -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main navigation">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">
+            <img src="sample/clothing-store-logo.jpg" alt="StyleHub Clothing Store - Fashion for Everyone" class="me-2" style="height: 40px;">
+            StyleHub Clothing
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="shop.html">Shop All Products</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="cart.html">
+                  <i class="bi bi-bag" aria-hidden="true"></i> Shopping Cart
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
     </header>
 
-    <main>
-      <a href="" class="Return_button"
-        ><img src="sample/back-button.png" alt="backnutton" class="back-btn"
-      /></a>
-      <section class="Product_detail">
-        <div class="Product_description">
-          <img src="sample/search.jpg" alt="" class="Product_image" />
+    <main class="container mt-4">
+      <!-- Breadcrumb Navigation -->
+      <nav aria-label="Breadcrumb navigation">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="shop.html">Shop</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Product Details
+          </li>
+        </ol>
+      </nav>
 
-          <h3>Description</h3>
-          <p class="description">
-            I'm a product detail. I'm a great place to add more information
-            about your product such as sizing, material, care and cleaning
-            instructions. This is also a great space to write what makes this
-            product special and how your customers can benefit from this item.
-            Buyers like to know the specifics of what they are buying
-          </p>
+      <!-- Product Details Section -->
+      <article id="product-details" class="row" aria-live="polite">
+        <!-- Product content will be loaded here -->
+        <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading product details...</span>
+          </div>
+          <p class="text-muted mt-2">Loading product information...</p>
         </div>
-        <div class="Product_variants">
-          <h1 class="product_name">T-Shirt</h1>
-          <h2>$250</h2>
-          <label for="colors">Color</label>
-          <div class="colors"></div>
-          <label for="size">Size</label>
-          <select name="" id="size"></select>
-          <label for="Quantity">Quantity</label>
-          <input type="number" class="num" />
-          <button class="cart-btn">Add to cart</button>
-          <button class="pur-btn">Purchase Now</button>
+      </article>
+
+      <!-- Customer Reviews Section -->
+      <section class="row mt-5" aria-labelledby="reviews-heading">
+        <div class="col-12">
+          <h2 id="reviews-heading">Customer Reviews & Ratings</h2>
+          <div id="reviews-container" role="region" aria-live="polite" aria-label="Customer reviews">
+            <!-- Reviews will be loaded here -->
+            <div class="text-center py-4">
+              <i class="bi bi-chat-quote fs-1 text-muted" aria-hidden="true"></i>
+              <p class="text-muted mt-2">Loading customer reviews...</p>
+            </div>
+          </div>
+
+          <!-- Add Review Form -->
+          <section class="card mt-4" aria-labelledby="write-review-heading">
+            <div class="card-header">
+              <h3 id="write-review-heading" class="h5 mb-0">Share Your Experience</h3>
+            </div>
+            <div class="card-body">
+              <form id="review-form" aria-describedby="review-form-help">
+                <p id="review-form-help" class="visually-hidden">
+                  Fill out the form below to submit your review. All fields are required.
+                </p>
+                <div class="mb-3">
+                  <label for="rating" class="form-label">Product Rating <span class="text-danger" aria-hidden="true">*</span></label>
+                  <select
+                    class="form-select"
+                    id="rating"
+                    name="rating"
+                    required
+                    aria-required="true"
+                    aria-describedby="rating-help"
+                  >
+                    <option value="">Select Your Rating</option>
+                    <option value="5">★★★★★ - Excellent</option>
+                    <option value="4">★★★★☆ - Very Good</option>
+                    <option value="3">★★★☆☆ - Good</option>
+                    <option value="2">★★☆☆☆ - Fair</option>
+                    <option value="1">★☆☆☆☆ - Poor</option>
+                  </select>
+                  <div id="rating-help" class="form-text">Rate this product from 1 to 5 stars based on your experience.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="content" class="form-label">Your Review <span class="text-danger" aria-hidden="true">*</span></label>
+                  <textarea
+                    class="form-control"
+                    id="content"
+                    name="content"
+                    rows="4"
+                    placeholder="Share your thoughts about this product's quality, fit, comfort, and overall experience..."
+                    required
+                    aria-required="true"
+                    aria-describedby="content-help"
+                  ></textarea>
+                  <div id="content-help" class="form-text">Be specific about what you liked or didn't like about this product.</div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-send me-2" aria-hidden="true"></i>Submit Review
+                </button>
+              </form>
+            </div>
+          </section>
         </div>
       </section>
-      <section class="Product_review">
-        <div class="Product_review_title">
-          <h2>Product Review</h2>
-          <a href="">View All</a>
-        </div>
 
-        <div class="Product_review_comments Hide_bar">
-          <article class="comment">
-            <form>
-              <label for="comment">Comment</label>
-              <textarea
-                id="comment"
-                name="comment"
-                cols="30"
-                rows="8"
-                placeholder="Write ur comment"
-              ></textarea>
-              <button class="send-btn">Send</button>
-            </form>
-          </article>
-          <article class="review_box">
-            <div class="inner-review-cont">
-              <img src="sample/user2.png" alt="user" class="icon" />
-              <div>
-                <h2>Bob</h2>
-                <time>12/12/2012</time>
+      <!-- Similar Products Section -->
+      <section class="row mt-5" aria-labelledby="similar-products-heading">
+        <div class="col-12">
+          <h2 id="similar-products-heading">You Might Also Like</h2>
+          <div id="similar-products" class="row" role="list" aria-label="Similar products recommendations">
+            <!-- Similar products will be loaded here -->
+            <div class="text-center py-4">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading similar products...</span>
               </div>
-              <span
-                >5 <img src="sample/star.png" alt="user" class="icon"
-              /></span>
+              <p class="text-muted mt-2">Discovering similar products...</p>
             </div>
-            <p>
-              I'm a product detail. I'm a great place to add more information
-              about your product such as sizing, material, care and cleaning
-              instructions. This is also a great space to write what makes this
-              product special and how your customers can benefit from this item.
-              Buyers
-            </p>
-          </article>
-          <article class="review_box">
-            <div class="inner-review-cont">
-              <img src="sample/user2.png" alt="user" class="icon" />
-              <div>
-                <h2>Bob</h2>
-                <time>12/12/2012</time>
-              </div>
-              <span
-                >5 <img src="sample/star.png" alt="user" class="icon"
-              /></span>
-            </div>
-            <p>
-              I'm a product detail. I'm a great place to add more information
-              about your product such as sizing, material, care and cleaning
-              instructions. This is also a great space to write what makes this
-              product special and how your customers can benefit from this item.
-              Buyers
-            </p>
-          </article>
-          <article class="review_box">
-            <div class="inner-review-cont">
-              <img src="sample/user2.png" alt="user" class="icon" />
-              <div>
-                <h2>Bob</h2>
-                <time>12/12/2012</time>
-              </div>
-              <span
-                >5 <img src="sample/star.png" alt="user" class="icon"
-              /></span>
-            </div>
-            <p>
-              I'm a product detail. I'm a great place to add more information
-              about your product such as sizing, material, care and cleaning
-              instructions. This is also a great space to write what makes this
-              product special and how your customers can benefit from this item.
-              Buyers
-            </p>
-          </article>
-          <article class="review_box">
-            <div class="inner-review-cont">
-              <img src="sample/user2.png" alt="user" class="icon" />
-              <div>
-                <h2>Bob</h2>
-                <time>12/12/2012</time>
-              </div>
-              <span
-                >5 <img src="sample/star.png" alt="user" class="icon"
-              /></span>
-            </div>
-            <p>
-              I'm a product detail. I'm a great place to add more information
-              about your product such as sizing, material, care and cleaning
-              instructions. This is also a great space to write what makes this
-              product special and how your customers can benefit from this item.
-              Buyers
-            </p>
-          </article>
-          <article class="review_box">
-            <div class="inner-review-cont">
-              <img src="sample/user2.png" alt="user" class="icon" />
-              <div>
-                <h2>Bob</h2>
-                <time>12/12/2012</time>
-              </div>
-              <span
-                >5 <img src="sample/star.png" alt="user" class="icon"
-              /></span>
-            </div>
-            <p>
-              I'm a product detail. I'm a great place to add more information
-              about your product such as sizing, material, care and cleaning
-              instructions. This is also a great space to write what makes this
-              product special and how your customers can benefit from this item.
-              Buyers
-            </p>
-          </article>
-          <article class="review_box">
-            <div class="inner-review-cont">
-              <img src="sample/user2.png" alt="user" class="icon" />
-              <div>
-                <h2>Bob</h2>
-                <time>12/12/2012</time>
-              </div>
-              <span
-                >5 <img src="sample/star.png" alt="user" class="icon"
-              /></span>
-            </div>
-            <p>
-              I'm a product detail. I'm a great place to add more information
-              about your product such as sizing, material, care and cleaning
-              instructions. This is also a great space to write what makes this
-              product special and how your customers can benefit from this item.
-              Buyers
-            </p>
-          </article>
-        </div>
-      </section>
-      <section class="Similar_product">
-        <h2>Similar Products</h2>
-        <div class="Similar_product_scroll Hide_bar">
-          <article class="Product_box">
-            <img class="Productimg" src="sample/search.jpg" alt="close" />
-            <span>Product</span>
-            <span>$250</span>
-          </article>
-          <article class="Product_box">
-            <img class="Productimg" src="sample/search.jpg" alt="close" />
-            <span>Product</span>
-            <span>$250</span>
-          </article>
-          <article class="Product_box">
-            <img class="Productimg" src="sample/search.jpg" alt="close" />
-            <span>Product</span>
-            <span>$250</span>
-          </article>
-          <article class="Product_box">
-            <img class="Productimg" src="sample/search.jpg" alt="close" />
-            <span>Product</span>
-            <span>$250</span>
-          </article>
-          <article class="Product_box">
-            <img class="Productimg" src="sample/search.jpg" alt="close" />
-            <span>Product</span>
-            <span>$250</span>
-          </article>
-          <article class="Product_box">
-            <img class="Productimg" src="sample/search.jpg" alt="close" />
-            <span>Product</span>
-            <span>$250</span>
-          </article>
+          </div>
         </div>
       </section>
     </main>
-    <footer>
-      <a href="login.html">Contact Us</a>
-      <p>&copf;2025 Phantom Stitch</p>
-    </footer>
-    <script>
-      function showsidebar() {
-        const sidebar = document.querySelector(".sidebar");
-        sidebar.style.display = "flex";
-      }
-      function hidesidebar() {
-        const sidebar = document.querySelector(".sidebar");
-        sidebar.style.display = "none";
-      }
-    </script>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="d-none" role="status" aria-live="polite">
+      <div
+        class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+        style="background: rgba(0, 0, 0, 0.5); z-index: 9999"
+      >
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading product information, please wait...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div
+      id="error-alert"
+      class="alert alert-danger alert-dismissible fade show d-none position-fixed top-0 start-50 translate-middle-x"
+      style="z-index: 9998; margin-top: 20px"
+      role="alert"
+      aria-live="assertive"
+    >
+      <strong><i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i>Error:</strong>
+      <span id="error-message"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close error message"></button>
+    </div>
+
+    <!-- Success Alert -->
+    <div
+      id="success-alert"
+      class="alert alert-success alert-dismissible fade show d-none position-fixed top-0 start-50 translate-middle-x"
+      style="z-index: 9998; margin-top: 20px"
+      role="alert"
+      aria-live="polite"
+    >
+      <strong><i class="bi bi-check-circle me-2" aria-hidden="true"></i>Success:</strong>
+      <span id="success-message"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close success message"></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/app.js"></script>
   </body>
 </html>

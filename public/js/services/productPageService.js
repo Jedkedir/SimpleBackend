@@ -1,34 +1,102 @@
 import { apiGet, apiPost } from "./BaseService.js";
 
-/**
- * Fetch all landing page data and return organized object
- */
-export async function getProductPageData(productId) {
+export async function getProductPageData(productId, variantId) {
   try {
+    
+    // First, get the product data to extract the category
+    const productResponse = await apiGet(`/products/${productId}`);
+    
+    // Extract category name from product data
+    let categoryName = "";
 
-    // Fetch all data in parallel
-    const productData = await apiGet(`/products/${productId}`);
-    const reviewData = await apiGet(`/products/${productId}`)    
-    // const [addReview] = await apiPost("/reviews", { body: review});
-    const similarData = await apiPost('/products/get-by-cat', {body: productData.catName})
+    if (Array.isArray(productResponse) && productResponse.length > 0) {
+      // If it's an array, get category from first variant
+      categoryName = productResponse[0].catname || productResponse[0].category;
+    } else if (productResponse && typeof productResponse === "object") {
+      // If it's a single object
+      categoryName = productResponse.catname || productResponse.category;
+    }
 
-    // Return organized data object
+    
+
+    // Now make parallel calls for reviews and similar products
+    const [reviewResponse, similarResponse] = await Promise.all([
+      apiGet(`/reviews/product/${productId}`).catch((err) => ({
+        error: err.message,
+      })),
+      categoryName
+        ? apiPost("/products/get-by-cat/", { catName: categoryName }).catch(
+            (err) => ({ error: err.message })
+          )
+        : Promise.resolve({ similarPro: [] }), // Empty if no category
+    ]);
+
+    // Process product data
+    let productData = productResponse;
+    let currentVariant = null;
+    let variants = [];
+
+    if (Array.isArray(productData)) {
+      variants = productData;
+      currentVariant =
+        productData.find((v) => v.variant_id == variantId) || productData[0];
+    } else if (productData && typeof productData === "object") {
+      currentVariant = productData;
+      variants = [productData];
+    }
+
+    // Process review data
+    let reviews = [];
+    if (reviewResponse && !reviewResponse.error) {
+      reviews =
+        reviewResponse.reviewsRes ||
+        reviewResponse.reviews ||
+        reviewResponse.data ||
+        reviewResponse ||
+        [];
+    }
+
+    // Process similar products data
+    let similarProducts = [];
+    if (similarResponse && !similarResponse.error) {
+      similarProducts =
+        similarResponse.similarPro ||
+        similarResponse.products ||
+        similarResponse.data ||
+        similarResponse ||
+        [];
+
+      // Filter out the current product from similar products
+      similarProducts = similarProducts.filter((product) => {
+        const productIdToCompare = product.product_id || product.id;
+        return productIdToCompare !== parseInt(productId);
+      });
+    }
+
+    console.log("✅ Final Processed Data:", {
+      product: currentVariant?.name,
+      variantsCount: variants.length,
+      reviewsCount: reviews.length,
+      similarProductsCount: similarProducts.length,
+      similarProducts: similarProducts,
+    });
+
     return {
       success: true,
       data: {
-        Product: productData || [],   
-        Reviews: reviewData.reviewRes || [],
-        SimilarProducts: similarData.similarPro || [],
+        Product: currentVariant,
+        Variants: variants,
+        Reviews: reviews,
+        SimilarProducts: similarProducts,
         user: {
-          isAuthenticated: !!localStorage.getItem("authToken"),
+          isAuthenticated: !!localStorage.getItem("userToken"),
           name: "Guest",
           cartItems: 0,
         },
       },
     };
   } catch (error) {
-
-    console.error("Service: Failed to fetch product page data:", error);
+    console.error("❌ Service: Failed to fetch product page data:", error);
     return {
       success: false,
       error: error.message,
@@ -40,24 +108,43 @@ export async function getProductPageData(productId) {
 
 export async function postReviewOfProduct(review) {
   try {
+    const reviewData = await apiPost("/reviews", review);
 
-    // Fetch all data in parallel
-    const [reviewData] = await apiPost('reviews', {body: review})
-    // Return organized data object
     return {
-      success: true,     
+      success: true,
+      data: reviewData,
     };
   } catch (error) {
-    console.error("Service: Failed to add review page data:", error);
+    console.error("Service: Failed to add review:", error);
     return {
       success: false,
       error: error.message,
-      data: getFallbackData(),
     };
   }
 }
 
+export async function addToCart(userId, quantity = 1, variantId) {
+  
+ console.log("userId service",userId);
+  try {
+    const cartData = await apiPost("/cart-items", {
+      userId: userId,
+      quantity: quantity,
+      variantId: variantId,
+    });
 
+    return {
+      success: true,
+      data: cartData,
+    };
+  } catch (error) {
+    console.error("Service: Failed to add to cart:", error);
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+}
 
 /**
  * Search products and return results object
@@ -121,9 +208,9 @@ export async function getProductDetails(productId) {
 // Helper function
 function getFallbackData() {
   return {
-    Product: [],
+    Product: null,
     Reviews: [],
-    SimilarProduct: [],
+    SimilarProducts: [],
     user: {
       isAuthenticated: false,
       name: "Guest",
@@ -131,4 +218,3 @@ function getFallbackData() {
     },
   };
 }
-

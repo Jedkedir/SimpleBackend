@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Product - StyleHub Clothing Store | Product Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Admin navigation">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="sample/clothing-store-logo.jpg" alt="StyleHub Clothing Store - Product Management" class="me-2" style="height: 40px;">
+                    StyleHub Admin
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle admin navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Store Front</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="stock.html">Inventory</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="new-product.html">Add Product</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <!-- Page Header -->
+        <header class="row">
+            <div class="col-12">
+                <h1>Add New Product</h1>
+                <p class="lead text-muted">Create a new product listing for your store</p>
+            </div>
+        </header>
+
+        <div class="row mt-4">
+            <!-- Product Form Section -->
+            <section class="col-lg-8" aria-labelledby="product-form-heading">
+                <h2 id="product-form-heading" class="visually-hidden">Product Information Form</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">Product Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="product-form" enctype="multipart/form-data" aria-describedby="form-instructions">
+                            <p id="form-instructions" class="visually-hidden">
+                                Fill out the product information form below. All fields marked with required symbols are mandatory.
+                            </p>
+                            
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Product Name <span class="text-danger" aria-hidden="true">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" required aria-required="true" aria-describedby="name-help">
+                                <div id="name-help" class="form-text">Enter the full product name as it should appear to customers.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Product Description <span class="text-danger" aria-hidden="true">*</span></label>
+                                <textarea class="form-control" id="description" name="description" rows="4" required aria-required="true" aria-describedby="description-help"></textarea>
+                                <div id="description-help" class="form-text">Provide a detailed description including features, materials, and care instructions.</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="price" class="form-label">Base Price ($) <span class="text-danger" aria-hidden="true">*</span></label>
+                                        <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" required aria-required="true" aria-describedby="price-help">
+                                        <div id="price-help" class="form-text">Set the base price in US dollars.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="category" class="form-label">Product Category <span class="text-danger" aria-hidden="true">*</span></label>
+                                        <select class="form-select" id="category" name="category" required aria-required="true" aria-describedby="category-help">
+                                            <option value="">Select Category</option>
+                                            <option value="Shirts">Shirts & Tops</option>
+                                            <option value="Pants">Pants & Bottoms</option>
+                                            <option value="Dresses">Dresses & Skirts</option>
+                                            <option value="Shoes">Shoes & Footwear</option>
+                                            <option value="Accessories">Accessories</option>
+                                        </select>
+                                        <div id="category-help" class="form-text">Choose the most appropriate category for this product.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="product-images" class="form-label">Product Images</label>
+                                <input type="file" class="form-control" id="product-images" name="productImages" multiple accept="image/*" aria-describedby="images-help">
+                                <div id="images-help" class="form-text">Select multiple high-quality images showing different angles of the product. Accepted formats: JPG, PNG, WebP.</div>
+                            </div>
+
+                            <!-- Product Variants Section -->
+                            <section class="mb-4" aria-labelledby="variants-heading">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 id="variants-heading" class="h6 mb-0">Product Variants & Inventory</h4>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" id="add-variant" aria-describedby="variant-help">
+                                        <i class="bi bi-plus" aria-hidden="true"></i> Add Variant
+                                    </button>
+                                </div>
+                                <div id="variant-help" class="form-text mb-3">
+                                    Add different sizes, colors, or other variations of this product with their individual stock levels.
+                                </div>
+                                <div id="variants-container" role="list" aria-label="Product variants list">
+                                    <!-- Variants will be added here -->
+                                </div>
+                            </section>
+
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-plus-circle me-2" aria-hidden="true"></i>Create Product Listing
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+                                    Cancel and Go Back
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tips Sidebar -->
+            <aside class="col-lg-4" aria-labelledby="tips-heading">
+                <h2 id="tips-heading" class="visually-hidden">Product Creation Tips</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h6 mb-0">Best Practices for Product Listings</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled" aria-label="Product listing tips">
+                            <li class="mb-2">
+                                <i class="bi bi-lightbulb text-warning me-2" aria-hidden="true"></i>
+                                Use high-quality images from multiple angles
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-lightbulb text-warning me-2" aria-hidden="true"></i>
+                                Write detailed, customer-focused descriptions
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-lightbulb text-warning me-2" aria-hidden="true"></i>
+                                Include all available sizes and colors as variants
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-lightbulb text-warning me-2" aria-hidden="true"></i>
+                                Set competitive pricing based on market research
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-lightbulb text-warning me-2" aria-hidden="true"></i>
+                                Include accurate stock levels for each variant
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-lightbulb text-warning me-2" aria-hidden="true"></i>
+                                Use clear, search-friendly product names
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="d-none" role="status" aria-live="polite">
+        <div class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background: rgba(0,0,0,0.5); z-index: 9999;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Creating product, please wait...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div id="error-alert" class="alert alert-danger alert-dismissible fade show d-none position-fixed top-0 start-50 translate-middle-x" style="z-index: 9998; margin-top: 20px;" role="alert" aria-live="assertive">
+        <strong><i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i>Product Creation Error:</strong>
+        <span id="error-message"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close error message"></button>
+    </div>
+
+    <!-- Success Alert -->
+    <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none position-fixed top-0 start-50 translate-middle-x" style="z-index: 9998; margin-top: 20px;" role="alert" aria-live="polite">
+        <strong><i class="bi bi-check-circle me-2" aria-hidden="true"></i>Product Created Successfully:</strong>
+        <span id="success-message"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close success message"></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

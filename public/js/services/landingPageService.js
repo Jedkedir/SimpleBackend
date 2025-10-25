@@ -1,4 +1,4 @@
-import { apiGet } from "BaseService.js";
+import { apiGet } from "./BaseService.js";
 
 /**
  * Fetch all landing page data and return organized object
@@ -6,8 +6,8 @@ import { apiGet } from "BaseService.js";
 export async function getLandingPageData() {
   try {
     // Fetch all data in parallel
-    const [homeData] = await apiGet("/home");
-
+    const homeData = await apiGet("/home");
+    console.log("homeData");
     // Return organized data object
     return {
       success: true,

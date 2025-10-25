@@ -1,0 +1,9 @@
+ .product-card {
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .filter-sidebar {
+            background-color: #f8f9fa;
+        }

@@ -1,0 +1,71 @@
+ .checkout-step {
+            border-left: 4px solid #dee2e6;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .checkout-step.active {
+            border-left-color: #007bff;
+        }
+        
+        .checkout-step.completed {
+            border-left-color: #28a745;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #dee2e6;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .checkout-step.active .step-number {
+            background: #007bff;
+        }
+        
+        .checkout-step.completed .step-number {
+            background: #28a745;
+        }
+        
+        .address-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .address-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .address-card.selected {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+        
+        .payment-method-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .payment-method-card.selected {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+        
+        .order-summary-item {
+            border-bottom: 1px solid #dee2e6;
+            padding: 10px 0;
+        }
+        
+        .order-summary-item:last-child {
+            border-bottom: none;
+        }

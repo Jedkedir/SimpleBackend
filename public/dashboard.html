@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - StyleHub Clothing Store | Business Analytics & Management</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- Header with Navigation -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Admin navigation">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">
+            <img
+              src="sample/clothing-store-logo.jpg"
+              alt="StyleHub Clothing Store - Admin Dashboard"
+              class="me-2"
+              style="height: 40px"
+            />
+            StyleHub Admin
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle admin navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Store Front</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="dashboard.html">Admin Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="stock.html">Inventory Management</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="new-product.html">Add New Product</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container mt-4">
+      <!-- Page Header -->
+      <header class="row">
+        <div class="col-12">
+          <h1>Admin Dashboard</h1>
+          <p class="lead text-muted">Business analytics and management overview</p>
+        </div>
+      </header>
+
+      <!-- Key Metrics Section -->
+      <section class="row mt-4" aria-labelledby="key-metrics-heading">
+        <h2 id="key-metrics-heading" class="visually-hidden">Key Business Metrics</h2>
+        
+        <div class="col-md-3 mb-3">
+          <div class="card bg-primary text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h3 class="h6 card-title">Total Products Sold</h3>
+                  <p class="sold_amount h3 mb-0" aria-live="polite">0</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="bi bi-graph-up fs-1" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h3 class="h6 card-title">Total Revenue</h3>
+                  <p class="revenue_amount h3 mb-0" aria-live="polite">$0</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="bi bi-currency-dollar fs-1" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+          <div class="card bg-warning text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h3 class="h6 card-title">Stock Alerts</h3>
+                  <p id="stock-alerts-count" class="h3 mb-0" aria-live="polite">0</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="bi bi-exclamation-triangle fs-1" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+          <div class="card bg-info text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h3 class="h6 card-title">New Orders</h3>
+                  <p id="new-orders-count" class="h3 mb-0" aria-live="polite">0</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="bi bi-bag fs-1" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analytics Section -->
+      <section class="row mt-4">
+        <!-- Sales Chart -->
+        <div class="col-lg-8 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="h5 mb-0">Top Selling Products Analytics</h2>
+            </div>
+            <div class="card-body">
+              <div class="bar_graph" role="img" aria-label="Bar chart showing top selling products performance">
+                <!-- Chart will be inserted here -->
+                <div class="text-center py-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading sales chart...</span>
+                  </div>
+                  <p class="mt-2 text-muted">Loading sales analytics...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications Section -->
+        <div class="col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="h5 mb-0">System Notifications</h2>
+            </div>
+            <div
+              class="card-body notification"
+              style="max-height: 300px; overflow-y: auto"
+              role="region"
+              aria-live="polite"
+              aria-label="System notifications"
+            >
+              <!-- Notifications will be loaded here -->
+              <div class="text-center py-4">
+                <i class="bi bi-bell fs-1 text-muted" aria-hidden="true"></i>
+                <p class="text-muted mt-2">Loading notifications...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Actions Section -->
+      <section class="row mt-4" aria-labelledby="recent-actions-heading">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h2 id="recent-actions-heading" class="h5 mb-0">Recent Administrative Actions</h2>
+            </div>
+            <div
+              class="card-body recent_action"
+              style="max-height: 400px; overflow-y: auto"
+              role="region"
+              aria-live="polite"
+              aria-label="Recent administrative actions log"
+            >
+              <!-- Recent actions will be loaded here -->
+              <div class="text-center py-4">
+                <i class="bi bi-clock-history fs-1 text-muted" aria-hidden="true"></i>
+                <p class="text-muted mt-2">Loading recent actions...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="d-none" role="status" aria-live="polite">
+      <div
+        class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+        style="background: rgba(0, 0, 0, 0.5); z-index: 9999"
+      >
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading dashboard data, please wait...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div
+      id="error-alert"
+      class="alert alert-danger alert-dismissible fade show d-none position-fixed top-0 start-50 translate-middle-x"
+      style="z-index: 9998; margin-top: 20px"
+      role="alert"
+      aria-live="assertive"
+    >
+      <strong><i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i>Dashboard Error:</strong>
+      <span id="error-message"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close error message"></button>
+    </div>
+
+    <!-- Success Alert -->
+    <div
+      id="success-alert"
+      class="alert alert-success alert-dismissible fade show d-none position-fixed top-0 start-50 translate-middle-x"
+      style="z-index: 9998; margin-top: 20px"
+      role="alert"
+      aria-live="polite"
+    >
+      <strong><i class="bi bi-check-circle me-2" aria-hidden="true"></i>Success:</strong>
+      <span id="success-message"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close success message"></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+    
+  </body>
+</html>
