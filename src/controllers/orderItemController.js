@@ -1,18 +1,7 @@
-/**
- * Handles HTTP requests for Order Items. Primarily used for viewing order details.
- * @module src/controllers/orderItemController
- * @description This module provides functions for creating, reading and updating order items.
- * @requires ../services/orderItemService
- */
+
+const db = require("../db/pool"); 
 const orderItemService = require("../services/orderItemService");
-/**
- * GET /order-items/:orderId
- * Fetches all order items belonging to an order.
- * @function getOrderItemsController
- * @param {Request} req - The Express request object
- * @param {Response} res - The Express response object
- * @returns {Promise<object[]>} An array of objects containing order item information.
- */
+
 exports.createOrderItemsController = async (req, res) => {
   try {
     const {orderId, variantId,quantity,price} = req.body;
@@ -72,4 +61,95 @@ exports.createOrderItemsController = async (req, res) => {
     res.status(500).json({error: "Failed to add order items"});
   }
 }
+
+exports.createOrderItemFromArrayController = async (req, res) => {
+  
+  try {
+    const { orderItems } = req.body;
+
+    
+    if (!orderItems) {
+      
+      return res.status(400).json({ error: "Order items array is required" });
+    }
+
+    if (!Array.isArray(orderItems)) {
+     
+      return res.status(400).json({ error: "Order items must be an array" });
+    }
+
+    if (orderItems.length === 0) {
+     
+      return res
+        .status(400)
+        .json({ error: "Order items array cannot be empty" });
+    }
+
+   
+
+    // Validate each order item with detailed logging
+    for (const [index, item] of orderItems.entries()) {
+    
+
+      if (!item.orderId) {
+       
+        return res
+          .status(400)
+          .json({ error: `Missing orderId in item ${index + 1}` });
+      }
+      if (!item.variantId) {
+       
+        return res
+          .status(400)
+          .json({ error: `Missing variantId in item ${index + 1}` });
+      }
+      if (!item.quantity) {
+       
+        return res
+          .status(400)
+          .json({ error: `Missing quantity in item ${index + 1}` });
+      }
+      if (!item.price) {
+ 
+        return res
+          .status(400)
+          .json({ error: `Missing price in item ${index + 1}` });
+      }
+
+     
+    }
+
+   
+
+    // Call the service with the exact data
+    const orderItemIds = await orderItemService.createOrderItemFromArray(
+      orderItems
+    );
+
+   
+
+    res.status(200).json({
+      message: "Order items created successfully.",
+      orderItemIds,
+      count: orderItemIds.length,
+    });
+
+   
+  } catch (err) {
+   
+    // Check for specific database errors
+    if (err.code) {
+      console.error("Database error code:", err.code);
+    }
+    if (err.detail) {
+      console.error("Database error detail:", err.detail);
+    }
+
+    res.status(500).json({
+      error: "Failed to add order items",
+      detail: err.message,
+      code: err.code,
+    });
+  }
+};
 

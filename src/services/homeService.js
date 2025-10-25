@@ -5,6 +5,8 @@ async function getBestSelling() {
       SELECT 
     p.product_id,
     pv.variant_id,
+    p.name,
+    p.description,
     pv.image_url AS variant_image,
     pv.price,
     SUM(oi.quantity) AS total_sold

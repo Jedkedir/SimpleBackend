@@ -53,6 +53,7 @@ async function getTopSelling() {
   const sql = `
     SELECT 
       p.product_id,
+      p.name,
       p.base_image_url,
       SUM(oi.quantity) AS total_sold
     FROM order_items oi

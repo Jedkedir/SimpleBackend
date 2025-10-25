@@ -1,21 +1,11 @@
-/**
- * Handles HTTP requests for Cart Items (adding/updating/removing products in the cart).
- * @module src/controllers/cartItemController
- * @description Handles database operations related to Cart Items.
- */
+
 const cartItemService = require("../services/cartItemService");
-/**
- * POST /cart-items (Add or Update)
- * @description Adds or updates a cart item (changes the quantity of a product in the cart).
- * @param {Request} req - Express request object.
- * @param {Response} res - Express response object.
- * @returns {Response} - Response with either the updated cart item or an error message.
- */
+
 exports.addOrUpdateCartItemController = async (req, res) => {
   try {
     // Extract userId, variantId, and quantity from the request body
     const { userId, variantId, quantity } = req.body;
-
+    console.log(req.body)
     if (
       !userId ||
       !variantId ||
@@ -33,7 +23,6 @@ exports.addOrUpdateCartItemController = async (req, res) => {
       variantId,
       quantity,
     });
-    // console.log(cartItemId)
 
     res.status(201).json({
       message: "Cart item quantity updated or item added successfully",
@@ -45,24 +34,16 @@ exports.addOrUpdateCartItemController = async (req, res) => {
   }
 };
 
-/**
- * GET /cart-items/:cartId
- * @description Fetches all cart items belonging to a specific cart.
- * @param {Request} req - Express request object.
- * @param {Response} res - Express response object.
- * @returns {Response} - Response with an array of cart items or an error message.
- */
+
 exports.getCartItemsController = async (req, res) => {
   try {
     const userId = parseInt(req.params.userId);
-    console.log(userId)
 
     if (isNaN(userId)) {
       return res.status(400).json({ error: "Invalid cart ID format." });
     }
 
     const items = await cartItemService.getCartItems(userId);
-    console.log(items)
 
     res.status(200).json({
       cartItems: items
@@ -73,13 +54,7 @@ exports.getCartItemsController = async (req, res) => {
   }
 };
 
-/**
- * DELETE /cart-items/:id
- * @description Deletes a cart item by its ID.
- * @param {Request} req - Express request object.
- * @param {Response} res - Express response object.
- * @returns {Response} - Response with either a success message or an error message.
- */
+
 exports.removeCartItemController = async (req, res) => {
   try {
     const cartItemId = parseInt(req.params.id);
@@ -98,6 +73,24 @@ exports.removeCartItemController = async (req, res) => {
   } catch (error) {
     console.error("Error removing cart item:", error.message);
     res.status(500).json({ error: "Failed to remove cart item" });
+  }
+};
+
+exports.updateCartItemQuantityController = async (req, res) => {
+  try {
+    const { cart_item_id, quantity } = req.body;
+   
+    const success = await cartItemService.updateCartItemQuantity(
+      cart_item_id,
+      quantity
+    );
+    if (!success) {
+      return res.status(404).json({ error: "Cart item not found" });
+    }
+    res.status(200).json({message: success});
+  } catch (error) {
+    console.error("Error updating cart item quantity:", error.message);
+    res.status(500).json({ error: "Failed to update cart item quantity" });
   }
 };
 

@@ -1,19 +1,7 @@
-/**
- * Handles HTTP requests for the Payment entity.
- *
- * @module src/controllers/paymentController
- * @description Handles HTTP requests for the Payment entity.
- */
+
 const paymentService = require("../services/paymentService");
 const db = require("../db/pool");
-// POST /payments (Records a payment attempt/success)
-/**
- * Handles POST requests to /payments.
- *
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Response} - Response with either the created payment ID or an error message.
- */
+
 exports.createPaymentController = async (req, res) => {
   try {
     const { orderId, amount, method, transactionId, status } = req.body;
@@ -47,14 +35,7 @@ exports.createPaymentController = async (req, res) => {
   }
 };
 
-// GET /payments/:orderId
-/**
- * Handles GET requests to /payments/:orderId.
- *
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Response} - Response with the payment records associated with the order ID.
- */
+
 exports.getPaymentsByOrderIdController = async (req, res) => {
   try {
     const orderId = parseInt(req.params.orderId);
@@ -76,14 +57,7 @@ exports.getPaymentsByOrderIdController = async (req, res) => {
   }
 };
 
-// PUT /payments/:id/status
-/**
- * Handles PUT requests to /payments/:id/status.
- *
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Response} - Response with a success message or an error message.
- */
+
 exports.updatePaymentStatusController = async (req, res) => {
   try {
     const paymentId = parseInt(req.params.id);

@@ -1,16 +1,6 @@
-/**
- * Handles all HTTP requests for the Category entity (admin-focused).
- * @module src/controllers/categoryController
- * @description Handles creation, reading, updating, and deletion of categories in the database.
- */
+
 const categoryService = require("../services/categoryService");
-/**
- * @function createCategoryController
- * @description Creates a new category in the database.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Response} - Response with either the created category ID or an error message.
- */
+
 exports.createCategoryController = async (req, res) => {
   try {
     const { name, description } = req.body;
@@ -34,13 +24,7 @@ exports.createCategoryController = async (req, res) => {
   }
 };
 
-/**
- * @function getAllCategoriesController
- * @description Retrieves all categories from the database.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Response} - Response with either the array of categories or an error message.
- */
+
 exports.getAllCategoriesController = async (req, res) => {
   try {
     const categories = await categoryService.getAllCategories();
@@ -51,13 +35,6 @@ exports.getAllCategoriesController = async (req, res) => {
   }
 };
 
-/**
- * @function updateCategoryController
- * @description Updates a category in the database.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Response} - Response with either the updated category or an error message.
- */
 exports.updateCategoryController = async (req, res) => {
   try {
     const categoryId = parseInt(req.params.id);
@@ -87,13 +64,7 @@ exports.updateCategoryController = async (req, res) => {
   }
 };
 
-/**
- * @function deleteCategoryController
- * @description Deletes a category from the database.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Response} - Response with either a success message or an error message.
- */
+
 exports.deleteCategoryController = async (req, res) => {
   try {
     const categoryId = parseInt(req.params.id);

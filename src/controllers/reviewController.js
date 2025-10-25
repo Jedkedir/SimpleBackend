@@ -1,16 +1,6 @@
-/**
- * Handles HTTP requests for the Review entity.
- * @module src/controllers/reviewController
- * @description This module contains all controller functions for the Review entity.
- */
+
 const reviewService = require("../services/reviewService");
-/**
- * Creates a new review.
- * @function createReviewController
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Promise} - A Promise that resolves to the review ID or an error message.
- */
+
 exports.createReviewController = async (req, res) => {
   try {
     const { userId, productId, rating, content } = req.body;
@@ -44,13 +34,7 @@ exports.createReviewController = async (req, res) => {
   }
 };
 
-/**
- * Fetches all reviews for a product.
- * @function getReviewsByProductIdController
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Promise} - A Promise that resolves to an array of review objects or an error message.
- */
+
 exports.getReviewsByProductIdController = async (req, res) => {
   try {
     const productId = parseInt(req.params.productId);
@@ -69,13 +53,7 @@ exports.getReviewsByProductIdController = async (req, res) => {
   }
 };
 
-/**
- * Updates an existing review.
- * @function updateReviewController
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Promise} - A Promise that resolves to the review ID or an error message.
- */
+
 exports.updateReviewController = async (req, res) => {
   try {
     const reviewId = parseInt(req.params.id);
@@ -103,13 +81,7 @@ exports.updateReviewController = async (req, res) => {
   }
 };
 
-/**
- * Deletes a review.
- * @function deleteReviewController
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Promise} - A Promise that resolves to a success message or an error message.
- */
+
 exports.deleteReviewController = async (req, res) => {
   try {
     const reviewId = parseInt(req.params.id);

@@ -1,24 +1,14 @@
-/**
- * Handles all HTTP requests for the Product entity.
- * @module src/controllers/productController
- * @description This module contains all controller functions for the Product entity.
- */
+
 const product = require("../services/productService");
 const category = require("../services/categoryService");
-/**
- * POST /products
- * @function createProductController
- * @description Creates a new product.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Promise} The created product ID.
- */
+
 exports.createProductController = async (req, res) => {
   try {
 
     const { categoryName, name, description, basePrice , image_url} = req.body;
+    
     const result = await category.getCategoryByName(categoryName);
-    const categoryId = result.category_id
+    const categoryId = result;
     
     if (!categoryId || !name || !basePrice) {
       return res
@@ -31,7 +21,7 @@ exports.createProductController = async (req, res) => {
       name,
       description,
       basePrice,
-      image_url
+      image_url :image_url || '',
     });
 
     res.status(201).json({
@@ -47,7 +37,6 @@ exports.createProductController = async (req, res) => {
 exports.getProductByCategory = async (req, res) => {
   try {
     const catName = req.body.catName
-    console.log(catName)  
 
     const productData = await product.getProductsByCatName(catName);
 
@@ -65,25 +54,17 @@ exports.getProductByCategory = async (req, res) => {
   }
 }
 
-/**
- * GET /products/:id
- * @function getProductByIdController
- * @description Fetches a single product by ID.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Promise} The product details object or an error message.
- */
+
 exports.getProductByIdController = async (req, res) => {
   try {
     const productId = parseInt(req.params.id);
-
+    
     if (isNaN(productId)) {
       return res.status(400).json({ error: "Invalid product ID format." });
     }
 
     const productData = await product.getProductById(productId);
-    // console.log(productData)
-    
+     
     
     if (!productData) {
       return res.status(404).json({ error: "Product not found" });
@@ -96,14 +77,6 @@ exports.getProductByIdController = async (req, res) => {
   }
 };
 
-/**
- * PUT /products/:id
- * @function updateProductController
- * @description Updates a product by ID.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Promise} Success or error message.
- */
 exports.updateProductController = async (req, res) => {
   try {
     const productId = parseInt(req.params.id);
@@ -128,14 +101,7 @@ exports.updateProductController = async (req, res) => {
   }
 };
 
-/**
- * DELETE /products/:id
- * @function deleteProductController
- * @description Deletes a product by ID.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @returns {Promise} Success or error message.
- */
+
 exports.deleteProductController = async (req, res) => {
   try {
     const productId = parseInt(req.params.id);

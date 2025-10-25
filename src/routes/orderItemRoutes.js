@@ -12,20 +12,15 @@ const express = require("express");
 const router = express.Router();
 const {
   getOrderItemsController,
-  createOrderItemsController
+  createOrderItemsController,
+  createOrderItemFromArrayController
 } = require("../controllers/orderItemController");
 
-/**
- * GET /api/order-items/:orderId
- * Fetches all order items belonging to an order
- * @param {Integer} orderId - The ID of the order to fetch items for
- * @returns {Response} - Response with an array of order items or an error message
- */
+
 router.get("/:orderId", getOrderItemsController);
 router.post("/", createOrderItemsController)
+router.post("/from-array", createOrderItemFromArrayController)
 
-/**
- * @exports router - The express router with Order Item routes
- */
+
 module.exports = router;
 

@@ -2,10 +2,6 @@ const product = require("../services/dashboardService");
 
 exports.getUserData = async (req, res) => {
   try {
-    // const { userId } = req.body;
-    // if (!userId) {
-    //   return res.status(400).json({ error: "Missing required user ID." });
-    // }
     const totalSoldData = await product.getTotalSold();
     const totalRevenueData = await product.getTotalRevenue();
     const stokeNotificationData = await product.getStockNotification();

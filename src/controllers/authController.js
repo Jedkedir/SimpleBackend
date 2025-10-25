@@ -3,21 +3,7 @@ const jwt = require("jsonwebtoken");
 const userService = require("../services/userService");
 const generateToken = require("../utils/generateToken");
 const db = require('../db/pool');
-/**
- * --- POST /api/auth/register ---
- * Registers a new user and returns a JWT.
- * Request Body:
- * - firstName: string (required)
- * - lastName: string (required)
- * - email: string (required, unique)
- * - password: string (required, will be hashed)
- * - phoneNumber: string (optional)
- * - isAdmin: boolean (optional, default false)
- * Response:
- * - userId: integer (new user ID)
- * - email: string (new user email)
- * - token: string (JWT token for the new user)
- */
+
 exports.registerController = async (req, res) => {
   const {
     firstName,
@@ -39,8 +25,10 @@ exports.registerController = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    const { rows } =   await db.query('SELECT COUNT(*) FROM users');
-    const isAdmin = parseInt(rows[0].count) === 0;   
+    // Check if this is the first user (make them admin)
+    const { rows } = await db.query('SELECT COUNT(*) FROM users');
+    const userCount = parseInt(rows[0].count);
+    const isFirstUser = userCount === 0;
 
     // 2. Create user via the service (which calls the PG function)
     const userId = await userService.createUser({
@@ -49,14 +37,19 @@ exports.registerController = async (req, res) => {
       email,
       passwordHash,
       phoneNumber,
-      isAdmin,
+      isAdmin: isFirstUser, // First user becomes admin
     });
 
     // 3. Generate token and respond
     res.status(201).json({
       userId,
       email,
+      firstName,
+      lastName,
+      phoneNumber,
+      isAdmin: isFirstUser,
       token: generateToken(userId),
+      role: isFirstUser ? "admin" : "user",
     });
   } catch (error) {
     // Handle unique constraint error on email
@@ -68,17 +61,7 @@ exports.registerController = async (req, res) => {
   }
 };
 
-/**
- * --- POST /api/auth/login ---
- * Authenticates a user and returns a JWT.
- * Request Body:
- * - email: string (required)
- * - password: string (required)
- * Response:
- * - userId: integer (user ID if authentication successful)
- * - email: string (user email if authentication successful)
- * - token: string (JWT token for the user)
- */
+
 exports.loginController = async (req, res) => {
   const { email, password } = req.body;
 
@@ -94,8 +77,13 @@ exports.loginController = async (req, res) => {
       // 2. Password matches, generate token
       res.json({
         userId: user.user_id,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        phoneNumber: user.phone_number,
         email: user.email,
+        isAdmin: user.is_admin,
         token: generateToken(user.user_id),
+        role: user.is_admin ? "admin" : "user",
       });
     } else {
       // 3. Authentication failed

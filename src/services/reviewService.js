@@ -25,7 +25,17 @@ async function createReview({ userId, productId, rating, content }) {
  * @returns {Promise<Object[]>} - A Promise that resolves to an array of review objects.
  */
 async function getReviewsByProductId(productId) {
-  const sql = `SELECT * FROM get_reviews_by_product_id($1);`;
+  const sql = `SELECT 
+    r.review_id,
+    r.product_id,
+    r.user_id,
+    u.first_name AS userName,
+    r.rating,
+    r.comment,
+    r.created_at
+FROM reviews r
+JOIN users u ON r.user_id = u.user_id
+WHERE r.product_id = $1;`;
   const result = await db.query(sql, [productId]);
   return result.rows;
 }

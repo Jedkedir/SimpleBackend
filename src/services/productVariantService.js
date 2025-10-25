@@ -1,15 +1,6 @@
-/**
- * Service module for all ProductVariant-related database operations.
- * @module src/services/productVariantService
- * @description Handles database operations related to Product Variants.
- */
+
 const db = require("../db/pool");
-// --- CREATE ---
-/**
- * Creates a new product variant.
- * @param {productId, image_url, color, size, priceModifier, stockQuantity} - Object containing product ID, SKU, color, size, price modifier, and stock quantity.
- * @returns {variantId} - The ID of the new product variant.
- */
+
 async function createVariant({
   productId,
   color,
@@ -24,25 +15,14 @@ async function createVariant({
   return result.rows[0].variant_id;
 }
 
-// --- READ ---
-/**
- * Fetches a product variant by its ID.
- * @param {variantId} - The ID of the product variant to fetch.
- * @returns {variant} - The product variant object.
- */
+
 async function getVariantById(variantId) {
   const sql = `SELECT * FROM get_product_variant_by_id($1);`;
   const result = await db.query(sql, [variantId]);
   return result.rows[0];
 }
 
-// --- UPDATE ---
-/**
- * Updates a product variant.
- * @param {variantId} - The ID of the product variant to update.
- * @param {variantData} - Object containing imageUrl, color, size, price modifier, and stock quantity.
- * @returns {success} - Whether the update was successful.
- */
+
 async function updateVariant(
   variantId,
   { image_url, color, size, priceModifier, stockQuantity}
@@ -53,25 +33,14 @@ async function updateVariant(
   return result.rows[0].success;
 }
 
-// --- DELETE ---
-/**
- * Deletes a product variant by its ID.
- * @param {variantId} - The ID of the product variant to delete.
- * @returns {success} - Whether the deletion was successful.
- */
+
 async function deleteVariant(variantId) {
   const sql = `SELECT delete_product_variant($1) AS success;`;
   const result = await db.query(sql, [variantId]);
   return result.rows[0].success;
 }
 
-// --- CUSTOM: Update Stock ---
-/**
- * Updates the stock quantity of a product variant.
- * @param {variantId} - The ID of the product variant to update stock.
- * @param {quantityChange} - The quantity to change the stock by (e.g., -2 for decrease, 5 for increase).
- * @returns {newStock} - The new stock quantity after the update.
- */
+
 async function updateVariantStock(variantId, quantityChange) {
   const sql = `SELECT update_variant_stock($1, $2) AS new_stock;`;
   const result = await db.query(sql, [variantId, quantityChange]);

@@ -4,7 +4,6 @@ exports.getHomeData = async (req, res) => {
   try {
     const bestSellingData = await home.getBestSelling();
     const featuresData = await home.getFeatures();
-
     res.status(200).json({
       bestSellingData,
       featuresData,

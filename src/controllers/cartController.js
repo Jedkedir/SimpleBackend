@@ -1,17 +1,6 @@
-/**
- * Handles HTTP requests for the Cart header entity.
- * @module src/controllers/cartController
- * @requires ../services/cartService
- */
+
 const cartService = require("../services/cartService");
 
-/**
- * GET /carts (or POST for initialization if one doesn't exist)
- * Retrieves a cart by user ID or creates a new one if it doesn't exist.
- * @param {Request} req - The Express request object
- * @param {Response} res - The Express response object
- * @returns {Response} - Response with either the existing cart or a new one
- */
 exports.getOrCreateCartController = async (req, res) => {
   try {
     const userId = parseInt(req.body.userId || req.query.userId); // Get from body or query
@@ -49,13 +38,7 @@ exports.getOrCreateCartController = async (req, res) => {
   }
 };
 
-/**
- * DELETE /carts/:id
- * Deletes a cart by its ID.
- * @param {Request} req - The Express request object
- * @param {Response} res - The Express response object
- * @returns {Response} - Response with either a success message or an error message
- */
+
 exports.deleteCartController = async (req, res) => {
   try {
     const cartId = parseInt(req.params.id);
@@ -66,7 +49,7 @@ exports.deleteCartController = async (req, res) => {
       });
     }
 
-    const success = await cartService.deleteCart(cartId); // Clears cart items via trigger
+    const success = await cartService.deleteCart(cartId); 
 
     if (!success) {
       return res.status(404).json({
