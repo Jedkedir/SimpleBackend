@@ -1,15 +1,15 @@
 {
-  "name": "simplebackend",
+  "name": "Clothing Store Backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "A backend for a clothing store.",
+  "main": "server.js",
   "scripts": {
     "start": "node server",
     "dev": "node --watch --env-file=.env server"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["clothing", "store", "backend"],
+  "author": "Yididya Kedir",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "chart.js": "^4.5.0",
